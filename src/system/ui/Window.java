@@ -77,4 +77,7 @@ public class Window extends JFrame implements Theme{
 	public static void floatMessage(String message) {
 		message_floater.floatMessage(message);
 	}
+	public static void floatMessageAndBeep(String message) {
+		message_floater.floatMessageAndBeep(message);
+	}
 }
