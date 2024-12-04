@@ -11,7 +11,7 @@ import system.ui.action_panels.ActionPanelUOMPicker;
 public class ButtonUomPicker extends Button{
 	private static final long serialVersionUID = -4419033569562646499L;
 	private ActionPanelUOMPicker uom_picker;
-	private Uom uom;
+	private Uom uom=null;
 
 	public ButtonUomPicker(String str) {
 		super(str);

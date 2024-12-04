@@ -9,11 +9,11 @@ public class PercentageField extends NumericField{
 
 	public PercentageField(String txt) {
 		super(txt);
-		include('%');
+		includeCharacter('%');
 	}
 	public PercentageField(Percentage percentage) {
 		super(percentage.toString());
-		include('%');
+		includeCharacter('%');
 	}
 	public Percentage getPercent() {		
 		return new Percentage(getText());

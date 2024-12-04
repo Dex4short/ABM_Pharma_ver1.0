@@ -26,15 +26,12 @@ import oop.Product;
 import oop.Quantity;
 import oop.Remarks;
 import oop.Uom;
-import oop.enums.ProductCondition;
 import system.ui.Window;
 import system.ui.buttons.ButtonUomPicker;
 import system.ui.cells.CellButtonDatePicker;
 import system.ui.cells.CellButtonUomPicker;
 import system.ui.cells.CellDecimalField;
-import system.ui.cells.CellLabel;
 import system.ui.cells.CellLabelAmount;
-import system.ui.cells.CellLabelDecimal;
 import system.ui.cells.CellPercentageField;
 import system.ui.cells.CellQuantityField;
 import system.ui.cells.CellTextField;
@@ -75,7 +72,6 @@ public abstract class ActionPanelAddProduct  extends ActionPanel{
 	@Override
 	public void onOk() {
 		addProductOk();
-		Window.getStackPanel().popPanel();
 	}
 	@Override
 	public void onCancel() {
@@ -94,9 +90,9 @@ public abstract class ActionPanelAddProduct  extends ActionPanel{
 			}
 
 			onAddProductOk(products);
+			Window.getStackPanel().popPanel();
 		} catch (Exception e) {
 			Window.floatMessage(e.getMessage());
-			e.printStackTrace();
 		}
 	}
 	
@@ -161,7 +157,9 @@ public abstract class ActionPanelAddProduct  extends ActionPanel{
 			percentage_field.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(KeyEvent e) {
-					amount_label.setText(Accountancy.calculateUnitAmount(decimal_field.getDecimal(), percentage_field.getPercent()).toString());
+					if(percentage_field.getPercent().toString() != null) {
+						amount_label.setText(Accountancy.calculateUnitAmount(decimal_field.getDecimal(), percentage_field.getPercent()).toString());
+					}
 				}
 			});
 		}
@@ -173,12 +171,21 @@ public abstract class ActionPanelAddProduct  extends ActionPanel{
 		lot_no = ((CellTextField)rows[0].getCell(2)).getText(),//limit to 8 characters
 		brand = ((CellTextField)rows[0].getCell(5)).getText();//limit to 32 characters
 		
+		if(item_no.length() > 8) {
+			throw new Exception("Item No. should not exceed to 8 characters");
+		}
+		
+		
 		Date
 		date_added = ((CellButtonDatePicker)rows[0].getCell(3)).getDate(),
-		exp_date = ((CellButtonDatePicker)rows[0].getCell(4)).getDate();//
+		exp_date = ((CellButtonDatePicker)rows[0].getCell(4)).getDate();
 		
 		Quantity qty = ((CellQuantityField)rows[0].getCell(6)).getQuantity();
 		Uom	uom = ((CellButtonUomPicker)rows[0].getCell(7)).getButtonUomPicker().getUom();
+		
+		if(uom == null) {
+			throw new Exception("Please set UOM");
+		}
 		
 		for(int u=1; u<=row; u++) {
 			uom = uom.getSubUom();
@@ -192,8 +199,6 @@ public abstract class ActionPanelAddProduct  extends ActionPanel{
 		cost = ((CellDecimalField)rows[row].getCell(8)).getDecimal(),
 		unit_price = ((CellDecimalField)rows[row].getCell(9)).getDecimal(),
 		unit_amount = new Decimal(((CellLabelAmount)rows[row].getCell(11)).getLabelText());
-		
-		//before passing product, add conditions
 		
 		return new Product(
 				-1,

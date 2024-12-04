@@ -3,6 +3,7 @@ package components.drawables;
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -74,6 +75,10 @@ public class MessageFloater extends Rectangle implements Drawable{
 				Window.getStackPanel().repaint();
 			}
 		}, 0, 15);
+		
 	}
-
+	public void floatMessageAndBeep(String message) {
+		floatMessage(message);
+		Toolkit.getDefaultToolkit().beep();
+	}
 }

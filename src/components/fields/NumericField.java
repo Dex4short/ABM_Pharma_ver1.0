@@ -9,7 +9,6 @@ public class NumericField extends StrictTextField{
 		super(txt);
 		includeNumbers(true);
 		includeLetters(false);
-		include(',');
 
 		setHorizontalAlignment(RIGHT);
 	}
@@ -24,7 +23,7 @@ public class NumericField extends StrictTextField{
 	public void setBigNumber(BigInteger number) {
 		setText(number.toString());
 	}
-	public int getNumber() {		
+	public int getNumber() {	
 		return Integer.parseInt(getText());
 	}
 	public void setNumber(int number) {

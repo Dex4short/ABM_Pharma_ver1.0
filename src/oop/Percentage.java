@@ -2,18 +2,21 @@ package oop;
 
 import java.math.BigDecimal;
 
+import extras.Utilities;
+
 public class Percentage {
-	private String percent_value;
+	private String percent_value = "0%";
 	/**
 	 * 
-	 * @param percent_value with % sign, "%0"~"%100".
+	 * @param percent_value with % sign, "0%"~"100%".
 	 */
 	public Percentage(String percent_value){
-		if(percent_value.charAt(percent_value.length() - 1) != '%') {
-			System.err.println("percent value must have a percent symbol");
+		if(percent_value.charAt(percent_value.length() - 1) == '%') {
+			this.percent_value = percent_value;
 		}
 		else {
-			this.percent_value = percent_value;
+			Utilities.printStackTraceAsWarning("percent value must have a percent symbol", Thread.currentThread());
+			this.percent_value = null;
 		}
 	}
 	@Override

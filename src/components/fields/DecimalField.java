@@ -11,8 +11,7 @@ public class DecimalField extends StrictTextField{
 		super(txt);
 		includeNumbers(true);
 		includeLetters(false);
-		include('.');
-		include(',');
+		includeCharacter('.');
 		
 		setHorizontalAlignment(RIGHT);
 	}
@@ -20,6 +19,7 @@ public class DecimalField extends StrictTextField{
 		super(decimal.toString());
 		includeNumbers(true);
 		includeLetters(false);
+		includeCharacter('.');
 	}
 	public Decimal getDecimal() {		
 		return new Decimal(new BigDecimal(getText()));
