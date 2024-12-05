@@ -1,8 +1,6 @@
 package system.ui.cells;
 
 
-import javax.swing.BorderFactory;
-
 import components.table.Cell;
 import system.ui.buttons.ButtonUomPicker;
 
@@ -14,8 +12,6 @@ public class CellButtonUomPicker extends Cell{
 		super(new ButtonUomPicker(str));
 
 		setButtonUomPicker((ButtonUomPicker)getComponent(0));
-		
-		setBorder(BorderFactory.createEmptyBorder(5,0,5,10));
 	}
 	public ButtonUomPicker getButtonUomPicker() {
 		return btn;

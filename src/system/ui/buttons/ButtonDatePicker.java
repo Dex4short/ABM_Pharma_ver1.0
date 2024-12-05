@@ -58,6 +58,7 @@ public class ButtonDatePicker extends Button.Notified implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(date_picker == null) return;
 		Window.getStackPanel().pushPanel(date_picker, 300, 300);
 	}
 	public void setAccentColorDecoration(int accent) {
@@ -84,6 +85,12 @@ public class ButtonDatePicker extends Button.Notified implements ActionListener{
 		setDecorations(decorations);
 		
 		setNotificationColor(getForeground());
+	}
+	public DatePicker getDatePicker() {
+		return date_picker;
+	}
+	public void setDatePicker(DatePicker date_picker) {
+		this.date_picker = date_picker;
 	}
 	public void setDate(Date date) {
 		setText(date.toString());

@@ -1,8 +1,6 @@
 package system.ui.cells;
 
 
-import javax.swing.BorderFactory;
-
 import components.Label;
 import components.table.Cell;
 import oop.Quantity;
@@ -16,7 +14,6 @@ public class CellLabelQuantity extends Cell{
 		super(new Label(quantity.getQuantity() + "/" + quantity.getSize()));
 		setLabel((Label)getComponent(0));
 		setQuantity(quantity);
-		setBorder(BorderFactory.createEmptyBorder(5,0,5,10));
 	}
 	public Label getLabel() {
 		return label;

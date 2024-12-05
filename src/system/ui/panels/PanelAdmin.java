@@ -17,7 +17,6 @@ import components.tab.TabPane;
 import oop.interfaces.Theme;
 import res.Resource;
 import system._default_.Administrator;
-import system.ui.Window;
 
 public class PanelAdmin extends JPanel implements Theme, Administrator{
 	private static final long serialVersionUID = 4864384612729816588L;

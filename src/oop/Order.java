@@ -1,16 +1,23 @@
 package oop;
 
-public class Order extends Product{
+public class Order {
 	private int order_no;
+	private Product product;
 	
-	public Order(int order_no, int inv_id, Item item, Packaging packaging, Pricing pricing, Remarks remarks) {
-		super(inv_id, item, packaging, pricing, remarks);
+	public Order(int order_no, Product product) {
 		setOrderNo(order_no);
+		setProduct(product);
 	}
 	public int getOrderNo() {
 		return order_no;
 	}
 	public void setOrderNo(int order_no) {
 		this.order_no = order_no;
+	}
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 }

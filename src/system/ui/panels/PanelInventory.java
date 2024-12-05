@@ -5,9 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-
+import components.Panel;
 import components.table.Row;
 import oop.Product;
 import oop.enums.ProductCondition;
@@ -19,36 +17,36 @@ import system.ui.buttons.ButtonDisposeProduct;
 import system.ui.buttons.ButtonEditProduct;
 import system.ui.buttons.ButtonPrintProduct;
 import system.ui.buttons.ButtonReserveProduct;
-import system.ui.search_panels.InventorySearchPanel;
-import system.ui.tables.TableInventory;
+import system.ui.search_panels.SearchPanelInventory;
+import system.ui.tables.TableProducts;
 
-public class PanelInventory extends JPanel implements Inventory, Theme{
+public class PanelInventory extends Panel implements Inventory, Theme{
 	private static final long serialVersionUID = 5294758605465387431L;
-	private JPanel panel;
-	private TableInventory table_inventory;
+	private Panel panel;
+	private TableProducts table_inventory;
 
 	public PanelInventory() {
 		setOpaque(false);
 		setLayout(null);
 		
-		panel = new JPanel(new BorderLayout());
+		panel = new Panel();
+		panel.setLayout(new BorderLayout(5,5));
 		panel.setOpaque(false);
 		add(panel);
 		
-		JPanel header = new JPanel(new BorderLayout(0,0));
-		header.setOpaque(false);
-		header.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+		Panel header = new Panel();
+		header.setLayout(new BorderLayout());
 		panel.add(header, BorderLayout.NORTH);
 		
-		JPanel header_left = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		header_left.setOpaque(false);
+		Panel header_left = new Panel();
+		header_left.setLayout(new FlowLayout(FlowLayout.LEFT));
 		header.add(header_left, BorderLayout.WEST);
 		
-		JPanel header_right = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		header_right.setOpaque(false);
+		Panel header_right = new Panel();
+		header_right.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		header.add(header_right, BorderLayout.EAST);
 		
-		InventorySearchPanel search_panel = new InventorySearchPanel() {
+		SearchPanelInventory search_panel = new SearchPanelInventory() {
 			private static final long serialVersionUID = -1256506246091903002L;
 			@Override
 			public void onSearch(String category, String word) {
@@ -87,7 +85,7 @@ public class PanelInventory extends JPanel implements Inventory, Theme{
 		btn_addProduct.addMouseListener(search_panel.closeSearchAdapter());
 		header_right.add(btn_addProduct);
 		
-		table_inventory = new TableInventory() {
+		table_inventory = new TableProducts() {
 			private static final long serialVersionUID = 3085703898743340238L;
 			@Override
 			public void addRow(Row row) {

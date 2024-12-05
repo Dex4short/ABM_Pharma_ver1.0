@@ -35,7 +35,7 @@ import system.ui.cells.CellLabelAmount;
 import system.ui.cells.CellPercentageField;
 import system.ui.cells.CellQuantityField;
 import system.ui.cells.CellTextField;
-import system.ui.tables.TableInventory;
+import system.ui.tables.TableProducts;
 
 public abstract class ActionPanelAddProduct  extends ActionPanel{
 	private static final long serialVersionUID = -4880139382406239412L;
@@ -46,7 +46,7 @@ public abstract class ActionPanelAddProduct  extends ActionPanel{
 		super(new Label(null, "Add Product"));
 		setArc(20);
 		
-		String fields[] = TableInventory.fields;
+		String fields[] = TableProducts.fields;
 		Column columns[] = new Column[12];
 		for(int c=0; c<columns.length; c++) {
 			columns[c] = new Column(new Label(null, fields[c]));

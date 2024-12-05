@@ -1,8 +1,6 @@
 package system.ui.cells;
 
 
-import javax.swing.BorderFactory;
-
 import components.Label;
 import components.table.Cell;
 import oop.Percentage;
@@ -17,8 +15,6 @@ public class CellLabelPercentage extends Cell{
 		
 		setLabel((Label)getComponent(0));
 		setPercentage(percentage);
-		
-		setBorder(BorderFactory.createEmptyBorder(5,0,5,10));
 	}
 	public Label getLabel() {
 		return label;

@@ -3,8 +3,6 @@ package system.ui.cells;
 
 import java.awt.BorderLayout;
 
-import javax.swing.BorderFactory;
-
 import components.Label;
 import components.fields.TextField;
 import components.table.Cell;
@@ -23,7 +21,6 @@ public class CellLabelAmount extends Cell{
 		
 		setArc(10);
 		setBackground(Graphix.setAlpha(main_color[3], 128));
-		setBorder(BorderFactory.createEmptyBorder(5,0,5,5));
 	}
 	public Label getLabel() {
 		return label;

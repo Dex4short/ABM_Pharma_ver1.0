@@ -1,8 +1,6 @@
 package system.ui.cells;
 
 
-import javax.swing.BorderFactory;
-
 import components.fields.TextField;
 import components.table.Cell;
 
@@ -13,7 +11,6 @@ public class CellTextField extends Cell{
 	public CellTextField(String str) {
 		super(new TextField(str));
 		setTextField((TextField)getComponent(0));
-		setBorder(BorderFactory.createEmptyBorder(5,0,5,10));
 	}
 	public TextField getTextField() {
 		return txt_field;

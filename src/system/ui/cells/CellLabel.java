@@ -1,8 +1,6 @@
 package system.ui.cells;
 
 
-import javax.swing.BorderFactory;
-
 import components.Label;
 import components.table.Cell;
 
@@ -13,7 +11,6 @@ public class CellLabel extends Cell{
 	public CellLabel(String str) {
 		super(new Label(str));
 		setLabel((Label)getComponent(0));
-		setBorder(BorderFactory.createEmptyBorder(5,0,5,10));
 	}
 	public Label getLabel() {
 		return label;

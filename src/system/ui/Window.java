@@ -68,8 +68,6 @@ public class Window extends JFrame implements Theme{
 				repaint();
 			}
 		});
-
-		Window.floatMessage("ABM Pharma");
 	}
 	public static StackPanel getStackPanel() {
 		return stack_panel;

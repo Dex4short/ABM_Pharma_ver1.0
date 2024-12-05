@@ -1,15 +1,15 @@
 package system._default_;
 
-import database.MySQL_Inventory;
+import database.MySQL_Products;
 import oop.Product;
 import oop.enums.ProductCondition;
 
 public interface Inventory {
 	
 	public default void searchFromInventory(String category, String word) {
-		Product products[] = null;
+		//Product products[] = null;
 		
-		onSearchFromInventory(products);
+		//onSearchFromInventory(products);
 	}
 	public default void printFromInventory() {
 		
@@ -28,7 +28,7 @@ public interface Inventory {
 		onEditFromInventory();
 	}
 	public default void addToInventory(Product product, ProductCondition condition) {
-		MySQL_Inventory.insert(product, condition);
+		MySQL_Products.insert(product, condition);
 		if(condition == ProductCondition.STORED) {
 			onAddToInventory(product);
 		}
