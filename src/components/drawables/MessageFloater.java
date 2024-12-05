@@ -44,14 +44,14 @@ public class MessageFloater extends Rectangle implements Drawable{
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 	}
 	public void floatMessage(String message) {
+		if(timer != null) {
+			timer.cancel();
+		}
+		
 		this.message = message;
 		y_translate = 0;
 		opacity = 1.00f;
 		delay = 180;
-		
-		if(timer != null) {
-			timer.cancel();
-		}
 		
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -72,7 +72,7 @@ public class MessageFloater extends Rectangle implements Drawable{
 					timer = null;
 				}
 				
-				Window.getStackPanel().repaint();
+				Window.getStackPanel().getRootPane().repaint();
 			}
 		}, 0, 15);
 		

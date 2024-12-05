@@ -36,6 +36,24 @@ public class Table extends JPanel implements Theme{
 		((BorderLayout)table_body.getLayout()).setHgap(5);
 		((BorderLayout)table_body.getLayout()).setVgap(5);
 		add(table_body, BorderLayout.CENTER);
+	}	
+	public Table(String column_strs[]) {
+		setOpaque(false);
+		setLayout(new BorderLayout(5, 5));
+		
+		Column columns[] = new Column[column_strs.length];
+		for(int c=0; c<columns.length; c++) {
+			columns[c] = new Column(column_strs[c]);
+		}
+		
+		table_header = new Table_Head(columns);
+		add(new Padding(table_header, 0, 0, 0, 15), BorderLayout.NORTH);
+		
+		table_body = new Table_Body(new Row[0]);
+		table_body.getVertical_scrollbar().setAutoHide(false);
+		((BorderLayout)table_body.getLayout()).setHgap(5);
+		((BorderLayout)table_body.getLayout()).setVgap(5);
+		add(table_body, BorderLayout.CENTER);
 	}
 	public CheckBox getMainCheckBox() {
 		return table_header.getCheckBox();
@@ -85,8 +103,8 @@ public class Table extends JPanel implements Theme{
 		
 		public Table_Head(Column columns[]) {
 			setArc(5);
-			setLayout(new BorderLayout());
-			setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+			setLayout(new BorderLayout(5,5));
+			setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
 			setBackground(main_color[2]);
 			setForeground(main_color[3]);
 

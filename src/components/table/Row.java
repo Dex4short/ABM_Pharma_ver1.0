@@ -24,7 +24,8 @@ public class Row extends Panel implements MouseListener, ItemListener{
 
 	public Row(Cell cell[]) {
 		setArc(5);
-		setLayout(new BorderLayout());
+		setLayout(new BorderLayout(5,5));
+		setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
 		
 		check_box = new CheckBox();
 		check_box.setOpaque(false);
@@ -33,7 +34,7 @@ public class Row extends Panel implements MouseListener, ItemListener{
 		
 		row_pane = new JPanel();
 		row_pane.setOpaque(false);
-		row_pane.setLayout(new GridLayout(0, cell.length));
+		row_pane.setLayout(new GridLayout(0, cell.length, 5, 0));
 		for(int i=0; i<cell.length; i++) {
 			row_pane.add(cell[i]);
 		}
@@ -45,7 +46,6 @@ public class Row extends Panel implements MouseListener, ItemListener{
 		
 		addMouseListener(this);
 		
-		setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {

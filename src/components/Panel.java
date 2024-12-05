@@ -26,7 +26,7 @@ public class Panel extends JPanel implements Theme{
 		setOpaque(false);
 		setBackground(main_color[2]);
 		setForeground(new Color(0,0,0,0));
-		setArc(10);
+		setArc(0);
 		
 		corner = new boolean[] {true, true, true, true};
 		addComponentListener(new ComponentAdapter() {
