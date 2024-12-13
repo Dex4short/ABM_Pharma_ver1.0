@@ -2,7 +2,7 @@ package oop.enums;
 
 
 public enum UomType {
-	box(1), pieces(2), stab(3), capsule(4), tablet(5), sachet(6), bag(7), jar(8);
+	set(0), box(1), pieces(2), stab(3), capsule(4), tablet(5), sachet(6), bag(7), jar(8);
 	
 	private int i;
 	

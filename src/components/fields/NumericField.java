@@ -16,6 +16,15 @@ public class NumericField extends StrictTextField{
 		super(decimal.toString());
 		includeNumbers(true);
 		includeLetters(false);
+
+		setHorizontalAlignment(RIGHT);
+	}
+	public NumericField(int number) {
+		super(number+"");
+		includeNumbers(true);
+		includeLetters(false);
+
+		setHorizontalAlignment(RIGHT);
 	}
 	public BigInteger getBigNumber() {		
 		return new BigInteger(getText());

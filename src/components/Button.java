@@ -188,25 +188,25 @@ public class Button extends JButton implements Theme, MouseListener{
 			(decorations[Normal_State] = new Decoration.Bordered(
 					font[0],
 					main_color[1],
-					new Color(0,0,0,0),
+					main_color[2],
 					new Color(0,0,0,0))
 			).decorate(this);
 			decorations[Hovered_State] = new Decoration.Bordered(
 					font[0],
 					main_color[1].brighter(),
-					new Color(0,0,0,0),
+					main_color[2],
 					new Color(0,0,0,0)
 			);
 			decorations[Pressed_State] = new Decoration.Bordered(
 					font[0],
 					main_color[0],
-					new Color(0,0,0,0),
+					main_color[2],
 					new Color(0,0,0,0)
 			);
 			decorations[Disabled_State] = new Decoration.Bordered(
 					font[0], 
 					main_color[4],
-					new Color(0,0,0,0),
+					main_color[2],
 					new Color(0,0,0,0)
 			);
 			setDecorations(decorations);
@@ -342,7 +342,7 @@ public class Button extends JButton implements Theme, MouseListener{
 			super.paint(g2d);
 			
 			if(isNotified) {
-				g2d.setColor(getNotificationColor());
+				g2d.setColor(notification_color);
 				g2d.fillOval(5, 5, 10, 10);
 			}
 		}
@@ -367,6 +367,5 @@ public class Button extends JButton implements Theme, MouseListener{
 		public void setNotificationColor(Color notification_color) {
 			this.notification_color = notification_color;
 		}
-
 	}
 }

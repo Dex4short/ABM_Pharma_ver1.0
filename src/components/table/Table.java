@@ -11,15 +11,15 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.JPanel;
 
 import components.CheckBox;
+import components.Label;
 import components.Padding;
-import components.Panel;
+import components.panels.Panel;
 import components.scroll.ScrollPane;
 import oop.interfaces.Theme;
 
-public class Table extends JPanel implements Theme{
+public class Table extends Panel implements Theme{
 	private static final long serialVersionUID = -8446662030696532231L;
 	private Table_Head table_header;
 	private Table_Body table_body;
@@ -58,8 +58,43 @@ public class Table extends JPanel implements Theme{
 	public CheckBox getMainCheckBox() {
 		return table_header.getCheckBox();
 	}
+	public Column addColumn(Column column) {
+		table_header.addColumn(column);
+		return column;
+	}
+	public void addColumns(Column columns[]) {
+		table_header.addColumns(columns);
+	}
+	public void removeColumn(Column column) {
+		table_header.removeColumn(column);
+	}
+	public void  removeColumn(int c) {
+		table_header.removeColumn(c);
+	}
+	public void removeAllColumns() {
+		table_header.removeAllColumns();
+	}
 	public Column getColumn(int col) {
 		return table_header.getColumn(col);
+	}
+	public Column[] getColumns() {
+		return table_header.getColumns();
+	}
+	public int getColumnCount() {
+		return table_header.getColumnCount();
+	}
+	public void setColumn(int c, Column column) {
+		table_header.setColumn(c, column);
+	}
+	public void setColumns(Column columns[]) {
+		table_header.setColumns(columns);
+	}
+	public void setColumns(String str_columns[]) {
+		Column columns[] = new Column[str_columns.length];
+		for(int c=0; c<columns.length; c++) {
+			columns[c] = new Column(new Label(str_columns[c]));
+		}
+		table_header.setColumns(columns);
 	}
 	public Row getRow(int row) {
 		return table_body.getRow(row);
@@ -69,6 +104,12 @@ public class Table extends JPanel implements Theme{
 	}
 	public int getRowCount() {
 		return table_body.getRowCount();
+	}
+	public Row getSelectedRow() {
+		return table_body.getSelectedRow();
+	}
+	public Row[] getSelectedRows() {
+		return table_body.getSelectedRows();
 	}
 	public void addRow(Row row) {
 		table_body.addRow(row);
@@ -96,10 +137,11 @@ public class Table extends JPanel implements Theme{
 		table_body.setCheckBoxesEnabled(enable);
 	}
 	
+	
 	private final class Table_Head extends Panel implements ItemListener{
 		private static final long serialVersionUID = 7478862247310844785L;
 		private CheckBox checkBox;
-		private JPanel column_pane;
+		private Panel column_pane;
 		
 		public Table_Head(Column columns[]) {
 			setArc(5);
@@ -112,7 +154,8 @@ public class Table extends JPanel implements Theme{
 			checkBox.addItemListener(this);
 			add(checkBox, BorderLayout.WEST);
 			
-			column_pane = new JPanel(new GridLayout(1, columns.length));
+			column_pane = new Panel();
+			column_pane.setLayout(new GridLayout(1, columns.length));
 			column_pane.setOpaque(false);
 			add(column_pane, BorderLayout.CENTER);
 			
@@ -130,8 +173,47 @@ public class Table extends JPanel implements Theme{
 		public CheckBox getCheckBox() {
 			return checkBox;
 		}
+		public Column addColumn(Column column) {
+			column_pane.add(column);
+			column_pane.setLayout(new GridLayout(1, getColumnCount() + 1));
+			column_pane.revalidate();
+			column_pane.repaint();
+			return column;
+		}
+		public void addColumns(Column columns[]) {
+			for(Column column: columns) {
+				addColumn(column);
+			}
+		}
+		public void removeColumn(Column column) {
+			column_pane.remove(column);
+		}
+		public void removeColumn(int c) {
+			column_pane.remove(c);
+		}
+		public void removeAllColumns() {
+			column_pane.removeAll();
+		}
 		public Column getColumn(int col) {
 			return (Column)column_pane.getComponent(col);
+		}
+		public Column[] getColumns() {
+			Column columns[] = new Column[getColumnCount()];
+			for(int c=0; c<columns.length; c++) {
+				columns[c] = (Column)column_pane.getComponent(c);
+			}
+			return columns;
+		}
+		public void setColumn(int c, Column column) {
+			column_pane.remove(getColumn(c));
+			column_pane.add(column, c);
+		}
+		public void setColumns(Column columns[]) {
+			removeAllColumns();
+			addColumns(columns);
+		}
+		public int getColumnCount() {
+			return column_pane.getComponentCount();
 		}
 	}
 	private class Table_Body extends ScrollPane implements MouseListener, ItemListener{
@@ -248,6 +330,16 @@ public class Table extends JPanel implements Theme{
 		}
 		public int getRowCount() {
 			return getPanelView().getComponentCount();
+		}
+		public Row getSelectedRow() {
+			return selected_rows.get(0);
+		}
+		public Row[] getSelectedRows() {
+			Row rows[] = new Row[selected_rows.size()];
+			for(int r=0; r<rows.length; r++) {
+				rows[r] = selected_rows.get(r);
+			}
+			return rows;
 		}
 		public void selectAllRows(boolean flag) {
 			int rows = getRowCount();

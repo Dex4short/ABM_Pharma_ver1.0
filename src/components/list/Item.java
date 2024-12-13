@@ -4,12 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Label;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 
-import components.Panel;
+import components.panels.Panel;
 import extras.Settings;
 
 public class Item extends Panel implements MouseListener{
@@ -28,6 +29,16 @@ public class Item extends Panel implements MouseListener{
 		add(component, BorderLayout.CENTER);
 		addMouseListener(this);
 	} 
+	public Item(String string) {
+		setArc(5);
+		setLayout(new BorderLayout());
+		setBackground(main_color[2]);
+		setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
+		setName(string);
+		
+		add(new Label(string), BorderLayout.CENTER);
+		addMouseListener(this);
+	}
 	@Override
 	public void paint(Graphics g) {
 		g2d = (Graphics2D)g;

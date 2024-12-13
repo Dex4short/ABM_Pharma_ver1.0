@@ -13,6 +13,7 @@ import javax.swing.BorderFactory;
 
 import components.list.Item;
 import components.list.ListPane;
+import components.panels.Panel;
 import extras.Settings;
 
 public class ComboBox extends Button implements ActionListener{
@@ -40,13 +41,13 @@ public class ComboBox extends Button implements ActionListener{
 	public Item addItem(Item item) {
 		combo_pane.list_pane.addItem(item);
 		item.addMouseListener(new ComboItemMouseAdapter());
-		
-		if(getRootPane() != null) {
-			getRootPane().revalidate();
-			getRootPane().repaint();
-		}
-		
 		return item;
+	}
+	public void addItems(Item items[]) {
+		for(Item item: items) {
+			item.addMouseListener(new ComboItemMouseAdapter());
+		}
+		combo_pane.list_pane.addItems(items);
 	}
 	public void removeItem(int index) {
 		combo_pane.list_pane.removeItem(index);
@@ -54,8 +55,25 @@ public class ComboBox extends Button implements ActionListener{
 	public void removeItem(Item item) {
 		combo_pane.list_pane.removeItem(item);
 	}
+	public void removeItems() {
+		combo_pane.list_pane.removeAllItems();
+	}
 	public Item getItem(int index) {
 		return combo_pane.list_pane.getItem(index);
+	}
+	public Item[] getItems() {
+		return combo_pane.list_pane.getItems();
+	}
+	public void setItems(Item items[]) {
+		removeItems();
+		addItems(items);
+	}
+	public void setItems(String[] str_items) {
+		removeItems();
+		Item items[] = new Item[str_items.length];
+		for(int i=0; i<items.length; i++) {
+			items[i] = new Item(str_items[i]);
+		}
 	}
 	public boolean isOpen() {
 		return open;
@@ -79,9 +97,11 @@ public class ComboBox extends Button implements ActionListener{
 		open = true;
 	}
 	public void close() {
-		getRootPane().remove(combo_pane);
-		getRootPane().revalidate();
-		getRootPane().repaint();
+		if(getRootPane() != null) {
+			getRootPane().remove(combo_pane);
+			getRootPane().revalidate();
+			getRootPane().repaint();
+		}
 		open = false;
 	}
 	public void setSelectedItem(int index) {
@@ -99,6 +119,7 @@ public class ComboBox extends Button implements ActionListener{
 		private Graphics2D g2d;
 		
 		public ComboPane() {
+			setArc(10);
 			setLayout(new BorderLayout(5,5));
 			setForeground(main_color[3]);
 			setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -117,9 +138,6 @@ public class ComboBox extends Button implements ActionListener{
 			Settings.rendering_hint(g2d);
 			
 			super.paint(g2d);
-			
-			//g2d.setColor(getForeground());
-			//g2d.drawRoundRect(0, 0, getWidth()-1,
 		}
 	}
 	private class ComboItemMouseAdapter extends MouseAdapter{

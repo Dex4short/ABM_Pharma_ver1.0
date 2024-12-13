@@ -9,7 +9,8 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 
 import components.Label;
-import components.Panel;
+import components.panels.Panel;
+import extras.Utilities;
 
 public class BarFields extends Panel{
 	private static final long serialVersionUID = 8424383950064417067L;
@@ -29,6 +30,8 @@ public class BarFields extends Panel{
 		
 	}
 	public TextField addField(String str, TextField field, int width, int height) {
+		field.setName(str);
+		
 		Panel field_panel = new Panel();
 		field_panel.setLayout(new GridLayout(1, 2, 10, 10));
 		field_panel.setBackground(new Color(0,0,0,0));
@@ -39,6 +42,9 @@ public class BarFields extends Panel{
 		field_panel.add(create_wrapping(field));
 		panel.add(field_panel);
 		return field;
+	}
+	public TextField getTextField(String str) {
+		return (TextField)Utilities.findComponentByName(panel, str);
 	}
 	
 	private static Label create_label(String str) {

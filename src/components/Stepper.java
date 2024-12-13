@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
+import components.panels.Panel;
 import oop.interfaces.Theme;
 
 public abstract class Stepper extends Panel implements Theme{

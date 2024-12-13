@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
 
-import components.Panel;
+import components.panels.Panel;
 
 
 public abstract class ScrollPane extends Panel {

@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 
 import components.Label;
-import components.Panel;
+import components.panels.Panel;
 import oop.interfaces.Theme;
 
 public class Column extends Panel implements Theme{

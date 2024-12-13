@@ -12,6 +12,13 @@ public class Pricing {
 		setDiscount(discount);
 		setUnitAmount(unit_amount);
 	}
+	public Pricing() {
+		setPriceId(-1);
+		setCost(new Decimal("0.00"));
+		setUnitPrice(new Decimal("0.00"));
+		setDiscount(new Percentage("0%"));
+		setUnitAmount(new Decimal("0.00"));
+	}
 	@Override
 	public String toString() {
 		String str = 

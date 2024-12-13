@@ -16,9 +16,7 @@ public abstract class ActionPanel extends TitledPanel{
 	private PanelFooter footer;
 	private Button ok, cancel;
 
-	public ActionPanel(Label title) {
-		super(title);
-		
+	{
 		footer = new PanelFooter();
 		add(footer, BorderLayout.SOUTH);
 
@@ -47,7 +45,12 @@ public abstract class ActionPanel extends TitledPanel{
 			}
 		});
 		footer.add(ok);
-		
+	}
+	public ActionPanel(Label title) {
+		super(title);
+	}
+	public ActionPanel(String title) {
+		super(title);
 	}
 	public PanelFooter getPanelFooter() {
 		return footer;
@@ -73,12 +76,10 @@ public abstract class ActionPanel extends TitledPanel{
 	
 	public class PanelFooter extends JPanel{
 		private static final long serialVersionUID = 7536440022885055052L;
-
 		public PanelFooter() {
 			setLayout(new FlowLayout(FlowLayout.RIGHT));
 			setOpaque(false);
 			
 		}
-		
 	}
 }

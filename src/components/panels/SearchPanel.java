@@ -14,7 +14,6 @@ import javax.swing.Icon;
 
 import components.Button;
 import components.ComboBox;
-import components.Panel;
 import components.fields.TextField;
 import extras.Graphix;
 import res.Resource;
@@ -71,20 +70,23 @@ public abstract class SearchPanel extends Panel{
 	public ComboBox getComboBox() {
 		return combo_button;
 	}
-	public void setComboBox(ComboBox combo_button) {
-		this.combo_button = combo_button;
-	}
 	public TextField getSearchField() {
 		return search_field;
-	}
-	public void setSearchField(TextField search_field) {
-		this.search_field = search_field;
 	}
 	public Button getSearchButton() {
 		return search_button;
 	}
+	public void setComboBox(ComboBox combo_button) {
+		this.combo_button = combo_button;
+	}
+	public void setSearchField(TextField search_field) {
+		this.search_field = search_field;
+	}
 	public void setSearchButton(Button search_button) {
 		this.search_button = search_button;
+	}
+	public void setFilters(String filters[]) {
+		combo_button.setItems(filters);
 	}
 	public void search(String category, String word) {
 		onSearch(category, word);

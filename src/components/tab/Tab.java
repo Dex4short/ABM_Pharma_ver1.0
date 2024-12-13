@@ -6,18 +6,17 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
-import components.Panel;
+import components.Label;
+import components.panels.Panel;
 
 public class Tab extends Panel implements MouseListener{
 	private static final long serialVersionUID = 3839302809616823664L;
 	private boolean toggled;
-	private JLabel tab_title;
-	private JPanel tab_content;
+	private Label tab_title;
+	private Panel tab_content;
 
-	public Tab(String title, JPanel tab_content){
+	public Tab(String title, Panel tab_content){
 		setArc(20);
 		setCorner(2, false);
 		setCorner(3, false);
@@ -28,11 +27,11 @@ public class Tab extends Panel implements MouseListener{
 		setBackground(main_color[0].brighter());
 		setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 		
-		tab_title = new JLabel(title);
+		tab_title = new Label(title);
 		tab_title.setFont(font[0]);
 		tab_title.setForeground(text_color[3]);
-		tab_title.setHorizontalAlignment(JLabel.CENTER);
-		tab_title.setVerticalAlignment(JLabel.CENTER);
+		tab_title.setHorizontalAlignment(Label.CENTER);
+		tab_title.setVerticalAlignment(Label.CENTER);
 		tab_title.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 		add(tab_title, BorderLayout.CENTER);
 		
@@ -62,10 +61,10 @@ public class Tab extends Panel implements MouseListener{
 			setBackground(main_color[0].brighter());
 		}
 	}
-	public JLabel getLabel() {
+	public Label getLabel() {
 		return tab_title;
 	}
-	public void setLabel(JLabel label) {
+	public void setLabel(Label label) {
 		this.tab_title = label;
 	}
 	public void toggle() {
@@ -87,10 +86,10 @@ public class Tab extends Panel implements MouseListener{
 	public boolean isToggled() {
 		return toggled;
 	}
-	public JPanel getTabContent() {
+	public Panel getTabContent() {
 		return tab_content;
 	}
-	public void setTabContent(JPanel panel) {
+	public void setTabContent(Panel panel) {
 		this.tab_content = panel;
 	}
 }

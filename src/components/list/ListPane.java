@@ -8,7 +8,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-import components.Panel;
+import components.panels.Panel;
 import components.scroll.ScrollPane;
 import oop.interfaces.Theme;
 
@@ -64,6 +64,11 @@ public class ListPane extends ScrollPane implements Theme, ComponentListener{
 		item.setEnabled(selectionEnabled);
 		align();
 	}
+	public void addItems(Item items[]) {
+		for(Item item: items) {
+			addItem(item);
+		}
+	}
 	public void removeItem(int index) {
 		list_container.remove(index);
 		align();
@@ -79,28 +84,12 @@ public class ListPane extends ScrollPane implements Theme, ComponentListener{
 	public Item getItem(int index) {
 		return (Item)list_container.getComponent(index);
 	}
-	public int getItemHeight() {
-		return item_h;
-	}
-	public void setItemHeight(int item_h) {
-		this.item_h = item_h;
-	}
-	public int getHGap() {
-		return h_gap;
-	}
-	public int getVGap() {
-		return v_gap;
-	}
-	public void setGap(int h_gap, int v_gap) {
-		this.h_gap = h_gap;
-		this.v_gap = v_gap;
-	}
-	public void setSelectedItem(int index) {
-		selected_item = ((Item)list_container.getComponent(index));
-		selected_item.setSelected(true);
-	}
-	public Item getSelectedItem() {
-		return selected_item;
+	public Item[] getItems() {
+		Item items[] = new Item[getItemCount()];
+		for(int i=0; i<items.length; i++) {
+			items[i] = getItem(i);
+		}
+		return items;
 	}
 	public int getItemCount() {
 		if(list_container != null) {
@@ -108,11 +97,38 @@ public class ListPane extends ScrollPane implements Theme, ComponentListener{
 		}
 		return 0;
 	}
+	public Item getSelectedItem() {
+		return selected_item;
+	}
+	public int getItemHeight() {
+		return item_h;
+	}
+	public int getHGap() {
+		return h_gap;
+	}
+	public int getVGap() {
+		return v_gap;
+	}
+	public void setItems(Item items[]) {
+		removeAllItems();
+		addItems(items);
+	}
+	public void setSelectedItem(int index) {
+		selected_item = ((Item)list_container.getComponent(index));
+		selected_item.setSelected(true);
+	}
 	public void setSelectionEnabled(boolean selectionEnabled) {
 		this.selectionEnabled = selectionEnabled;
 		for(int i=0; i<getItemCount(); i++) {
 			getItem(i).setEnabled(selectionEnabled);
 		}
+	}
+	public void setItemHeight(int item_h) {
+		this.item_h = item_h;
+	}
+	public void setGap(int h_gap, int v_gap) {
+		this.h_gap = h_gap;
+		this.v_gap = v_gap;
 	}
 	public boolean isSelectionEnabled() {
 		return selectionEnabled;
@@ -152,5 +168,6 @@ public class ListPane extends ScrollPane implements Theme, ComponentListener{
 		@Override
 		public void mouseExited(MouseEvent e) {}
 	}
+
 
 }

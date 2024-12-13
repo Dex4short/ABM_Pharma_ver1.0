@@ -5,7 +5,7 @@ import java.awt.Color;
 
 import javax.swing.JComponent;
 
-import components.Panel;
+import components.panels.Panel;
 import oop.interfaces.Theme;
 
 public class Cell extends Panel implements Theme{

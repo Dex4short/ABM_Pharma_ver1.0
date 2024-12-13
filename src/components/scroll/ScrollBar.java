@@ -11,7 +11,7 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
 
-import components.Panel;
+import components.panels.Panel;
 import oop.interfaces.Theme;
 
 public abstract class ScrollBar extends Panel implements Theme, ComponentListener, MouseListener, MouseMotionListener, MouseWheelListener{

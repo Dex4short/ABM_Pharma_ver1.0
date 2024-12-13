@@ -14,6 +14,12 @@ public class Uom {
 		setUnitSize(unitSize);
 		setSubUom(subUom);
 	}
+	public Uom() {
+		setUomId(-1);
+		setUnitType(UomType.set);
+		setUnitSize(-1);
+		setSubUom(null);
+	}
 	@Override
 	public String toString() {
 		String str = "[" + getUnitType() + " : " + getUnitSize() + "]";

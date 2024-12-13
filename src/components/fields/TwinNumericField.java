@@ -6,7 +6,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import components.Panel;
+import components.panels.Panel;
 
 public class TwinNumericField extends Panel{
 	private static final long serialVersionUID = -3497471385717877254L;
@@ -15,31 +15,15 @@ public class TwinNumericField extends Panel{
 	private double aspect_ratio;
 	private boolean aspectRatioEnabled;
 	
-	public TwinNumericField(String qty, String size){
-		setLayout(null);
-		setForeground(main_color[3]);
-		setFont(font[0]);
-		
+	public TwinNumericField(String qty, String size){		
 		field1 = new NumericField(qty);
 		field2 = new NumericField(size);
-		
-		addFieldActionListener(field1, field2);
-		addFieldActionListener(field2, field1);
-		
-		add(field1);
-		add(field2);
-		setDivider('/');
-		
-		addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-				field1.setBounds(0, 0, (getWidth()/2) - (divider_w/2), getHeight() + 2);
-				field2.setBounds((getWidth()/2) + divider_w, 0, (getWidth()/2) - divider_w, getHeight() + 2);
-				
-				getRootPane().revalidate();
-				getRootPane().repaint();
-			}
-		});
+		initialize();
+	}
+	public TwinNumericField(int qty, int size) {		
+		field1 = new NumericField(qty);
+		field2 = new NumericField(size);
+		initialize();
 	}
 	private int divider_w;
 	@Override
@@ -80,6 +64,29 @@ public class TwinNumericField extends Panel{
 		aspectRatioEnabled = aspectRatio != 0;
 	}
 	
+	private final void initialize() {
+		setLayout(null);
+		setForeground(main_color[3]);
+		setFont(font[0]);
+		
+		addFieldActionListener(field1, field2);
+		addFieldActionListener(field2, field1);
+		
+		add(field1);
+		add(field2);
+		setDivider('/');
+		
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				field1.setBounds(0, 0, (getWidth()/2) - (divider_w/2), getHeight() + 2);
+				field2.setBounds((getWidth()/2) + divider_w, 0, (getWidth()/2) - divider_w, getHeight() + 2);
+				
+				getRootPane().revalidate();
+				getRootPane().repaint();
+			}
+		});
+	}
 	private final void addFieldActionListener(NumericField field1, NumericField field2) {
 		field1.addKeyListener(new KeyAdapter() {
 			private String str;

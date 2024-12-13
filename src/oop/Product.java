@@ -7,6 +7,13 @@ public class Product {
 	private Pricing pricing;
 	private Remarks remarks;
 	
+	public Product() {
+		setInvId(-1);
+		setItem(new Item());
+		setPackaging(new Packaging());
+		setPricing(new Pricing());
+		setRemarks(new Remarks(-1));
+	}
 	public Product(int inv_id, Item item, Packaging packaging, Pricing pricing, Remarks remarks) {
 		setInvId(inv_id);
 		setItem(item);

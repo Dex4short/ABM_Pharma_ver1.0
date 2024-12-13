@@ -65,9 +65,14 @@ public class Date{
 		setDay(dd);
 	}
 	public void setDate(String date) {//yyyy-mm-dd
-		setYear(extractYear(date));
-		setMonth(extractMonth(date));
-		setDay(extractDay(date));
+		try {
+			setYear(extractYear(date));
+			setMonth(extractMonth(date));
+			setDay(extractDay(date));
+		}
+		catch (Exception e) {
+			throw new RuntimeException("Invalid date input (yyyy-mm-dd) for " + date + " where y,m, and d are numbers");
+		}
 	}
 	public void setCurrentDate() {
 		setYear(getCurrentYear());

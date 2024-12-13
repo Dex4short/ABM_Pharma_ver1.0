@@ -14,6 +14,15 @@ public class Item {
 		setExpDate(exp_date);
 		setBrand(brand);
 	}
+	public Item() {
+		setItemId(-1);
+		setItemNo("0000");
+		setDescription("sample");
+		setLotNo("0000");
+		setDateAdded(new Date());
+		setExpDate(null);
+		setBrand("xxxx");
+	}
 	@Override
 	public String toString() {
 		String str = 

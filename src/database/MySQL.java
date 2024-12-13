@@ -15,7 +15,7 @@ public abstract class MySQL {
 	public MySQL(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			c = DriverManager.getConnection("jdbc:mysql://localhost:3306/abm_pharma_rev1","root","241989");
+			c = DriverManager.getConnection("jdbc:mysql://localhost:3306/abm_pharma_rev2","root","241989");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

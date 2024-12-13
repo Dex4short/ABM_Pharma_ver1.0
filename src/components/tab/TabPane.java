@@ -1,6 +1,7 @@
 package components.tab;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ComponentAdapter;
@@ -11,19 +12,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JPanel;
 
-import components.Panel;
+import components.panels.Panel;
 import oop.interfaces.Theme;
 
-public class TabPane extends JPanel implements Theme{
+public class TabPane extends Panel implements Theme{
 	private static final long serialVersionUID = 2593805313851461876L;
 	private TabHead tab_head;
 	private TabBody tab_body;
 
 	{
-		setOpaque(false);
 		setLayout(new BorderLayout());
+		setBackground(new Color(0,0,0,0));
 		
 		tab_head = new TabHead();
 		add(tab_head, BorderLayout.NORTH);
@@ -59,7 +59,7 @@ public class TabPane extends JPanel implements Theme{
 			tab.toggle();
 		}
 		tab_body.removeAll();
-		tab_body.add(tab.getTabContent());
+		tab_body.add(tab.getTabContent()).setVisible(true);
 		tab_body.revalidate();
 		tab_body.repaint();
 	}
@@ -71,18 +71,19 @@ public class TabPane extends JPanel implements Theme{
 		Tab tab;
 		for(Component component: tab_head.getComponents()) {
 			tab = (Tab)component;
+			tab.getTabContent().setVisible(false);
 			if(tab.isToggled()) {
 				tab.toggle();
 			}
 		}
 	}
 	
-	private class TabHead extends JPanel implements ComponentListener{
+	private class TabHead extends Panel implements ComponentListener{
 		private static final long serialVersionUID = 1L;
 
 		public TabHead() {
 			setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-			setOpaque(false);
+			setBackground(new Color(0,0,0,0));
 			addComponentListener(this);
 		}
 		@Override

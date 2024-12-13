@@ -12,7 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import components.CheckBox;
-import components.Panel;
+import components.panels.Panel;
 import oop.abstracts.Decoration;
 
 public class Row extends Panel implements MouseListener, ItemListener{
@@ -98,6 +98,26 @@ public class Row extends Panel implements MouseListener, ItemListener{
 	public void setCheckBox(CheckBox check_box) {
 		this.check_box = check_box;
 	}
+	public Cell addCell(Cell cell) {
+		row_pane.setLayout(new GridLayout(0, row_pane.getComponentCount() + 1, 5, 0));
+		row_pane.add(cell);
+		return cell;
+	}
+	public void addCells(Cell cells[]) {
+		row_pane.setLayout(new GridLayout(0, cells.length, 5, 0));
+		for(int c=0; c<cells.length; c++) {
+			row_pane.add(cells[c]);
+		}
+	}
+	public void removeCell(Cell cell) {
+		row_pane.remove(cell);
+	}
+	public void removeCell(int c) {
+		row_pane.remove(c);
+	}
+	public void removeAllCells() {
+		row_pane.removeAll();
+	}
 	public Cell getCell(int n) {
 		return (Cell)row_pane.getComponent(n);
 	}
@@ -105,4 +125,9 @@ public class Row extends Panel implements MouseListener, ItemListener{
 		row_pane.remove(n);
 		row_pane.add(new_cell, n);
 	}
+	public void setCells(Cell cells[]) {
+		removeAllCells();
+		addCells(cells);
+	}
+	
 }

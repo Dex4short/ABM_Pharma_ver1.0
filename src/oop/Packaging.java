@@ -11,6 +11,12 @@ public class Packaging {
 		setUom(uom);
 		setParentPackId(parentPack_id);
 	}
+	public Packaging() {
+		setPackId(-1);
+		setQty(new Quantity(0));
+		setUom(new Uom());
+		setParentPackId(-2);
+	}
 	@Override
 	public String toString() {
 		String str = 

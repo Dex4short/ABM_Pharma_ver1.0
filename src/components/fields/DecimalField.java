@@ -1,7 +1,5 @@
 package components.fields;
 
-import java.math.BigDecimal;
-
 import oop.Decimal;
 
 public class DecimalField extends StrictTextField{
@@ -12,6 +10,7 @@ public class DecimalField extends StrictTextField{
 		includeNumbers(true);
 		includeLetters(false);
 		includeCharacter('.');
+		includeCharacter(',');
 		
 		setHorizontalAlignment(RIGHT);
 	}
@@ -20,9 +19,10 @@ public class DecimalField extends StrictTextField{
 		includeNumbers(true);
 		includeLetters(false);
 		includeCharacter('.');
+		includeCharacter(',');
 	}
-	public Decimal getDecimal() {		
-		return new Decimal(new BigDecimal(getText()));
+	public Decimal getDecimal() {
+		return new Decimal(getText());
 	}
 	public void setDecimal(Decimal decimal) {
 		setText(decimal.toString());
