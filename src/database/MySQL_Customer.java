@@ -6,7 +6,7 @@ import oop.Customer;
 public class MySQL_Customer {
 	public static String 
 	table_name = "customer",
-	table_columns[] = {"cust_id", "customer_name", "address"};
+	table_columns[] = {"cust_id", "customer_name", "address", "contact_no", "e_mail", "company"};
 	
 	public static Customer insertCustomer(Customer customer, int counter_no) {
 		customer.setCustomerId(MySQL.nextUID("cust_id", "customer"));
@@ -16,7 +16,8 @@ public class MySQL_Customer {
 			new Object[] {
 				customer.getCustomerId(),
 				customer.getCustomerName(),
-				customer.getAddress()
+				customer.getAddress(),
+				customer.getCont
 			}
 		);
 		return customer;
