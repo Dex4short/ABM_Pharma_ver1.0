@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import components.Button;
 import oop.Uom;
 import system.ui.Window;
-import system.ui.action_panels.ActionPanelUOMPicker;
+import system.ui.panels.actions.ActionPanelUOMPicker;
 
 public class ButtonUomPicker extends Button{
 	private static final long serialVersionUID = -4419033569562646499L;

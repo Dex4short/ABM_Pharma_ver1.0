@@ -18,6 +18,16 @@ public class CellQuantityField extends Cell{
 		twin_field.maintainAspectRatio(1);
 		twin_field.getLeftNumericField().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		twin_field.getRightNumericField().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+	}
+	public CellQuantityField(Quantity qty) {
+		super(new TwinNumericField(qty.getQuantity(), qty.getSize()));
+
+		twin_field = (TwinNumericField)getComponent(0);
+		twin_field.maintainAspectRatio(1);
+		twin_field.getLeftNumericField().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		twin_field.getRightNumericField().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
 	}
 	public TwinNumericField getTwinNumericField() {
 		return twin_field;

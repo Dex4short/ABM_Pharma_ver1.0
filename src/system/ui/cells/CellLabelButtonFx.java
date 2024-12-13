@@ -3,6 +3,8 @@ package system.ui.cells;
 
 import java.awt.BorderLayout;
 
+import javax.swing.BorderFactory;
+
 import components.Button;
 import res.Resource;
 
@@ -15,6 +17,7 @@ public class CellLabelButtonFx extends CellLabelAmount{
 		
 		btn = new Button(Resource.getAsImageIcon("function.png"));
 		add(btn, BorderLayout.EAST);
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
 	}
 	public Button getButtonFx() {
 		return btn;

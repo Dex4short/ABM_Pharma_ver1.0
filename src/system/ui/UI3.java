@@ -3,7 +3,7 @@ package system.ui;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-import components.Panel;
+import components.panels.Panel;
 
 public class UI3 extends Panel{
 	private static final long serialVersionUID = -682175767748539059L;

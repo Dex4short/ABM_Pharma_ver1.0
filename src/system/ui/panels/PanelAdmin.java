@@ -11,12 +11,13 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
 import components.Label;
-import components.Panel;
+import components.panels.Panel;
 import components.tab.Tab;
 import components.tab.TabPane;
 import oop.interfaces.Theme;
 import res.Resource;
 import system._default_.Administrator;
+import system.ui.Window;
 
 public class PanelAdmin extends Panel implements Theme, Administrator{
 	private static final long serialVersionUID = 4864384612729816588L;
@@ -64,21 +65,26 @@ public class PanelAdmin extends Panel implements Theme, Administrator{
 
 		PanelInventory inventory = new PanelInventory();
 		PanelTransactions transactions = new PanelTransactions();
+		PanelStore panel_store = new PanelStore();
+		PanelReserves panel_reserves = new PanelReserves();
+		PanelDisposal panel_disposal = new PanelDisposal();
+		PanelProductReturns panel_product_return = new PanelProductReturns();
+		PanelCustomers panel_customers = new PanelCustomers();
 		
 		Tab tabs[] = {
 				new Tab("Inventory", inventory),
 				new Tab("Transactions", transactions),
-				new Tab("Store", new Panel()),
-				new Tab("Reserves", new Panel()),
-				new Tab("Disposal", new Panel()),
-				new Tab("Product Returns", new Panel()),
+				new Tab("Store", panel_store),
+				new Tab("Reserves", panel_reserves),
+				new Tab("Disposal", panel_disposal),
+				new Tab("Product Returns", panel_product_return),
 				new Tab("Statistics", new Panel()),
-				new Tab("Customers", new Panel())
+				new Tab("Customers", panel_customers)
 		};
 		
 		for(Tab tab: tabs) {
 			tab_pane.addTab(tab);
-		}		
+		}
 		tab_pane.setSelectedTab(0);
 		
 		tabs[0].addMouseListener(new MouseAdapter() {
@@ -129,7 +135,8 @@ public class PanelAdmin extends Panel implements Theme, Administrator{
 				toCustomers();
 			}
 		});
-		
+
+		Window.floatMessage("Welcome Admin");
 	}
 	@Override
 	public void onToInventory() {}

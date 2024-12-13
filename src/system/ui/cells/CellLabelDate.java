@@ -1,5 +1,7 @@
 package system.ui.cells;
 
+import javax.swing.BorderFactory;
+
 import oop.Date;
 
 public class CellLabelDate extends CellButtonDatePicker{
@@ -8,11 +10,13 @@ public class CellLabelDate extends CellButtonDatePicker{
 	public CellLabelDate(String str) {
 		super(str);
 		setEnabled(false);
-		getButtonDated().setDatePicker(null);//remove date picker
+		getButtonDatePicker().setDatePicker(null);//remove date picker
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
 	}
 	public CellLabelDate(Date date) {
 		super(date);
 		setEnabled(false);
-		getButtonDated().setDatePicker(null);//remove date picker
+		getButtonDatePicker().setDatePicker(null);//remove date picker
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
 	}
 }

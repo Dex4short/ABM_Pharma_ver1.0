@@ -1,5 +1,7 @@
 package system.ui.cells;
 
+import javax.swing.BorderFactory;
+
 import components.fields.PercentageField;
 import components.table.Cell;
 import oop.Percentage;
@@ -11,6 +13,12 @@ public class CellPercentageField extends Cell{
 	public CellPercentageField(String str) {
 		super(new PercentageField(str));
 		percentage_field = (PercentageField)getComponent(0);
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+	}
+	public CellPercentageField(Percentage discount) {
+		super(new PercentageField(discount));
+		percentage_field = (PercentageField)getComponent(0);
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
 	}
 	public PercentageField getPercentageField() {
 		return percentage_field;

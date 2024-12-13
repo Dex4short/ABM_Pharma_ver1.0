@@ -8,7 +8,8 @@ import system.ui.bars.BarFieldTransaction;
 import system.ui.buttons.ButtonPrintOrders;
 import system.ui.buttons.ButtonPrintTransactions;
 import system.ui.buttons.ButtonReturnOrder;
-import system.ui.search_panels.SearchPanelTransactionCustomer;
+import system.ui.panels.searches.SearchPanelOrders;
+import system.ui.panels.searches.SearchPanelTransactions;
 import system.ui.tables.TableOrders;
 import system.ui.tables.TableTransactions;
 
@@ -16,7 +17,7 @@ public class PanelTransactions extends UI3 implements Transactions{
 	private static final long serialVersionUID = -4728899875964533207L;
 
 	public PanelTransactions() {
-		SearchPanelTransactionCustomer search_customer = new SearchPanelTransactionCustomer() {
+		SearchPanelTransactions search_customer = new SearchPanelTransactions() {
 			private static final long serialVersionUID = -3060789857476437659L;
 			@Override
 			public void onSearch(String category, String word) {
@@ -25,36 +26,34 @@ public class PanelTransactions extends UI3 implements Transactions{
 		};
 		ButtonPrintTransactions btn_print_transactions = new ButtonPrintTransactions();
 		TableTransactions table_transactions = new TableTransactions();
-		BarFieldTransaction bar_accountancy_transaction = new BarFieldTransaction();
-		
+		BarFieldTransaction bar_field_transaction = new BarFieldTransaction();
 		getUiTop().setSearchPanel(search_customer);
 		getUiTop().addButton(btn_print_transactions);
 		getUiTop().setTable(table_transactions);
-		getUiTop().setBarFields(bar_accountancy_transaction);
+		getUiTop().setBarFields(bar_field_transaction);
 		
-		SearchPanelTransactionCustomer search_orders = new SearchPanelTransactionCustomer() {
+		SearchPanelOrders search_orders = new SearchPanelOrders() {
 			private static final long serialVersionUID = -3060789857476437659L;
 			@Override
 			public void onSearch(String category, String word) {
-				onSearchFromTransactionCustomers(null);
+				
 			}
 		};
 		ButtonPrintOrders btn_print_orders = new ButtonPrintOrders();
-		ButtonReturnOrder btn_return_orders = new ButtonReturnOrder() {
+		ButtonReturnOrder btn_return_order = new ButtonReturnOrder() {
 			private static final long serialVersionUID = 3251937345183043930L;
 			@Override
 			public void onReturnOrder() {
-				// TODO Auto-generated method stub
+				
 			}
 		};
 		TableOrders table_orders = new TableOrders();
-		BarFieldOrder bar_accountancy_order = new BarFieldOrder();
-		
+		BarFieldOrder bar_field_order = new BarFieldOrder();
 		getUiBottom().setSearchPanel(search_orders);
 		getUiBottom().addButton(btn_print_orders);
-		getUiBottom().addButton(btn_return_orders);
+		getUiBottom().addButton(btn_return_order);
 		getUiBottom().setTable(table_orders);
-		getUiBottom().setBarFields(bar_accountancy_order);
+		getUiBottom().setBarFields(bar_field_order);
 	}
 	@Override
 	public void onSearchFromTransactionCustomers(Product[] products) {

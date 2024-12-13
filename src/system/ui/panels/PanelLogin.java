@@ -17,8 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import components.Button;
-import components.Panel;
 import components.fields.PasswordField;
+import components.panels.Panel;
 import extras.Graphix;
 import extras.Settings;
 import extras.Utilities;
@@ -92,13 +92,11 @@ public abstract class PanelLogin extends JPanel implements Login{
 			case adm:
 				password_field.setText("");
 				password_field.setMessage("Welcome Admin...");
-				Window.floatMessage("Welcome Admin");
 				openAdminInterface();
 				break;
 			case emp:
 				password_field.setText("");
 				password_field.setMessage("Welcome Employee...");
-				Window.floatMessage("Welcome Employee");
 				openEmployeeInterface();
 				break;
 			default:

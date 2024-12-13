@@ -1,7 +1,10 @@
 package system.ui.cells;
 
 
+import javax.swing.BorderFactory;
+
 import components.table.Cell;
+import oop.Uom;
 import system.ui.buttons.ButtonUomPicker;
 
 public class CellButtonUomPicker extends Cell{
@@ -12,6 +15,13 @@ public class CellButtonUomPicker extends Cell{
 		super(new ButtonUomPicker(str));
 
 		setButtonUomPicker((ButtonUomPicker)getComponent(0));
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+	}
+	public CellButtonUomPicker(Uom uom) {
+		super(new ButtonUomPicker(uom.getUnitType().name()));
+
+		setButtonUomPicker((ButtonUomPicker)getComponent(0));
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
 	}
 	public ButtonUomPicker getButtonUomPicker() {
 		return btn;

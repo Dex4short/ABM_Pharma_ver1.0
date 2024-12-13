@@ -18,7 +18,7 @@ public class CellLabelDecimal extends Cell{
 		setLabel((Label)getComponent(0));
 		setDecimal(decimal);
 		
-		setBorder(BorderFactory.createEmptyBorder(5,0,5,10));
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
 	}
 	public Label getLabel() {
 		return label;

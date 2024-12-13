@@ -12,6 +12,7 @@ import components.drawables.MessageFloater;
 import components.panels.StackPanel;
 import extras.Settings;
 import oop.interfaces.Theme;
+import system.ui.overlays.LoadingScreen;
 import system.ui.panels.PanelAdmin;
 import system.ui.panels.PanelEmployee;
 import system.ui.panels.PanelLogin;
@@ -20,10 +21,20 @@ public class Window extends JFrame implements Theme{
 	private static final long serialVersionUID = -6729595845570486177L;
 	private static StackPanel stack_panel;
 	private static MessageFloater message_floater;
+	private static LoadingScreen loading_screen;
 
 	public Window() {        
 		setTitle("ABM Pharma - DIMS Rev.1");
 		setLayout(null);
+
+		message_floater = new MessageFloater();
+		loading_screen = new LoadingScreen() {
+			private static final long serialVersionUID = 4441119972305822096L;
+			@Override
+			public void onLoading() {
+				getRootPane().repaint();
+			}
+		};
 		
 		stack_panel = new StackPanel() {
 			private static final long serialVersionUID = -1131072990529675644L;
@@ -33,8 +44,12 @@ public class Window extends JFrame implements Theme{
 				g2d = (Graphics2D)g;
 				Settings.rendering_hint(g2d);
 
-				super.paint(g2d);
-
+				loading_screen.setBounds(getBounds());
+				loading_screen.draw(g2d);
+				if(!loading_screen.isLoading()) {
+					super.paint(g2d);
+				}
+				
 				message_floater.setBounds(getBounds());
 				message_floater.draw(g2d);
 			}
@@ -48,17 +63,25 @@ public class Window extends JFrame implements Theme{
 			@Override
 			public void openAdminInterface() {
 				stack_panel.popPanel();
-				stack_panel.pushPanel(new PanelAdmin());
+				loading_screen.load(new Runnable() {
+					@Override
+					public void run() {
+						stack_panel.pushPanel(new PanelAdmin());
+					}
+				});
 			}
 			@Override
 			public void openEmployeeInterface() {
 				stack_panel.popPanel();
-				stack_panel.pushPanel(new PanelEmployee());
+				loading_screen.load(new Runnable() {
+					@Override
+					public void run() {
+						stack_panel.pushPanel(new PanelEmployee());
+					}
+				});
 			}
 		};
 		stack_panel.pushPanel(panel_login);
-		
-		message_floater = new MessageFloater();
 		
 		addComponentListener(new ComponentAdapter() {
 			@Override

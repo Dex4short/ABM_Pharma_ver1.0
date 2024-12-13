@@ -2,7 +2,6 @@ package system.ui.panels;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-
 import components.table.Row;
 import oop.Product;
 import oop.enums.ProductCondition;
@@ -12,9 +11,9 @@ import system.ui.Window;
 import system.ui.buttons.ButtonAddProduct;
 import system.ui.buttons.ButtonDisposeProduct;
 import system.ui.buttons.ButtonEditProduct;
-import system.ui.buttons.ButtonPrintProduct;
+import system.ui.buttons.ButtonPrintProducts;
 import system.ui.buttons.ButtonReserveProduct;
-import system.ui.search_panels.SearchPanelInventory;
+import system.ui.panels.searches.SearchPanelProduct;
 import system.ui.tables.TableProducts;
 
 public class PanelInventory extends UI1 implements Inventory{
@@ -22,7 +21,7 @@ public class PanelInventory extends UI1 implements Inventory{
 	private TableProducts table_products;
 
 	public PanelInventory() {		
-		SearchPanelInventory search_panel = new SearchPanelInventory() {
+		SearchPanelProduct search_panel = new SearchPanelProduct() {
 			private static final long serialVersionUID = -1256506246091903002L;
 			@Override
 			public void onSearch(String category, String word) {
@@ -31,28 +30,44 @@ public class PanelInventory extends UI1 implements Inventory{
 		};
 		setSearchPanel(search_panel);
 		
-		ButtonPrintProduct btn_printProduct = new ButtonPrintProduct();
-		btn_printProduct.setEnabled(false);
+		ButtonPrintProducts btn_printProduct = new ButtonPrintProducts();
 		addButton(btn_printProduct);
 		
-		ButtonReserveProduct btn_reserveProduct = new ButtonReserveProduct();
+		ButtonReserveProduct btn_reserveProduct = new ButtonReserveProduct() {
+			private static final long serialVersionUID = 1L;
+			@Override
+			public void onReserveProduct(Product product) { table_products.removeProduct(product); }
+			@Override
+			public Product getSelectedProduct() { return table_products.getSelectedProduct(); }
+		};
 		btn_reserveProduct.setEnabled(false);
 		addButton(btn_reserveProduct);
 		
-		ButtonDisposeProduct btn_disposeProduct = new ButtonDisposeProduct();
+		ButtonDisposeProduct btn_disposeProduct = new ButtonDisposeProduct() {
+			private static final long serialVersionUID = 5138197980623655054L;
+			@Override
+			public void onDisposeProduct(Product product) {	table_products.removeProduct(product);	}
+			@Override
+			public Product getSelectedProduct() { return table_products.getSelectedProduct(); }
+		
+		};
 		btn_disposeProduct.setEnabled(false);
 		addButton(btn_disposeProduct);
 		
-		ButtonEditProduct btn_editProduct = new ButtonEditProduct();
+		ButtonEditProduct btn_editProduct = new ButtonEditProduct() {
+			private static final long serialVersionUID = 4118216613740322570L;
+			@Override
+			public void onEditProduct(Product product, ProductCondition condition) { /*TODO*/ } 
+			@Override
+			public Product getSelectedProduct() { return table_products.getSelectedProduct(); }
+		};
 		btn_editProduct.setEnabled(false);
 		addButton(btn_editProduct);
 
 		ButtonAddProduct btn_addProduct = new ButtonAddProduct() {
 			private static final long serialVersionUID = -634618781892783590L;
 			@Override
-			public void onAddProduct(Product product, ProductCondition condition) {
-				addToInventory(product, condition);
-			}
+			public void onAddProduct(Product product, ProductCondition condition) {	addToInventory(product, condition); }
 		};
 		addButton(btn_addProduct);
 		
@@ -65,7 +80,6 @@ public class PanelInventory extends UI1 implements Inventory{
 					@Override
 					public void itemStateChanged(ItemEvent e) {
 						boolean enabled = e.getStateChange() == ItemEvent.SELECTED;
-						btn_printProduct.setEnabled(enabled);
 						btn_reserveProduct.setEnabled(enabled);
 						btn_disposeProduct.setEnabled(enabled);
 						btn_editProduct.setEnabled(enabled);

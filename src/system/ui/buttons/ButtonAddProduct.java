@@ -11,7 +11,7 @@ import oop.Product;
 import oop.enums.ProductCondition;
 import res.Resource;
 import system.ui.Window;
-import system.ui.action_panels.ActionPanelAddProduct;
+import system.ui.panels.actions.ActionPanelAddProduct;
 
 public abstract class ButtonAddProduct extends Button{
 	private static final long serialVersionUID = -8319852584060410711L;
@@ -42,5 +42,7 @@ public abstract class ButtonAddProduct extends Button{
 	public void addProduct(Product product, ProductCondition condition) {
 		onAddProduct(product, condition);
 	}
+	
 	public abstract void onAddProduct(Product product, ProductCondition condition);
+	
 }

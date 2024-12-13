@@ -8,7 +8,7 @@ public class BarFieldOrder extends BarFields{
 	private static final long serialVersionUID = 8424383950064417067L;
 
 	public BarFieldOrder() {
-		addField("Discount", new PercentageField("0%"), 250, 20);
+		addField("Discount", new PercentageField("0%"), 250, 20).setEditable(false);
 		addField("Total Unit Amount", new DecimalField("0.00"), 250, 20).setEditable(false);
 	}
 	public void calculateTotalUnitAmount() {

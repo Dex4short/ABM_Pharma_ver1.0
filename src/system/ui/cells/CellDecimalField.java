@@ -1,6 +1,8 @@
 package system.ui.cells;
 
 
+import javax.swing.BorderFactory;
+
 import components.fields.DecimalField;
 import components.table.Cell;
 import oop.Decimal;
@@ -12,6 +14,14 @@ public class CellDecimalField extends Cell{
 	public CellDecimalField(String str) {
 		super(new DecimalField(str));
 		decimal_field = (DecimalField)getComponent(0);
+		decimal_field.setHorizontalAlignment(DecimalField.RIGHT);
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+	}
+	public CellDecimalField(Decimal cost) {
+		super(new DecimalField(cost));
+		decimal_field = (DecimalField)getComponent(0);
+		decimal_field.setHorizontalAlignment(DecimalField.RIGHT);
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
 	}
 	public DecimalField getDecimalField() {
 		return decimal_field;

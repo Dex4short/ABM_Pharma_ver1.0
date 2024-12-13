@@ -1,42 +1,47 @@
 package system.ui.cells;
 
 
+import javax.swing.BorderFactory;
+
 import components.table.Cell;
 import oop.Date;
 import system.ui.buttons.ButtonDatePicker;
 
 public class CellButtonDatePicker extends Cell{
 	private static final long serialVersionUID = -752158914266118531L;
-	private ButtonDatePicker btn_dated;
+	private ButtonDatePicker btn_date_picker;
 
 	public CellButtonDatePicker(String str) {
 		super(new ButtonDatePicker(str));
 		
-		btn_dated = (ButtonDatePicker)getComponent(0);
-		btn_dated.setArc(20);
+		btn_date_picker = (ButtonDatePicker)getComponent(0);
+		btn_date_picker.setArc(20);
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
 	}
 	public CellButtonDatePicker(Date date) {
 		super(new ButtonDatePicker(date));
 		
-		btn_dated = (ButtonDatePicker)getComponent(0);
-		btn_dated.setArc(20);
+		btn_date_picker = (ButtonDatePicker)getComponent(0);
+		btn_date_picker.setArc(20);
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
 	}
 	public CellButtonDatePicker() {
 		super(new ButtonDatePicker(new Date()));
 		
-		btn_dated = (ButtonDatePicker)getComponent(0);
-		btn_dated.setArc(20);
+		btn_date_picker = (ButtonDatePicker)getComponent(0);
+		btn_date_picker.setArc(20);
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
 	}
-	public ButtonDatePicker getButtonDated() {
-		return btn_dated;
+	public ButtonDatePicker getButtonDatePicker() {
+		return btn_date_picker;
 	}
-	public void setButtonDateSelector(ButtonDatePicker btn_dated) {
-		this.btn_dated = btn_dated;
+	public void setButtonDatePicker(ButtonDatePicker btn_date_picker) {
+		this.btn_date_picker = btn_date_picker;
 	}
 	public void setDate(Date date) {
-		btn_dated.setDate(date);
+		btn_date_picker.setDate(date);
 	}
 	public Date getDate() {
-		return btn_dated.getDate();
+		return btn_date_picker.getDate();
 	}
 }

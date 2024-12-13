@@ -18,7 +18,7 @@ public class TableProducts extends Table{
 
 	public TableProducts() {
 		super(fields);
-		addInventoryRows();
+		//addInventoryRows();
 	}
 	public void addProduct(Product product) {
 		addRow(new ProductRow(product));
@@ -67,6 +67,17 @@ public class TableProducts extends Table{
 	public int getProductCount() {
 		return getRowCount();
 	}
+	public Product getSelectedProduct() {
+		return ((ProductRow)getSelectedRow()).getProduct();
+	}
+	public Product[] getSelectedProducts() {
+		Row rows[] = getSelectedRows();
+		Product products[] = new Product[rows.length];
+		for(int p=0; p<products.length; p++) {
+			products[p] = ((ProductRow)rows[p]).getProduct();
+		}
+		return products;
+	}
 	
 	public class ProductRow extends Row{
 		private static final long serialVersionUID = 2778698924837158048L;
@@ -106,7 +117,7 @@ public class TableProducts extends Table{
 					Cell cells[] = new Cell[12];
 					for(int c=0; c<12; c++) {
 						if(c==4) {
-							cells[c] = new CellLabelDate(fields[c]);
+							cells[c] = new CellLabelDate("yyyy-mm-dd");
 						}
 						else{
 							cells[c] = new Cell(new Label(fields[c]));

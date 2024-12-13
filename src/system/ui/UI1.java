@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import components.Button;
-import components.Panel;
+import components.panels.Panel;
 import components.panels.SearchPanel;
 import components.table.Table;
 import oop.interfaces.Theme;
@@ -43,6 +43,14 @@ public class UI1 extends Panel implements Theme{
 		
 		table = new Table(new String[] {"A", "B", "C", "D", "E"});
 		add(table, BorderLayout.CENTER);
+		
+	}
+	@Override
+	public void setVisible(boolean aFlag) {
+		super.setVisible(aFlag);
+		if(!aFlag) {
+			search_panel.getComboBox().close();
+		}
 	}
 	public SearchPanel getSearchPanel() {
 		return search_panel;

@@ -3,6 +3,8 @@ package system.ui.cells;
 
 import java.math.BigInteger;
 
+import javax.swing.BorderFactory;
+
 import components.fields.NumericField;
 import components.table.Cell;
 
@@ -14,6 +16,7 @@ public class CellNumericField extends Cell{
 		super(new NumericField(str));
 		
 		numeric_field = (NumericField)getComponent(0);
+		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
 	}
 	public NumericField getNumericField() {
 		return numeric_field;
