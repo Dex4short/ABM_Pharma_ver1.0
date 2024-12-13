@@ -6,7 +6,7 @@ create table security(sec_id int, password varchar(16), role varchar(3));
 insert into security values(0, 'admin', 'adm');
 insert into security values(1, 'employee', 'emp');
 
-create table products(inv_id int, item_id int, pack_id int, price_id int, rem_id int, item_condition varchar(9));
+create table products(prod_id int, item_id int, pack_id int, price_id int, rem_id int, item_condition varchar(9));
 
 create table item(item_id int, item_no varchar(8), description varchar(64), lot_no varchar(8), date_added date, exp_date date, brand varchar(32));
 
@@ -67,73 +67,28 @@ select * from cart;
 select * from orders;
 
 -----sample queries-----
-
-1.) getting all items from inventory:
-select 
-	a.item_no, 
-	a.description, 
-	a.lot_no, 
-	a.date_added, 
-	a.exp_date, 
-	a.brand, 
-	b.qty, 
-	c.name, 
-	d.cost, 
-	d.unit_price, 
-	d.discount, 
-	d.unit_amount
-from
-	items as a  
-	join 
-	packaging as b 
-	join 
-	uom as c 
-	join 
-	pricing as d 
-	join 
-	remarks as r
-	join
-	inventory as e 
-on
-	e.item_id = a.item_id and 
-	e.pack_id = b.pack_id and b.uom_id = c.uom_id and 
-	e.price_id = d.price_id and
-	e.rem_id = r.rem_id;
-	
-2.
-select 
-	p.pack_id, 
-	p.qty,
-	p.size,
-	p.uom_id,
-	p.parentPack_id
-from 
-	packaging p join inventory i 
-where 
-	p.parentPack_id=1 
-	and 
-	(
-		i.item_condition='STORED' 
-		or 
-		i.item_condition='ARCHIVED' 
-	);
-	
-3.
-select 
-	*
-from 
-	packaging p inner join inventory i 
-on 
-	p.pack_id=i.pack_id
-where
-	p.parentPack_id=1
-	and 
-	(
-		i.item_condition='STORED' 
-		or 
-		i.item_condition='ARCHIVED' 
-	);
-	
-4.
-select
-	
+ 1. Sample products:
+ INSERT INTO ITEM (item_id, item_no, description, lot_no, date_added, exp_date, brand) VALUES
+    (0, '0000', 'sample0', '0000', '2024-12-13', '2025-12-13', 'XXXX'),
+    (1, '1000', 'sample1', '0001', '2024-12-13', '2025-12-13', 'YYYY'),
+    (2, '2000', 'sample2', '0002', '2024-12-13', '2025-12-13', 'ZZZZ');
+    
+ INSERT INTO PACKAGING (pack_id, qty, size, uom_id, parentPack_id) VALUES
+    (0, 100, 100, 0, -1),
+    (1, 50, 50, 1, -1),
+    (2, 150, 150, 2, -1);
+    
+ INSERT INTO UOM (uom_id, name, size, subUom_id) VALUES
+    (0, 'box', 1, -1),
+    (1, 'pieces', 1, -1),
+    (2, 'sachet', 1, -1);
+    
+ INSERT INTO PRICING (price_id, cost, unit_price, discount, unit_amount) VALUES
+    (0, 1000.00, 1200.00, '10%', 1080.00),
+    (1, 500.00, 600.00, '5%', 570.00),
+    (2, 300.00, 350.00, '2%', 346.50);
+ 
+ INSERT INTO PRODUCTS (prod_id, item_id, pack_id, price_id, rem_id, item_condition) VALUES
+    (0, 0, 0, 0, -1,'STORED'),
+    (1, 1, 1, 1, -1,'STORED'),
+    (2, 2, 2, 2, -1, 'STORED');
