@@ -6,13 +6,13 @@ create table security(sec_id int, password varchar(16), role varchar(3));
 insert into security values(0, 'admin', 'adm');
 insert into security values(1, 'employee', 'emp');
 
-create table products(inv_id int, item_id int, pack_id int, price_id int, rem_id int, item_condition varchar(9));
+create table products(prod_id int, item_id int, pack_id int, price_id int, rem_id int, prod_condition varchar(9));
 
-create table item(item_id int, item_no varchar(8), description varchar(64), lot_no varchar(8), date_added date, exp_date date, brand varchar(32));
+create table item(item_id int, item_no varchar(8 ), description varchar(64), lot_no varchar(8 ), date_added date, exp_date date, brand varchar(32));
 
-create table packaging(pack_id int, qty int, size int, uom_id int, parentPack_id int);
+create table packaging(pack_id int, qty int, size int, uom_id varchar(16), parentPack_id int);
 
-create table uom(uom_id int, name varchar(16), size int, subUom_id int);
+create table uom(uom_id varchar(16), name varchar(16), size int, subUom_id varchar(16));
 
 create table pricing(price_id int, cost decimal(12,2), unit_price decimal(12,2), discount varchar(4), unit_amount decimal(12,2));
 
@@ -38,33 +38,80 @@ insert into counter values(15, '00:00:00', 'OPEN' , 0);
 
 create table cart(cart_no int, counter_no int, order_no int);
 
-create table orders(order_no int, inv_id int);
+create table orders(order_no int, prod_id int);
 
 create table transactions(trans_id int, counter_no int, cart_no int, tin_no varchar(16), cust_id int, date_listed date, terms varchar(16), cost_amount decimal(12,2), profit decimal(12,2), discount varchar(4), total_amount decimal(12,2));
 
-create table customers(cust_id int, customer_name varchar(64), address varchar(64));
+create table customers(cust_id int, customer_name varchar(64), address varchar(64), contact_number varchar(11), e_mail varchar(64), company varchar(64));
 
 -----Manual Reset-------
-delete from inventory;
-delete from items;
+delete from products;
+delete from item;
 delete from packaging;
 delete from uom;
 delete from pricing;
 delete from remarks;
 delete from cart;
 delete from orders;
+delete from transactions;
+delete from customers;
 
 update counter set counter_state='OPEN' where counter_no>0;
 
 -----Manual Checking-----
-select * from inventory;
-select * from items;
+select * from products;
+select * from item;
 select * from packaging;
 select * from uom;
 select * from pricing;
 select * from remarks;
 select * from cart;
 select * from orders;
+select * from transactions;
+select * from customers;
+
+select * from counter;
+
+-----Manual Dropping-----
+drop table products;
+drop table item;
+drop table packaging;
+drop table uom;
+drop table pricing;
+drop table remarks;
+drop table counter;
+drop table cart;
+drop table orders;
+drop table transactions;
+drop table customers;
+
+-----sample queries-----
+ 1. Sample products:
+ INSERT INTO ITEM (item_id, item_no, description, lot_no, date_added, exp_date, brand) VALUES
+    (0, '0000', 'sample0', '0000', '2024-12-13', '2025-12-13', 'XXXX'),
+    (1, '1000', 'sample1', '0001', '2024-12-13', '2025-12-13', 'YYYY'),
+    (2, '2000', 'sample2', '0002', '2024-12-13', '2025-12-13', 'ZZZZ');
+    
+ INSERT INTO PACKAGING (pack_id, qty, size, uom_id, parentPack_id) VALUES
+    (0, 100, 100, 0, -1),
+    (1, 50, 50, 1, -1),
+    (2, 150, 150, 2, -1);
+    
+ INSERT INTO UOM (uom_id, name, size, subUom_id) VALUES
+    (0, 'box', 1, -1),
+    (1, 'pieces', 1, -1),
+    (2, 'sachet', 1, -1);
+    
+ INSERT INTO PRICING (price_id, cost, unit_price, discount, unit_amount) VALUES
+    (0, 1000.00, 1200.00, '10%', 1080.00),
+    (1, 500.00, 600.00, '5%', 570.00),
+    (2, 300.00, 350.00, '2%', 346.50);
+
+ INSERT INTO PRODUCTS (prod_id, item_id, pack_id, price_id, rem_id, prod_condition) VALUES
+ 	(0, 0, 0, 0, -1,'STORED'),
+    (1, 1, 1, 1, -1,'STORED'),
+    (2, 2, 2, 2, -1, 'STORED');
+
 
 -----sample queries-----
 
