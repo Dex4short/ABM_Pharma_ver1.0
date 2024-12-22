@@ -10,7 +10,7 @@ create table products(prod_id int, item_id int, pack_id int, price_id int, rem_i
 
 create table item(item_id int, item_no varchar(8 ), description varchar(64), lot_no varchar(8 ), date_added date, exp_date date, brand varchar(32));
 
-create table packaging(pack_id int, qty int, size int, uom_id varchar(16), parentPack_id int);
+create table packaging(pack_id int, qty int, size int, uom_id varchar(16), parentPack_id int, pack_line varchar(10), pack_group int);
 
 create table uom(uom_id varchar(16), name varchar(16), size int, subUom_id varchar(16));
 
@@ -37,26 +37,28 @@ insert into counter values(14, '00:00:00', 'OPEN' , 0);
 insert into counter values(15, '00:00:00', 'OPEN' , 0);
 
 create table cart(cart_no int, counter_no int, order_no int);
+insert into cart values(0, 0, 0);
+insert into cart values(0, 1, 1);
+insert into cart values(0, 2, 2);
+insert into cart values(0, 3, 3);
+insert into cart values(0, 4, 4);
+insert into cart values(0, 5, 5);
+insert into cart values(0, 6, 6);
+insert into cart values(0, 7, 7);
+insert into cart values(0, 8, 8);
+insert into cart values(0, 9, 9);
+insert into cart values(0, 10, 10);
+insert into cart values(0, 11, 11);
+insert into cart values(0, 12, 12);
+insert into cart values(0, 13, 13);
+insert into cart values(0, 14, 14);
+insert into cart values(0, 15, 15);
 
-create table orders(order_no int, prod_id int);
+create table orders(order_no int, prod_id int, net_amount decimal(12,2));
 
-create table transactions(trans_id int, counter_no int, cart_no int, tin_no varchar(16), cust_id int, date_listed date, terms varchar(16), cost_amount decimal(12,2), profit decimal(12,2), discount varchar(4), total_amount decimal(12,2));
+create table transactions(trans_id int, counter_no int, cart_no int, tin_no varchar(16), cust_id int, date_listed date, terms varchar(16), cost_amount decimal(12,2), profit decimal(12,2), discount varchar(4), total_netAmount decimal(12,2));
 
 create table customers(cust_id int, customer_name varchar(64), address varchar(64), contact_number varchar(11), e_mail varchar(64), company varchar(64));
-
------Manual Reset-------
-delete from products;
-delete from item;
-delete from packaging;
-delete from uom;
-delete from pricing;
-delete from remarks;
-delete from cart;
-delete from orders;
-delete from transactions;
-delete from customers;
-
-update counter set counter_state='OPEN' where counter_no>0;
 
 -----Manual Checking-----
 select * from products;
@@ -72,7 +74,23 @@ select * from customers;
 
 select * from counter;
 
+-----Manual Reset-------
+delete from products;
+delete from item;
+delete from packaging;
+delete from uom;
+delete from pricing;
+delete from remarks;
+delete from orders;
+delete from transactions;
+delete from customers;
+
+delete from cart;
+update counter set counter_state='OPEN' where counter_no>0;
+
 -----Manual Dropping-----
+drop database abm_pharma_rev2;
+
 drop table products;
 drop table item;
 drop table packaging;
