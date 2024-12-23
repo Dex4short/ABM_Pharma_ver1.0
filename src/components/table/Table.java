@@ -345,7 +345,9 @@ public class Table extends Panel implements Theme{
 			return getPanelView().getComponentCount();
 		}
 		public Row getSelectedRow() {
-			return selected_rows.get(selected_rows.size() - 1);
+			int index = selected_rows.size() - 1;
+			if(index != -1) return selected_rows.get(index);
+			else return null;
 		}
 		public Row[] getSelectedRows() {
 			Row rows[] = new Row[selected_rows.size()];

@@ -5,20 +5,12 @@ import oop.Product;
 public interface Transactions {
 	
 	public default void searchCustomersFromTransaction(String category, String word) {
-		//Product products[] = null;
 		
-		//onSearchFromTransactionCustomers(products);
 	}
 	public default void printCustomersFromTransaction() {
 		
 	}
 	public default void getCustomerListFromTransaction() {
-		
-	}
-	public default void calculateTotalCostAmount() {
-		
-	}
-	public default void calculateTotalProfit() {
 		
 	}
 	public default void printCustomerOrdersFromTransaction() {

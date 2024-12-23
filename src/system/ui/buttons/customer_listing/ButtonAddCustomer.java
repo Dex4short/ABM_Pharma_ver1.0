@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 
 import components.Button;
 import oop.Customer;
+import oop.enums.CustomerState;
 import res.Resource;
 import system.ui.Window;
 import system.ui.panels.actions.ActionPanelCustomerAdd;
@@ -27,9 +28,10 @@ public abstract class ButtonAddCustomer extends Button{
 	public void mouseClicked(MouseEvent e) {
 		Window.getStackPanel().pushPanel(new ActionPanelCustomerAdd() {
 			private static final long serialVersionUID = 2483456328408759972L;
+
 			@Override
-			public void onCustomerOk(Customer customer) {
-				onAddCustomerOk(customer);
+			public void onCustomerOk(String customer_name, String address, String contact_no, String e_mail, String company) {
+				onAddCustomerOk(new Customer(-1, customer_name, address, contact_no, e_mail, company, CustomerState.Listed));
 			}
 		}, 400, 300);
 	}

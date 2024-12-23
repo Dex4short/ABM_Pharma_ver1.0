@@ -57,7 +57,9 @@ public class TableCustomers extends Table{
 		return getRowCount();
 	}
 	public Customer getSelectedCustomer() {
-		return ((CustomerRow)getSelectedRow()).getCustomer();
+		Row row = getSelectedRow();
+		if(row != null)	return ((CustomerRow)getSelectedRow()).getCustomer();
+		else return null;
 	}
 	public Customer[] getSelectedCustomers() {
 		Row rows[] = getSelectedRows();

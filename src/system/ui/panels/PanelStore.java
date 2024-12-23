@@ -5,17 +5,18 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 
-import components.Button;
 import components.Padding;
 import oop.Cart;
 import oop.Counter;
 import oop.Order;
 import oop.Packaging;
 import oop.Product;
+import oop.Transaction;
 import system._default_.Store;
 import system.ui.UI3;
 import system.ui.Window;
 import system.ui.bars.BarFieldCart;
+import system.ui.buttons.ordering.ButtonCheckOut;
 import system.ui.panels.searches.SearchPanelProduct;
 import system.ui.tables.TableAisle;
 import system.ui.tables.TableCart;
@@ -60,7 +61,14 @@ public class PanelStore extends UI3 implements Store{
 		getUiBottom().getSearchPanel().setVisible(false);
 		getUiBottom().setBarFields(bar_field_cart);
 		
-		Button.Quaternary btn_check_out = new Button.Quaternary("Check Out");
+		ButtonCheckOut btn_check_out = new ButtonCheckOut(getCounter()) {
+			private static final long serialVersionUID = 7693465853429312072L;
+			@Override
+			public void onCheckOut(Transaction transaction) { checkOutFromStore(transaction); }
+			@Override
+			public Cart getCart() { return getCart(); }
+			
+		};
 		btn_check_out.setArc(20);
 		btn_check_out.setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
 		bar_field_cart.add(new Padding(btn_check_out, 4, 10, 4, 10), BorderLayout.EAST);
@@ -82,8 +90,8 @@ public class PanelStore extends UI3 implements Store{
 		// TODO Auto-generated method
 	}
 	@Override
-	public void onCheckout() {
-		// TODO Auto-generated method stub
+	public void onCheckOutFromStore() {
+		
 	}
 	@Override
 	public void onLoadCartFromStore(Cart cart) {

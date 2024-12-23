@@ -46,6 +46,7 @@ public class PanelCustomers extends UI1 implements Customers{
 			private static final long serialVersionUID = 2321823320064198028L;
 			@Override
 			public void onAddCustomerOk(Customer customer) { addFromCustomers(customer); }
+			
 		};
 		addButton(btn_add_customer);
 		

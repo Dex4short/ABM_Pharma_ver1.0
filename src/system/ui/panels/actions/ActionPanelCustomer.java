@@ -9,16 +9,13 @@ import components.Label;
 import components.fields.TextField;
 import components.panels.ActionPanel;
 import components.panels.Panel;
-import oop.Customer;
-import oop.enums.CustomerState;
 import system.ui.Window;
 
 public abstract class ActionPanelCustomer extends ActionPanel{
 	private static final long serialVersionUID = -3251443593560045012L;
 	private TextField txt_field[];
-	private Customer customer;
-
-	public ActionPanelCustomer() {
+	
+	public ActionPanelCustomer(String customer_name, String address, String contact_no, String e_mail, String company) {
 		super("Customer");
 		
 		getPanelBody().setLayout(new BorderLayout(10, 20));
@@ -34,7 +31,6 @@ public abstract class ActionPanelCustomer extends ActionPanel{
 		int rows = labels.length;
 		txt_field = new TextField[rows];
 		
-		
 		Panel left_panel = new Panel();
 		Panel center_panel = new Panel();
 		
@@ -49,6 +45,7 @@ public abstract class ActionPanelCustomer extends ActionPanel{
 			center_panel.add(txt_field[r] = new TextField());
 		}
 		
+		setFieldValues(customer_name, address, contact_no, e_mail, company);
 	}
 	@Override
 	public void onOk() {
@@ -63,26 +60,25 @@ public abstract class ActionPanelCustomer extends ActionPanel{
 	public void onCancel() {
 		Window.getStackPanel().popPanel();
 	}
-	public void setCustomer(Customer customer) {
-		txt_field[0].setText(customer.getCustomerName());
-		txt_field[1].setText(customer.getAddress());
-		txt_field[2].setText(customer.getContactNo());
-		txt_field[3].setText(customer.getEmail());
-		txt_field[4].setText(customer.getCompany());
-		this.customer = customer;
+	public void setFieldValues(String customer_name, String address, String contact_no, String e_mail, String company) {
+		txt_field[0].setText(customer_name);
+		txt_field[1].setText(address);
+		txt_field[2].setText(contact_no);
+		txt_field[3].setText(e_mail);
+		txt_field[4].setText(company);
 	}
-	public Customer getCustomer() {
-		return customer;
-	}
-	public void customerOk() {
-		String 
-		str[] = {
+	public String[] getFieldValues() {
+		return new String[] {
 			txt_field[0].getText(),
 			txt_field[1].getText(),
 			txt_field[2].getText(),
 			txt_field[3].getText(), 
 			txt_field[4].getText()
-		},
+		};
+	}
+	public void customerOk() {
+		String 
+		str[] = getFieldValues(),
 		field[] = {"name", "address", "contact no.", "e-mail", "company name"};
 		
 		for(int s=0; s<str.length; s++) {
@@ -94,17 +90,9 @@ public abstract class ActionPanelCustomer extends ActionPanel{
 			}
 		}
 		
-		onCustomerOk(new Customer(
-			getCustomer().getCustomerId(),
-			str[0], 
-			str[1], 
-			str[2], 
-			str[3], 
-			str[4], 
-			getCustomer().getCustomerState()
-		));
+		onCustomerOk(str[0], str[1], str[2], str[3], str[4]);
 	}
 	
-	public abstract void onCustomerOk(Customer customer);
+	public abstract void onCustomerOk(String customer_name, String address, String contact_no, String e_mail, String company);
 	
 }
