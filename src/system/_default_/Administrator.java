@@ -1,6 +1,7 @@
 package system._default_;
 
 import components.panels.Panel;
+import system.ui.panels.PanelCustomers;
 import system.ui.panels.PanelDisposal;
 import system.ui.panels.PanelInventory;
 import system.ui.panels.PanelReserves;
@@ -30,7 +31,7 @@ public interface Administrator {
 		onToStatistics();
 	}
 	public default void toCustomers() {
-		onToCustomers();
+		onToCustomers((PanelCustomers)nextPanel());
 	}
 
 	public Panel nextPanel();
@@ -41,6 +42,6 @@ public interface Administrator {
 	public void onToDisposal(PanelDisposal disposal);
 	public void onToReturns();
 	public void onToStatistics();
-	public void onToCustomers();
+	public void onToCustomers(PanelCustomers customers);
 	
 }

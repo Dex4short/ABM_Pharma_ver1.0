@@ -39,17 +39,13 @@ public class TableProducts extends Table{
 		for(Product p: getProducts()) {
 			if(p == product) {
 				removeProduct(n);
-				n++;
 			}
+			n++;
 		}
 	}
 	public void removeProducts(int p[]) {
-		Row rows[] = new Row[p.length];
-		for(int r=0; r<rows.length; r++) {
-			rows[r] = getRow(p[r]);
-		}
-		for(Row row: rows) {
-			remove(row);
+		for(int i=0; i<p.length; i++) {
+			remove(p[i]);
 		}
 	}
 	public void removeAllProducts() {
@@ -86,18 +82,18 @@ public class TableProducts extends Table{
 
 		public ProductRow(Product product) {
 			super(new Cell[] {
-					new CellLabel(product.getItem().getItemNo()),
-					new CellLabel(product.getItem().getDescription()),
-					new CellLabel(product.getItem().getLotNo()),
-					new CellLabel(product.getItem().getDateAdded().toString()),
-					new CellLabelDate(product.getItem().getExpDate()),
-					new CellLabel(product.getItem().getBrand()),
-					new CellLabelQuantity(product.getPackaging().getQty()),
-					new CellLabelUom(product.getPackaging().getUom()),
-					new CellLabelDecimal(product.getPricing().getCost()),
-					new CellLabelDecimal(product.getPricing().getUnitPrice()),
-					new CellLabelPercentage(product.getPricing().getDiscount()),
-					new CellLabelDecimal(product.getPricing().getUnitAmount())
+				new CellLabel(product.getItem().getItemNo()),
+				new CellLabel(product.getItem().getDescription()),
+				new CellLabel(product.getItem().getLotNo()),
+				new CellLabel(product.getItem().getDateAdded().toString()),
+				new CellLabelDate(product.getItem().getExpDate()),
+				new CellLabel(product.getItem().getBrand()),
+				new CellLabelQuantity(product.getPackaging().getQty()),
+				new CellLabelUom(product.getPackaging().getUom()),
+				new CellLabelDecimal(product.getPricing().getCost()),
+				new CellLabelDecimal(product.getPricing().getUnitPrice()),
+				new CellLabelPercentage(product.getPricing().getDiscount()),
+				new CellLabelDecimal(product.getPricing().getUnitAmount())
 			});
 			setProduct(product);
 		}

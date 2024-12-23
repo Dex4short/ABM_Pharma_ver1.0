@@ -1,6 +1,5 @@
 package system.ui.tables;
 
-import components.table.Row;
 import oop.Order;
 import system.ui.cells.CellLabelDecimal;
 
@@ -24,25 +23,21 @@ public class TableOrders extends TableProducts{
 	public void removeOrder(int n) {
 		removeRow(n);
 	}
-	public void removeProduct(Order order) {
+	public void removeOrdr(Order order) {
 		int n=0;
 		for(Order o: getOrders()) {
 			if(o == order) {
 				removeProduct(n);
-				n++;
 			}
+			n++;
 		}
 	}
-	public void removeProducts(int p[]) {
-		Row rows[] = new Row[p.length];
-		for(int r=0; r<rows.length; r++) {
-			rows[r] = getRow(p[r]);
-		}
-		for(Row row: rows) {
-			remove(row);
+	public void removeOrders(int o[]) {
+		for(int i=0; i<o.length; i++) {
+			removeOrder(o[i]);
 		}
 	}
-	public void removeAllProducts() {
+	public void removeAllOredrs() {
 		removeAllRows();
 	}
 	public Order getOrder(int n) {
@@ -55,7 +50,7 @@ public class TableOrders extends TableProducts{
 		}
 		return orders;
 	}
-	public int getProductCount() {
+	public int getOrderCount() {
 		return getRowCount();
 	}
 	

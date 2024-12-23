@@ -305,8 +305,14 @@ public class Table extends Panel implements Theme{
 		}
 		public void addRows(Row rows[]) {
 			for(Row row: rows) {
-				addRow(row);
+				row.addMouseListener(this);
+				row.getCheckBox().addItemListener(this);
+				row.getCheckBox().setVisible(check_boxes_enabled);
+				row.setSelectionEnabled(selection_enabled);
+				
+				getPanelView().add(row);
 			}
+			align_rows();
 		}
 		public void removeRow(int r) {
 			getPanelView().remove(r);

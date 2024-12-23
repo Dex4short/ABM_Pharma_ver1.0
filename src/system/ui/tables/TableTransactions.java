@@ -24,28 +24,24 @@ public class TableTransactions extends Table{
 		}
 		addRows(rows);
 	}
-	public void removeProduct(int n) {
+	public void removeTransaction(int n) {
 		removeRow(n);
 	}
-	public void removeProduct(Transaction transaction) {
+	public void removeTransaction(Transaction transaction) {
 		int n=0;
 		for(Transaction t: getTransactions()) {
 			if(t == transaction) {
-				removeProduct(n);
-				n++;
+				removeTransaction(n);
 			}
+			n++;
 		}
 	}
-	public void removeProducts(int p[]) {
-		Row rows[] = new Row[p.length];
-		for(int r=0; r<rows.length; r++) {
-			rows[r] = getRow(p[r]);
-		}
-		for(Row row: rows) {
-			remove(row);
+	public void removeTransactions(int t[]) {
+		for(int i=0; i<t.length; i++) {
+			remove(t[i]);
 		}
 	}
-	public void removeAllProducts() {
+	public void removeAllTransactions() {
 		removeAllRows();
 	}
 	public Transaction getTransaction(int n) {

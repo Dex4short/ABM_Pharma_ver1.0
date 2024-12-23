@@ -7,9 +7,12 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
 import components.Button;
+import oop.Customer;
 import res.Resource;
+import system.ui.Window;
+import system.ui.panels.actions.ActionPanelCustomerAdd;
 
-public class ButtonAddCustomer extends Button{
+public abstract class ButtonAddCustomer extends Button{
 	private static final long serialVersionUID = -8319852584060410711L;
 
 	public ButtonAddCustomer() {
@@ -22,6 +25,18 @@ public class ButtonAddCustomer extends Button{
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		//Window.getStackPanel().pushPanel();
+		Window.getStackPanel().pushPanel(new ActionPanelCustomerAdd() {
+			private static final long serialVersionUID = 2483456328408759972L;
+			@Override
+			public void onCustomerOk(Customer customer) {
+				onAddCustomerOk(customer);
+			}
+		}, 400, 300);
 	}
+	public void addCustomerOk(Customer customer) {
+		onAddCustomerOk(customer);
+	}
+	
+	public abstract void onAddCustomerOk(Customer customer);
+	
 }

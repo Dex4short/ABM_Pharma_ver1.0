@@ -172,9 +172,9 @@ public class PanelAdmin extends Panel implements Theme, Administrator{
 		}, "Loading Reserves...");
 	}
 	@Override
-	public void onToDisposal(PanelDisposal panel_disposal) {
+	public void onToDisposal(PanelDisposal disposals) {
 		Window.load(() -> {
-			panel_disposal.loadAllFromDisposal();
+			disposals.loadAllFromDisposal();
 		}, "Loading Disposals...");
 	}
 	@Override
@@ -186,8 +186,10 @@ public class PanelAdmin extends Panel implements Theme, Administrator{
 		
 	}
 	@Override
-	public void onToCustomers() {
-		
+	public void onToCustomers(PanelCustomers customers) {
+		Window.load(() -> {
+			customers.loadAllFromCustomers();
+		}, "Loading Customers...");
 	}
 	@Override
 	public Panel nextPanel() {
