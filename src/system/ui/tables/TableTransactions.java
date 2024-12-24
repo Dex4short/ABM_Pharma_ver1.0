@@ -17,7 +17,7 @@ public class TableTransactions extends Table{
 	public void addTransaction(Transaction transaction) {
 		addRow(new TransactionRow(transaction));
 	}
-	public void addTransaction(Transaction transactions[]) {
+	public void addTransactions(Transaction transactions[]) {
 		TransactionRow rows[] = new TransactionRow[transactions.length];
 		for(int r=0; r<rows.length; r++) {
 			rows[r] = new TransactionRow(transactions[r]);

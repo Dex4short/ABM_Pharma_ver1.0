@@ -6,6 +6,7 @@ import system.ui.panels.PanelDisposal;
 import system.ui.panels.PanelInventory;
 import system.ui.panels.PanelReserves;
 import system.ui.panels.PanelStore;
+import system.ui.panels.PanelTransactions;
 
 public interface Administrator {
 	
@@ -13,7 +14,7 @@ public interface Administrator {
 		onToInventory((PanelInventory)nextPanel());
 	}
 	public default void toTransactions() {
-		onToTransactions();
+		onToTransactions((PanelTransactions)nextPanel());
 	}
 	public default void toStore() {
 		onToStore((PanelStore)nextPanel());
@@ -36,7 +37,7 @@ public interface Administrator {
 
 	public Panel nextPanel();
 	public void onToInventory(PanelInventory inventory);
-	public void onToTransactions();
+	public void onToTransactions(PanelTransactions transactions);
 	public void onToStore(PanelStore store);
 	public void onToReserves(PanelReserves reserves);
 	public void onToDisposal(PanelDisposal disposal);

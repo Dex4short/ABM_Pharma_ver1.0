@@ -5,6 +5,7 @@ import database.MySQL_Counter;
 import database.MySQL_Orders;
 import database.MySQL_Packaging;
 import database.MySQL_Products;
+import database.MySQL_Transactions;
 import oop.Cart;
 import oop.Counter;
 import oop.Order;
@@ -54,7 +55,7 @@ public interface Store {
 		onRemoveFromCart();
 	}
 	public default void checkOutFromStore(Transaction transaction) {
-		
+		MySQL_Transactions.instertTransaction(transaction);
 		onCheckOutFromStore();
 	}
 	public default void loadCartFromStore(Counter counter) {

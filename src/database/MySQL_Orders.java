@@ -24,7 +24,6 @@ public class MySQL_Orders {
 		);
 		return order;
 	}
-
 	public static Order[] selectOrders(int order_no) {
 		Object results[][] = MySQL.select(
 				new String[] {"prod_id", "net_amount"},

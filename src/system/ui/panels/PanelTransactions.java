@@ -1,6 +1,7 @@
 package system.ui.panels;
 
 import oop.Product;
+import oop.Transaction;
 import system._default_.Transactions;
 import system.ui.UI3;
 import system.ui.bars.BarFieldOrder;
@@ -15,17 +16,18 @@ import system.ui.tables.TableTransactions;
 
 public class PanelTransactions extends UI3 implements Transactions{
 	private static final long serialVersionUID = -4728899875964533207L;
+	private TableTransactions table_transactions;
 
 	public PanelTransactions() {
 		SearchPanelTransactions search_customer = new SearchPanelTransactions() {
 			private static final long serialVersionUID = -3060789857476437659L;
 			@Override
-			public void onSearch(String category, String word) {
-				onSearchFromTransactionCustomers(null);
-			}
+			public void onSearch(String category, String word) { searchCustomersFromTransactions(category, word); }
 		};
 		ButtonPrintTransactions btn_print_transactions = new ButtonPrintTransactions();
-		TableTransactions table_transactions = new TableTransactions();
+		
+		table_transactions = new TableTransactions();
+		
 		BarFieldTransaction bar_field_transaction = new BarFieldTransaction();
 		getUiTop().setSearchPanel(search_customer);
 		getUiTop().addButton(btn_print_transactions);
@@ -56,43 +58,32 @@ public class PanelTransactions extends UI3 implements Transactions{
 		getUiBottom().setBarFields(bar_field_order);
 	}
 	@Override
-	public void onSearchFromTransactionCustomers(Product[] products) {
+	public void onSearchCustomersFromTransactions(Product[] products) {
 		// TODO Auto-generated method stub
 	}
 	@Override
-	public void onPrintCustomersFromTransaction() {
+	public void onPrintCustomersFromTransactions() {
 		// TODO Auto-generated method stub
 	}
 	@Override
-	public void onGetCustomerListFromTransaction() {
+	public void onGetCustomerListFromTransactions() {
 		// TODO Auto-generated method stub
 	}
 	@Override
-	public void onCalculateTotalCostAmount() {
+	public void onPrintCustomerOrdersFromTransactions() {
 		// TODO Auto-generated method stub
 	}
 	@Override
-	public void onCalculateTotalProfit() {
+	public void onReturnCustomerOrderFromTransactions() {
 		// TODO Auto-generated method stub
 	}
 	@Override
-	public void onPrintCustomerOrdersFromTransaction() {
+	public void onGetCustomerOrdersFromTransactions() {
 		// TODO Auto-generated method stub
 	}
 	@Override
-	public void onReturnCustomerOrderFromTransaction() {
-		// TODO Auto-generated method stub
-	}
-	@Override
-	public void onGetCustomerOrdersFromTransaction() {
-		// TODO Auto-generated method stub
-	}
-	@Override
-	public void onCalculateCostAmount() {
-		// TODO Auto-generated method stub
-	}
-	@Override
-	public void onCalculateProfit() {
-		// TODO Auto-generated method stub
+	public void onloadAllFromTransactions(Transaction transactions[]) {
+		table_transactions.removeAllTransactions();
+		table_transactions.addTransactions(transactions);
 	}
 }

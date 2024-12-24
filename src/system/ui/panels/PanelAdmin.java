@@ -153,8 +153,10 @@ public class PanelAdmin extends Panel implements Theme, Administrator{
 		},"Loading Inventory...");
 	}
 	@Override
-	public void onToTransactions() {
-		
+	public void onToTransactions(PanelTransactions transactions) {
+		Window.load(() -> {
+			transactions.loadAllFromTransactions();
+		}, "Loading Transactions...");
 	}
 	@Override
 	public void onToStore(PanelStore store) {

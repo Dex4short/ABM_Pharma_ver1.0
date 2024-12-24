@@ -138,8 +138,22 @@ public abstract class ActionPanelPackage extends ActionPanel{
 			setQty(qty);
 		}
 		public Quantity getQty() {
-			int quantity = getNumber();
-			if(quantity > qty.getQuantity()) throw new RuntimeException("Insufficient product quantity");
+			Uom uom = getMainPackaging().getUom();
+			
+			int 
+			quantity = getNumber(),
+			scale = 1;
+			
+			if(uom.getUnitType() != getUomLabel().getUom().getUnitType()) {
+				while(uom != null) {
+					scale *= uom.getUnitSize();
+					
+					if(uom.getUnitType() == getUomLabel().getUom().getUnitType()) break;
+					uom = uom.getSubUom();
+				}
+			}
+			
+			if(quantity > (qty.getQuantity() * scale)) throw new RuntimeException("Insufficient product quantity");
 			else if(quantity == 0) throw new RuntimeException("Please set product quantity");
 			return new Quantity(quantity);
 		}

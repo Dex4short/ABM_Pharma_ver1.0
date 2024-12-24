@@ -25,6 +25,16 @@ public class Counter {
 		setCounterState(counterState);
 		setCurrentCartNo(currentCart_no);
 	}
+	@Override
+	public String toString() {
+		return 
+			"Counter:\n" + 
+			"\t" + getCounterNo() + "\n" +
+			"\t" + getActiveTime() + "\n" +
+			"\t" + getCounterState() + "\n" +
+			"\t" + getCurrentCartNo() + "\n"
+		;
+	}
 	public int getCounterNo() {
 		return counterNo;
 	}

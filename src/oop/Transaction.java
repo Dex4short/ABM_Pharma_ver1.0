@@ -8,17 +8,37 @@ public class Transaction {
 	private String tin_no, terms;
 	private Date date;
 	private Percentage discount;
-	private Decimal cost_amount, profit, total_netAmount;
+	private Decimal cost_amount, total_net_amount, profit;
 	
-	public Transaction(int trans_id, Counter counter, Cart cart, Customer customer, String tin_no, Date date, String terms, Decimal cost_amount, Decimal profit, Percentage discount, Decimal total_amoun) {
+	public Transaction(int trans_id, Counter counter, Cart cart, Customer customer, String tin_no, Date date, String terms, Decimal cost_amount, Percentage discount, Decimal total_net_amount, Decimal profit) {
 		setTransId(trans_id);
+		setCounter(counter);
+		setCart(cart);
+		setCustomer(customer);
 		setTinNo(tin_no);
 		setDate(date);
 		setTerms(terms);
 		setCostAmount(cost_amount);
-		setProfit(profit);
 		setDiscount(discount);
-		setTotalNetAmount(total_netAmount);
+		setTotalNetAmount(total_net_amount);
+		setProfit(profit);
+	}
+	@Override
+	public String toString() {
+		return 
+			"Transaction: \n" +
+			"\t" + getTransId() + "\n" +
+			"\t" + getCounter().toString() + "\n" +
+			"\t" + getCart().toString() + "\n" +
+			"\t" + getCustomer().toString() + "\n" +
+			"\t" + getTinNo() + "\n" +
+			"\t" + getDate() + "\n" +
+			"\t" + getTerms() + "\n" +
+			"\t" + getCostAmount() + "\n" +
+			"\t" + getDiscount() + "\n" +
+			"\t" + getTotalNetAmount() + "\n" +
+			"\t" + getProfit() + "\n" 
+		;
 	}
 	public int getTransId() {
 		return trans_id;
@@ -73,16 +93,16 @@ public class Transaction {
 	public void setCostAmount(Decimal cost_amount) {
 		this.cost_amount = cost_amount;
 	}
+	public Decimal getTotalNetAmount() {
+		return total_net_amount;
+	}
+	public void setTotalNetAmount(Decimal total_net_amount) {
+		this.total_net_amount = total_net_amount;
+	}
 	public Decimal getProfit() {
 		return profit;
 	}
 	public void setProfit(Decimal profit) {
 		this.profit = profit;
-	}
-	public Decimal getTotalNetAmount() {
-		return total_netAmount;
-	}
-	public void setTotalNetAmount(Decimal total_amount) {
-		this.total_netAmount = total_amount;
 	}
 }

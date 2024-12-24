@@ -53,7 +53,7 @@ public abstract class ActionPanelCheckOut extends ActionPanelCustomer{
 	}
 	@Override
 	public void onCustomerOk(String customer_name, String address, String contact_no, String e_mail, String company) {
-		if(getCustomer() == null) setCustomer(new Customer(-1, customer_name, address, contact_no, e_mail, company, CustomerState.Listed));
+		if(getCustomer() == null) setCustomer(new Customer(-1, customer_name, address, contact_no, e_mail, company, CustomerState.Unlisted));
 		checkOutOk();
 	}
 	public Customer getCustomer() {
@@ -83,6 +83,7 @@ public abstract class ActionPanelCheckOut extends ActionPanelCustomer{
 			null, 
 			null
 		);
+		
 		onCheckoutOk(transaction);
 	}
 	public CheckOutHeading getCheckOutHeading() {

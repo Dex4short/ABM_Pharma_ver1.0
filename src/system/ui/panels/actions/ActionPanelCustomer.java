@@ -54,6 +54,7 @@ public abstract class ActionPanelCustomer extends ActionPanel{
 			Window.getStackPanel().popPanel(this);
 		} catch (Exception e) {
 			Window.floatMessageAndBeep(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	@Override

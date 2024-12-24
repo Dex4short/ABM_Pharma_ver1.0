@@ -48,7 +48,10 @@ public abstract class ActionPanelCustomerList extends ActionPanel{
 	}
 	public void customerListOk() {
 		Customer customer =  getTableCustomers().getSelectedCustomer();
-		if(customer != null) onCustomerListOk(customer);
+		
+		if(customer != null) {
+			onCustomerListOk(customer);
+		}
 		else throw new RuntimeException("Plese select from customer list");
 	}
 	

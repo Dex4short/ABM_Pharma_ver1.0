@@ -10,6 +10,15 @@ public class Order{
 		setProduct(product);
 		setNetAmount(net_amount);
 	}
+	@Override
+	public String toString() {
+		return 
+			"Order:\n" +
+			"\t" + getOrderNo() + "\n" +
+			"\t" + getProduct().toString() + "\n" +
+			"\t" + getNetAmount() + "\n"
+		;
+	}
 	public int getOrderNo() {
 		return order_no;
 	}

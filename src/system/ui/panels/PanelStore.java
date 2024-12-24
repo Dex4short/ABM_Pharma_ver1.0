@@ -56,18 +56,18 @@ public class PanelStore extends UI3 implements Store{
 			private static final long serialVersionUID = 8573987007916262303L;
 			@Override
 			public Order[] getOrders() { return table_product_cart.getOrders(); }
-			
 		};
 		getUiBottom().getSearchPanel().setVisible(false);
 		getUiBottom().setBarFields(bar_field_cart);
 		
-		ButtonCheckOut btn_check_out = new ButtonCheckOut(getCounter()) {
+		ButtonCheckOut btn_check_out = new ButtonCheckOut(bar_field_cart) {
 			private static final long serialVersionUID = 7693465853429312072L;
 			@Override
 			public void onCheckOut(Transaction transaction) { checkOutFromStore(transaction); }
 			@Override
-			public Cart getCart() { return getCart(); }
-			
+			public Cart getCart() { return PanelStore.this.getCart(); }
+			@Override
+			public Counter getCounter() { return PanelStore.this.getCounter();}
 		};
 		btn_check_out.setArc(20);
 		btn_check_out.setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
@@ -91,7 +91,9 @@ public class PanelStore extends UI3 implements Store{
 	}
 	@Override
 	public void onCheckOutFromStore() {
-		
+		table_product_cart.removeAllProducts();
+		bar_field_cart.clearFields();
+		openCounter(getCounter().getCounterNo());//reopen counter
 	}
 	@Override
 	public void onLoadCartFromStore(Cart cart) {

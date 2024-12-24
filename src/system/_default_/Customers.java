@@ -2,6 +2,7 @@ package system._default_;
 
 import database.MySQL_Customer;
 import oop.Customer;
+import oop.enums.CustomerState;
 
 public interface Customers {
 	
@@ -20,11 +21,11 @@ public interface Customers {
 		onEditFromCustomers(customer);
 	}
 	public default void deleteFromCustomers(Customer customer) {
-		
+		MySQL_Customer.deleteCustomer(customer);
 		onDeleteFromCustomers(customer);
 	}
 	public default void loadAllFromCustomers() {
-		onLoadAllFromCustomers(MySQL_Customer.selectCustomers());
+		onLoadAllFromCustomers(MySQL_Customer.selectCustomers(CustomerState.Listed));
 	}
 	
 	public Customer onSelectFromCustomers();

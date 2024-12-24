@@ -28,7 +28,14 @@ public class PanelCustomers extends UI1 implements Customers{
 		};	
 		setSearchPanel(search_panel_customers);
 
-		ButtonDeleteCustomer btn_delete_customer = new ButtonDeleteCustomer();
+		ButtonDeleteCustomer btn_delete_customer = new ButtonDeleteCustomer() {
+			private static final long serialVersionUID = -9013302516856194929L;
+			@Override
+			public void onDeleteCustomer(Customer customer) { deleteFromCustomers(customer);}
+			@Override
+			public Customer[] getSelectedCustomers() { return selectMoreFromCustomers(); }
+			
+		};
 		btn_delete_customer.setEnabled(false);
 		addButton(btn_delete_customer);
 
@@ -95,7 +102,7 @@ public class PanelCustomers extends UI1 implements Customers{
 	}
 	@Override
 	public void onDeleteFromCustomers(Customer customer) {
-		
+		table_customers.removeCustomer(customer);
 	}
 	@Override
 	public void onLoadAllFromCustomers(Customer[] customers) {

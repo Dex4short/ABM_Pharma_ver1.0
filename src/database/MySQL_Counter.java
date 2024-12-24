@@ -31,9 +31,8 @@ public class MySQL_Counter {
 	public static void updateCounter(Counter counter) {
 		MySQL.update(
 			table_name,
-			table_columns, 
+			new String[] {"active_time", "counter_state", "currentCart_no"}, 
 			new Object[] {
-				counter.getCounterNo(),
 				counter.getActiveTime().toSQLTime(),
 				counter.getCounterState().name(),
 				counter.getCurrentCartNo()

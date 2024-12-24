@@ -35,6 +35,17 @@ public class Accountancy {
 	public static Decimal calculateNetAmount(Order order) {
 		return calculateNetAmount(order.getProduct());
 	}
+	public static Decimal calculateCostAmount(Order orders[]) {
+		Decimal	cost, total_amount = new Decimal();
+		BigDecimal qty;
+		for(Order order: orders) {
+			cost = order.getProduct().getPricing().getCost();
+			qty = new BigDecimal(order.getProduct().getPackaging().getQty().getQuantity());
+			
+			total_amount = total_amount.add(cost.multiply(new Decimal(qty)));
+		}
+		return total_amount;
+	}
 	public static Decimal calculateTotalNetAmount(Order orders[]) {
 		Decimal total_netAmount = new Decimal();
 		for(Order order: orders) {
@@ -42,4 +53,9 @@ public class Accountancy {
 		}
 		return total_netAmount;
 	}
+	public static Decimal calculateProfit(Decimal total_net_amount, Decimal cost_amount) {
+		return total_net_amount.subtract(cost_amount);
+	}
 }
+
+

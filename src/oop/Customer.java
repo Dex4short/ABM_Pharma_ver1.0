@@ -29,11 +29,13 @@ public class Customer {
 	public String toString() {
 		return 
 			"Customer:\n" + 
+			"cust_id:\t" + getCustomerId() + "\n" +
 			"Name:\t" + getCustomerName() + "\n" +
 			"Address:\t" + getAddress() + "\n" +
 			"Contact No.:\t" + getContactNo() + "\n" +
 			"E-mail:\t" + getEmail() + "\n" +
-			"Company:\t" + getCompany() + "\n";
+			"Company:\t" + getCompany() + "\n" +
+			"CustomerState:\t" + getCustomerState().name() + "\n";
 	}
 	public void setCustomerId(int cust_id) {
 		this.cust_id = cust_id;

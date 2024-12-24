@@ -14,6 +14,23 @@ public class Cart {
 		setOrderNo(order_no);
 		setOrders(orders);
 	}
+	@Override
+	public String toString() {
+		String info = 
+			"Cart:\n" +
+			"\t" + getCartNo() + "\n" +
+			"\t" + getCounterNo() + "\n" +
+			"\t" + getOrderNo() + "\n" +
+			"\t oredrs: "
+		;
+		
+		for(int o=0; o<orders.size(); o++) {
+			info += orders.get(o) + ", ";
+		}
+		info += "\n";
+		
+		return info;
+	}
 	public int getCartNo() {
 		return cart_no;
 	}

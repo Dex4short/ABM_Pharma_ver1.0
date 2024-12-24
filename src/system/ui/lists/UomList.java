@@ -65,16 +65,16 @@ public abstract class UomList extends ListPane{
 		private Uom uom;
 		
 		public UomItem(Uom uom, String uom_description) {
-			super(createItemComponent(uom.getUnitType().name(), uom_description));
+			super(new Panel() {
+				private static final long serialVersionUID = 1L;
+				{
+					setBackground(new Color(0,0,0,0));
+					setLayout(new GridLayout(1, 2));
+					add(new Label(uom.getUnitType().name()));
+					add(new Label(uom_description)).setForeground(text_color[1]);
+				}
+			});
 			setUom(uom);
-		}
-		private static Panel createItemComponent(String uom_name, String uom_description) {
-			Panel panel = new Panel();
-			panel.setBackground(new Color(0,0,0,0));
-			panel.setLayout(new GridLayout(1, 2));
-			panel.add(new Label(uom_name));
-			panel.add(new Label(uom_description)).setForeground(text_color[1]);
-			return panel;
 		}
 		public Uom getUom() {
 			return uom;

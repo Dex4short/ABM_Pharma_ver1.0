@@ -41,8 +41,11 @@ public class MySQL_Customer {
 			CustomerState.valueOf((String)result[0][5])
 		);
 	}
-	public static Customer[] selectCustomers() {
-		Object result[][] = MySQL.select(table_columns,	table_name,"");
+	public static Customer[] selectCustomers(CustomerState customer_state) {
+		return selectCustomers("where customer_state='" + customer_state + "' ");
+	}
+	public static Customer[] selectCustomers(String condition) {
+		Object result[][] = MySQL.select(table_columns,	table_name,condition);
 		Customer customers[] = new Customer[result.length];
 		for(int c=0; c<customers.length; c++) {
 			customers[c] = new Customer(
@@ -73,7 +76,13 @@ public class MySQL_Customer {
 		);
 	}
 	public static void deleteCustomer(Customer customer) {
-		//check for transaction history ? delete : hide
-		MySQL.delete(table_name, "where cust_id=" + customer.getCustomerId());
+		boolean has_records = MySQL_Transactions.selectFromTransactions(customer).length != 0;
+		if(has_records) {
+			customer.setCustomerState(CustomerState.Unlisted);
+			updateCustomer(customer);
+		}
+		else{
+			MySQL.delete(table_name, "where cust_id=" + customer.getCustomerId());
+		}
 	}
 }

@@ -14,6 +14,9 @@ public class Percentage {
 			this.percent_value = percent_value;
 		}
 	}
+	public Percentage() {
+		percent_value = "0%";
+	}
 	@Override
 	public String toString() {
 		return percent_value;
