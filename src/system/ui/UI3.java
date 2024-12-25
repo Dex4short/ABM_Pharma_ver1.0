@@ -28,6 +28,12 @@ public class UI3 extends Panel{
 		panel_bottom.add(ui_bottom, BorderLayout.CENTER);
 		
 	}
+	@Override
+	public void setVisible(boolean aFlag) {
+		getUiTop().setVisible(aFlag);
+		getUiBottom().setVisible(aFlag);
+		super.setVisible(aFlag);
+	}
 	public UI2 getUiTop() {
 		return ui_top;
 	}

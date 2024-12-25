@@ -2,7 +2,7 @@ package system._default_;
 
 import database.MySQL_Customer;
 import oop.Customer;
-import oop.enums.CustomerState;
+import oop.enumerations.CustomerState;
 
 public interface Customers {
 	

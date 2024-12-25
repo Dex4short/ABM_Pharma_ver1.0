@@ -6,7 +6,7 @@ import java.awt.Color;
 import javax.swing.JComponent;
 
 import components.panels.Panel;
-import oop.interfaces.Theme;
+import oop.implementations.Theme;
 
 public class Cell extends Panel implements Theme{
 	private static final long serialVersionUID = -1471486271615938005L;

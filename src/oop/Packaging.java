@@ -1,6 +1,6 @@
 package oop;
 
-import oop.enums.PackagingLine;
+import oop.enumerations.PackagingLine;
 
 public class Packaging {
 	private int pack_id, parentPack_id, pack_group;

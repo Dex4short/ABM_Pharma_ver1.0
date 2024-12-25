@@ -7,8 +7,9 @@ import java.awt.Toolkit;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import extras.Graphix.Shadow;
-import oop.interfaces.Theme;
+import components._misc_.Graphix.Shadow;
+import components._misc_.interfaces.Drawable;
+import oop.implementations.Theme;
 import system.ui.Window;
 
 public class MessageFloater extends Rectangle implements Drawable{

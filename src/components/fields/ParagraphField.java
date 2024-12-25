@@ -8,7 +8,7 @@ import javax.swing.JTextArea;
 
 import components.drawables.RoundRect;
 import oop.essentials.Settings;
-import oop.interfaces.Theme;
+import oop.implementations.Theme;
 
 public class ParagraphField extends JTextArea implements Theme{
 	private static final long serialVersionUID = 7124779313820186668L;

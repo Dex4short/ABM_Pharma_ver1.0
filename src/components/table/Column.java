@@ -5,7 +5,7 @@ import java.awt.BorderLayout;
 
 import components.Label;
 import components.panels.Panel;
-import oop.interfaces.Theme;
+import oop.implementations.Theme;
 
 public class Column extends Panel implements Theme{
 	private static final long serialVersionUID = 4355410927257105403L;

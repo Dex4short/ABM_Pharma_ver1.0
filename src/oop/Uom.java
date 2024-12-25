@@ -1,6 +1,6 @@
 package oop;
 
-import oop.enums.UomType;
+import oop.enumerations.UomType;
 
 public class Uom {
 	private String uom_id="-1";

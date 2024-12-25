@@ -13,7 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import components.panels.Panel;
-import oop.interfaces.Theme;
+import oop.implementations.Theme;
 
 public abstract class LoadingScreen extends Panel implements Theme{
 	private static final long serialVersionUID = 2355348374570638690L;

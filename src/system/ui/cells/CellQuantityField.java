@@ -21,7 +21,7 @@ public class CellQuantityField extends Cell{
 		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
 	}
 	public CellQuantityField(Quantity qty) {
-		super(new TwinNumericField(qty.getQuantity(), qty.getSize()));
+		super(new TwinNumericField(qty.getAmount(), qty.getSize()));
 
 		twin_field = (TwinNumericField)getComponent(0);
 		twin_field.maintainAspectRatio(1);
@@ -42,6 +42,6 @@ public class CellQuantityField extends Cell{
 		return new Quantity(qty, size);
 	}
 	public void setQuantity(Quantity quantity) {
-		twin_field.getLeftNumericField().setNumber(quantity.getQuantity());
+		twin_field.getLeftNumericField().setNumber(quantity.getAmount());
 	}
 }

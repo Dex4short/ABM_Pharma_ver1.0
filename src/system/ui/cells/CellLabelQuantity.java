@@ -13,7 +13,7 @@ public class CellLabelQuantity extends Cell{
 	private Quantity quantity;
 
 	public CellLabelQuantity(Quantity quantity) {
-		super(new Label(quantity.getQuantity() + "/" + quantity.getSize()));
+		super(new Label(quantity.getAmount() + "/" + quantity.getSize()));
 		setLabel((Label)getComponent(0));
 		setQuantity(quantity);
 		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));

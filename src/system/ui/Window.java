@@ -8,10 +8,10 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.JFrame;
 
+import components._misc_.Graphix.Shadow;
 import components.drawables.MessageFloater;
 import components.panels.StackPanel;
-import extras.Graphix.Shadow;
-import oop.interfaces.Theme;
+import oop.implementations.Theme;
 import system.ui.overlays.LoadingScreen;
 import system.ui.overlays.LoadingScreenAdapater;
 import system.ui.panels.PanelAdmin;

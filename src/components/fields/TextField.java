@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
-import oop.interfaces.Theme;
+import oop.implementations.Theme;
 
 public class TextField extends JTextField implements Theme{
 	private static final long serialVersionUID = 5030767401767931571L;

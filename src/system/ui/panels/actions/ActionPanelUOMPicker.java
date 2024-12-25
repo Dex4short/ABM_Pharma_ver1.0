@@ -21,7 +21,7 @@ import components.list.ListPane;
 import components.panels.ActionPanel;
 import components.panels.Panel;
 import oop.Uom;
-import oop.enums.UomType;
+import oop.enumerations.UomType;
 import oop.essentials.UomPresets;
 
 public abstract class ActionPanelUOMPicker extends ActionPanel {

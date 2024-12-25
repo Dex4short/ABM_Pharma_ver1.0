@@ -2,7 +2,7 @@ package system._default_;
 
 import database.MySQL_Products;
 import oop.Product;
-import oop.enums.ProductCondition;
+import oop.enumerations.ProductCondition;
 
 public interface Inventory {
 

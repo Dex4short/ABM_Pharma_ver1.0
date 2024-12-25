@@ -1,8 +1,9 @@
 package system.ui.panels;
 
+import components.Button;
 import components.table.Row;
 import oop.Product;
-import oop.enums.ProductCondition;
+import oop.enumerations.ProductCondition;
 import system._default_.Inventory;
 import system.ui.UI1;
 import system.ui.Window;
@@ -17,6 +18,7 @@ import system.ui.tables.TableProducts;
 public class PanelInventory extends UI1 implements Inventory{
 	private static final long serialVersionUID = 5294758605465387431L;
 	private TableProducts table_products;
+	private Button btn_reserveProduct, btn_disposeProduct, btn_editProduct;
 
 	public PanelInventory() {
 		SearchPanelProduct search_panel = new SearchPanelProduct() {
@@ -31,34 +33,31 @@ public class PanelInventory extends UI1 implements Inventory{
 		ButtonPrintProducts btn_printProduct = new ButtonPrintProducts();
 		addButton(btn_printProduct);
 		
-		ButtonReserveProduct btn_reserveProduct = new ButtonReserveProduct() {
+		btn_reserveProduct = new ButtonReserveProduct() {
 			private static final long serialVersionUID = 1L;
 			@Override
 			public void onReserveProduct(Product product) { reserveFromInventory(product); }
 			@Override
 			public Product[] getSelectedProducts() { return selectManyFromInventory(); }
 		};
-		btn_reserveProduct.setEnabled(false);
 		addButton(btn_reserveProduct);
 		
-		ButtonDisposeProduct btn_disposeProduct = new ButtonDisposeProduct() {
+		btn_disposeProduct = new ButtonDisposeProduct() {
 			private static final long serialVersionUID = 5138197980623655054L;
 			@Override
 			public void onDisposeProduct(Product product) {	disposeFromInventory(product);	}
 			@Override
 			public Product[] getSelectedProducts() { return selectManyFromInventory(); }
 		};
-		btn_disposeProduct.setEnabled(false);
 		addButton(btn_disposeProduct);
 		
-		ButtonEditProduct btn_editProduct = new ButtonEditProduct() {
+		btn_editProduct = new ButtonEditProduct() {
 			private static final long serialVersionUID = 4118216613740322570L;
 			@Override
 			public void onEditProduct(Product new_product, Product old_product, ProductCondition product_condition) { editFromInventory(new_product, old_product, product_condition); } 
 			@Override
 			public Product[] getSelectedProductSet() { return selectInventorySet(); }
 		};
-		btn_editProduct.setEnabled(false);
 		addButton(btn_editProduct);
 
 		ButtonAddProduct btn_addProduct = new ButtonAddProduct() {
@@ -133,6 +132,10 @@ public class PanelInventory extends UI1 implements Inventory{
 	}
 	@Override
 	public void onLoadAllFromInventory(Product[] products) {
+		btn_reserveProduct.setEnabled(false);
+		btn_disposeProduct.setEnabled(false);
+		btn_editProduct.setEnabled(false);
+		
 		table_products.removeAllProducts();
 		table_products.addProducts(products);
 	}

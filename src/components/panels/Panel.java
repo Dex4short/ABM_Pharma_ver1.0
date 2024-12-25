@@ -10,9 +10,9 @@ import java.awt.geom.Area;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import extras.Graphix;
+import components._misc_.Graphix;
 import oop.essentials.Settings;
-import oop.interfaces.Theme;
+import oop.implementations.Theme;
 
 public class Panel extends JPanel implements Theme{
 	private static final long serialVersionUID = -4587780315956796207L;

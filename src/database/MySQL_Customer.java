@@ -1,7 +1,7 @@
 package database;
 
 import oop.Customer;
-import oop.enums.CustomerState;
+import oop.enumerations.CustomerState;
 
 public class MySQL_Customer {
 	public static final String

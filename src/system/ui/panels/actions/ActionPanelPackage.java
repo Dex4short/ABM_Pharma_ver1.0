@@ -12,7 +12,7 @@ import components.panels.Panel;
 import oop.Packaging;
 import oop.Quantity;
 import oop.Uom;
-import oop.enums.PackagingLine;
+import oop.enumerations.PackagingLine;
 import system.ui.Window;
 import system.ui.lists.UomList;
 
@@ -131,7 +131,7 @@ public abstract class ActionPanelPackage extends ActionPanel{
 		private Quantity qty;
 		
 		public QuantityField(Quantity qty) {
-			super(qty.getQuantity());
+			super(qty.getAmount());
 			setHorizontalAlignment(NumericField.LEFT);
 			setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 			setBackground(main_color[2]);
@@ -153,12 +153,12 @@ public abstract class ActionPanelPackage extends ActionPanel{
 				}
 			}
 			
-			if(quantity > (qty.getQuantity() * scale)) throw new RuntimeException("Insufficient product quantity");
+			if(quantity > (qty.getAmount() * scale)) throw new RuntimeException("Insufficient product quantity");
 			else if(quantity == 0) throw new RuntimeException("Please set product quantity");
 			return new Quantity(quantity);
 		}
 		public void setQty(Quantity qty) {
-			setNumber(qty.getQuantity());
+			setNumber(qty.getAmount());
 			this.qty = qty;
 		}
 	}

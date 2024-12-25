@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 import components.panels.Panel;
 import components.scroll.ScrollPane;
-import oop.interfaces.Theme;
+import oop.implementations.Theme;
 
 public class ListPane extends ScrollPane implements Theme, ComponentListener{
 	private static final long serialVersionUID = 3941388225399542457L;

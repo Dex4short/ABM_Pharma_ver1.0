@@ -1,6 +1,6 @@
 package oop;
 
-import oop.enums.SecurityRole;
+import oop.enumerations.SecurityRole;
 
 public class Access {
 	private int sec_id;

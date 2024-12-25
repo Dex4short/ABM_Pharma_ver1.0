@@ -2,7 +2,7 @@ package database;
 
 import oop.Packaging;
 import oop.Quantity;
-import oop.enums.PackagingLine;
+import oop.enumerations.PackagingLine;
 
 public class MySQL_Packaging {
 	public static final String 
@@ -20,7 +20,7 @@ public class MySQL_Packaging {
 			table_columns,
 			new Object[] {
 				packaging.getPackId(),
-				packaging.getQty().getQuantity(),
+				packaging.getQty().getAmount(),
 				packaging.getQty().getSize(),
 				packaging.getUom().getUomId(),
 				packaging.getParentPackId(),
@@ -69,7 +69,7 @@ public class MySQL_Packaging {
 			table_name,
 			new String[] {"qty", "size", "uom_id"},
 			new Object[] {
-				packaging.getQty().getQuantity(),
+				packaging.getQty().getAmount(),
 				packaging.getQty().getSize(),
 				packaging.getUom().getUomId()
 			},

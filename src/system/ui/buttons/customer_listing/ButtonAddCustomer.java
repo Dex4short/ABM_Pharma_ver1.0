@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 
 import components.Button;
 import oop.Customer;
-import oop.enums.CustomerState;
+import oop.enumerations.CustomerState;
 import res.Resource;
 import system.ui.Window;
 import system.ui.panels.actions.ActionPanelCustomerAdd;

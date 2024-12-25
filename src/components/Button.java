@@ -10,10 +10,10 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
-import extras.Graphix;
-import oop.abstracts.Decoration;
+import components._misc_.Graphix;
+import components._misc_.abstracts.Decoration;
 import oop.essentials.Settings;
-import oop.interfaces.Theme;
+import oop.implementations.Theme;
 
 public class Button extends JButton implements Theme, MouseListener{
 	public static final int Normal_State=0,Hovered_State=1,Pressed_State=2, Disabled_State=3;

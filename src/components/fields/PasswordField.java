@@ -8,7 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPasswordField;
 
 import oop.essentials.Settings;
-import oop.interfaces.Theme;
+import oop.implementations.Theme;
 
 public class PasswordField  extends JPasswordField implements Theme{
 	private static final long serialVersionUID = -6007197876089778096L;

@@ -13,7 +13,7 @@ import components.panels.Panel;
 import oop.Customer;
 import oop.Date;
 import oop.Transaction;
-import oop.enums.CustomerState;
+import oop.enumerations.CustomerState;
 import system.ui.buttons.picking.ButtonCustomerPicker;
 
 public abstract class ActionPanelCheckOut extends ActionPanelCustomer{

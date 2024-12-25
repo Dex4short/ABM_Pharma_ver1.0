@@ -10,7 +10,9 @@ import oop.Uom;
 public class PackagingManager {
 
 	public static Packaging[] extract(Packaging main_pack, Packaging sub_pack) {
-		System.out.println(">>>" + main_pack.toString());
+		System.out.println("---------------------------------------extracting");
+		System.out.println("main pack:" + main_pack.toString());
+		System.out.println("sub pack:" + sub_pack.toString());
 		ArrayList<PackagingData> pack_datas = new ArrayList<PackagingData>();
 		
 		Quantity mainPack_qty = main_pack.getQty(), subPack_qty = sub_pack.getQty();
@@ -34,6 +36,7 @@ public class PackagingManager {
 			
 			length = length.multiply(new BigDecimal(mainPack_uom.getUnitSize()));
 			scale = scale.divide(new BigDecimal(mainPack_uom.getUnitSize()));
+			
 		}
 		
 		Packaging extracted_packages[] = new Packaging[pack_datas.size()];
@@ -48,6 +51,7 @@ public class PackagingManager {
 			else {
 				extracted_packages[p].setParentPackId(main_pack.getPackId());
 			}
+
 			System.out.println(pack_datas.get(p).toString());
 		}
 
@@ -60,33 +64,39 @@ public class PackagingManager {
 	private static class PackagingData {
 		private Uom uom;
 		private Quantity quantity;
-		private BigDecimal quantity_a, quantity_b, length, scale;
+		private BigDecimal amount_a, amount_b, length, scale;
 		
 		public PackagingData(Uom uom, BigDecimal length, BigDecimal scale) {
 			this.uom = uom;
 			this.length = length;
 			this.scale = scale;
+			quantity = new Quantity(0);
 		}
 		public void setQuantity_A(Quantity main_qty) {
-			quantity_a = new BigDecimal(main_qty.getQuantity()).multiply(length);
+			amount_a = new BigDecimal(main_qty.getAmount()).multiply(length);
+			quantity.setSize(main_qty.getSize());
 		}
 		public void setQuantity_B(Quantity sub_qty, BigDecimal magnitude) {
-			quantity_b = new BigDecimal(sub_qty.getQuantity()).multiply(magnitude).divide(scale);
+			amount_b = new BigDecimal(sub_qty.getAmount()).multiply(magnitude).divide(scale);
 		}
 		public void subtract() {
 			if(uom.getUnitSize() == 1) {
-				quantity = new Quantity(quantity_a.subtract(quantity_b).intValue());
+				quantity.setAmount(amount_a.subtract(amount_b).intValue());
 			}
 			else {
-				quantity = new Quantity(quantity_a.subtract(quantity_b).intValue() % uom.getUnitSize());
+				int value = amount_a.subtract(amount_b).intValue() % uom.getUnitSize();
+				quantity.setAmount(value);
+				quantity.setSize(value);
 			}
 		}
 		public void add() {
 			if(uom.getUnitSize() == 1) {
-				quantity = new Quantity(quantity_a.add(quantity_b).intValue());
+				quantity.setAmount(amount_a.add(amount_b).intValue());
 			}
 			else {
-				quantity = new Quantity(quantity_a.add(quantity_b).intValue() % uom.getUnitSize());
+				int value = amount_a.add(amount_b).intValue() % uom.getUnitSize();
+				quantity.setAmount(value);
+				quantity.setSize(value);
 			}
 		}
 		public Packaging createPackaging() {
@@ -94,11 +104,12 @@ public class PackagingManager {
 		}
 		public String toString() {
 			return  
-				quantity_a.toPlainString() + " " + uom.getUnitType().name() + 
+				amount_a.toPlainString() + " " + uom.getUnitType().name() + 
 				" - " +
-				quantity_b.toPlainString() + " " + uom.getUnitType().name() +
+				amount_b.toPlainString() + " " + uom.getUnitType().name() +
 				" = " +  
-				quantity.toString() + " " + uom.getUnitType().name() ;
+				quantity.toString() + " " + uom.getUnitType().name() 
+			;
 		}
 	}
 }

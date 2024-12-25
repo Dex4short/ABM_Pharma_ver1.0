@@ -1,5 +1,6 @@
 package system.ui.panels;
 
+import components.Button;
 import components.table.Row;
 import oop.Customer;
 import system._default_.Customers;
@@ -14,6 +15,7 @@ import system.ui.tables.TableCustomers;
 public class PanelCustomers extends UI1 implements Customers{
 	private static final long serialVersionUID = -2756977805365927787L;
 	private TableCustomers table_customers;
+	private Button btn_delete_customer, btn_edit_customer;
 		
 	public PanelCustomers() {
 		SearchPanelCustomers search_panel_customers = new SearchPanelCustomers() {
@@ -25,7 +27,7 @@ public class PanelCustomers extends UI1 implements Customers{
 		};	
 		setSearchPanel(search_panel_customers);
 
-		ButtonDeleteCustomer btn_delete_customer = new ButtonDeleteCustomer() {
+		btn_delete_customer = new ButtonDeleteCustomer() {
 			private static final long serialVersionUID = -9013302516856194929L;
 			@Override
 			public void onDeleteCustomer(Customer customer) { deleteFromCustomers(customer);}
@@ -33,17 +35,15 @@ public class PanelCustomers extends UI1 implements Customers{
 			public Customer[] getSelectedCustomers() { return selectMoreFromCustomers(); }
 			
 		};
-		btn_delete_customer.setEnabled(false);
 		addButton(btn_delete_customer);
 
-		ButtonEditCustomer btn_edit_customer = new ButtonEditCustomer() {
+		btn_edit_customer = new ButtonEditCustomer() {
 			private static final long serialVersionUID = -597842006912315272L;
 			@Override
 			public void onEditCustomerOk(Customer customer) { editFromCustomers(customer);}
 			@Override
 			public Customer getSelectedCustomer() { return selectFromCustomers(); }
 		};
-		btn_edit_customer.setEnabled(false);
 		addButton(btn_edit_customer);
 		
 		ButtonAddCustomer btn_add_customer = new ButtonAddCustomer() {
@@ -94,6 +94,9 @@ public class PanelCustomers extends UI1 implements Customers{
 	}
 	@Override
 	public void onLoadAllFromCustomers(Customer[] customers) {
+		btn_delete_customer.setEnabled(false);
+		btn_edit_customer.setEnabled(false);
+		
 		table_customers.removeAllCustomers();
 		table_customers.addCustomers(customers);
 	}

@@ -17,10 +17,10 @@ import javax.swing.ImageIcon;
 
 import components.Button;
 import components.Label;
+import components._misc_.Graphix;
+import components._misc_.Utilities;
 import components.fields.PasswordField;
 import components.panels.Panel;
-import extras.Graphix;
-import extras.Utilities;
 import oop.Access;
 import oop.essentials.Settings;
 import res.Resource;

@@ -5,8 +5,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 
-import extras.Graphix.Shadow;
-import extras.Utilities;
+import components._misc_.Utilities;
+import components._misc_.Graphix.Shadow;
 
 
 public class StackPanel extends Panel{

@@ -2,7 +2,7 @@ package database;
 
 import oop.Counter;
 import oop.Time;
-import oop.enums.CounterState;
+import oop.enumerations.CounterState;
 
 public class MySQL_Counter {
 	public static final String 

@@ -14,8 +14,8 @@ import javax.swing.Icon;
 
 import components.Button;
 import components.ComboBox;
+import components._misc_.Graphix;
 import components.fields.TextField;
-import extras.Graphix;
 import res.Resource;
 
 public abstract class SearchPanel extends Panel{

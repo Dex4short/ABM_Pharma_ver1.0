@@ -38,7 +38,7 @@ public class TableOrders extends TableProducts{
 			removeOrder(o[i]);
 		}
 	}
-	public void removeAllOredrs() {
+	public void removeAllOrders() {
 		removeAllRows();
 	}
 	public Order getOrder(int n) {

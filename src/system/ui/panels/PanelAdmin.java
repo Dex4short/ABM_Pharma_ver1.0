@@ -14,7 +14,7 @@ import components.Label;
 import components.panels.Panel;
 import components.tab.Tab;
 import components.tab.TabPane;
-import oop.interfaces.Theme;
+import oop.implementations.Theme;
 import res.Resource;
 import system._default_.Administrator;
 import system.ui.Window;

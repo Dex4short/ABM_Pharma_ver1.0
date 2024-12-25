@@ -7,7 +7,7 @@ import oop.Date;
 import oop.Decimal;
 import oop.Percentage;
 import oop.Transaction;
-import oop.enums.CustomerState;
+import oop.enumerations.CustomerState;
 
 public class MySQL_Transactions {
 	public static final String
@@ -38,10 +38,10 @@ public class MySQL_Transactions {
 		
 		int
 		counter_no = transaction.getCounter().getCounterNo(),
-		cart_no = MySQL_Cart.insertCart(counter_no).getCartNo();
+		cart_no = MySQL_Cart.insertCart(counter_no).getCartNo();//create next cart
 		
-		transaction.getCounter().setCurrentCartNo(cart_no);
-		MySQL_Counter.updateCounter(transaction.getCounter());		
+		transaction.getCounter().setCurrentCartNo(cart_no);//set next cart no
+		MySQL_Counter.updateCounter(transaction.getCounter());//update current counter for the next cart no
 		
 		return transaction;
 	}

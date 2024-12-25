@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 
 import components.Button;
 import oop.Product;
-import oop.enums.ProductCondition;
+import oop.enumerations.ProductCondition;
 import res.Resource;
 import system.ui.Window;
 import system.ui.panels.actions.ActionPanelAddProduct;
@@ -26,7 +26,15 @@ public abstract class ButtonAddProduct extends Button{
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Window.load(() -> showActionPanel(), "");
+		Window.load(() -> {
+			Window.getStackPanel().pushPanel(new ActionPanelAddProduct() {
+				private static final long serialVersionUID = -2025771841420314051L;
+				@Override
+				public void onAddProductOk(Product product, ProductCondition condition) {
+					addProduct(product, condition);
+				}
+			}, 20, 20, 226);
+		}, "");
 	}
 	public void addProduct(Product product, ProductCondition condition) {
 		onAddProduct(product, condition);
@@ -34,14 +42,4 @@ public abstract class ButtonAddProduct extends Button{
 	
 	public abstract void onAddProduct(Product product, ProductCondition condition);
 	
-	private void showActionPanel() {
-		Window.getStackPanel().pushPanel(new ActionPanelAddProduct() {
-			private static final long serialVersionUID = -2025771841420314051L;
-			@Override
-			public void onAddProductOk(Product product, ProductCondition condition) {
-				addProduct(product, condition);
-			}
-		}, 20, 20, 226);
-	
-	}
 }

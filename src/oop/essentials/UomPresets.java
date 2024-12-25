@@ -1,7 +1,7 @@
 package oop.essentials;
 
 import oop.Uom;
-import oop.enums.UomType;
+import oop.enumerations.UomType;
 
 public class UomPresets {
 	private UomPresets() {

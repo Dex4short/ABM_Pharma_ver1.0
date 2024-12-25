@@ -21,7 +21,7 @@ public class Accountancy {
 		);
 	}
 	public static Decimal calculateNetAmount(Packaging packaging, Pricing pricing) {
-		int quantity = packaging.getQty().getQuantity();
+		int quantity = packaging.getQty().getAmount();
 		
 		Decimal 
 		unit_amount = calculateUnitAmount(pricing.getUnitPrice(), pricing.getDiscount()),
@@ -40,7 +40,7 @@ public class Accountancy {
 		BigDecimal qty;
 		for(Order order: orders) {
 			cost = order.getProduct().getPricing().getCost();
-			qty = new BigDecimal(order.getProduct().getPackaging().getQty().getQuantity());
+			qty = new BigDecimal(order.getProduct().getPackaging().getQty().getAmount());
 			
 			total_amount = total_amount.add(cost.multiply(new Decimal(qty)));
 		}

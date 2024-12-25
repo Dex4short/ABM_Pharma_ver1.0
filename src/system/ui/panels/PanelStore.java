@@ -69,12 +69,11 @@ public class PanelStore extends UI3 implements Store{
 			@Override
 			public Cart getCart() { return PanelStore.this.getCart(); }
 			@Override
-			public Counter getCounter() { return PanelStore.this.getCounter();}
+			public Counter getCounter() { return PanelStore.this.getCounter(); }
 		};
 		btn_check_out.setArc(20);
 		btn_check_out.setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
 		bar_field_cart.add(new Padding(btn_check_out, 4, 10, 4, 10), BorderLayout.EAST);
-		
 	}
 	@Override
 	public void onSearchFromStore() {

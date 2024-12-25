@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import oop.Decimal;
 import oop.Order;
-import oop.enums.ProductCondition;
+import oop.enumerations.ProductCondition;
 
 public class MySQL_Orders {
 	public static final String 

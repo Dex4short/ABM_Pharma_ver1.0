@@ -12,8 +12,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import components.CheckBox;
+import components._misc_.abstracts.Decoration;
 import components.panels.Panel;
-import oop.abstracts.Decoration;
 
 public class Row extends Panel implements MouseListener, ItemListener{
 	private static final long serialVersionUID = 2506138846020942141L;

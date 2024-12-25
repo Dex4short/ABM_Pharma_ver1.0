@@ -24,7 +24,7 @@ import oop.Product;
 import oop.Quantity;
 import oop.Remarks;
 import oop.Uom;
-import oop.enums.PackagingLine;
+import oop.enumerations.PackagingLine;
 import oop.essentials.Accountancy;
 import system.ui.Window;
 import system.ui.buttons.picking.ButtonUomPicker;
@@ -132,7 +132,7 @@ public abstract class ActionPanelProduct  extends ActionPanel{
 		else if(brand.length() > 32) throw new Exception("Brand name should not exceed to 32 characters");
 		else if(brand.length() == 0) throw new Exception("Brand Name is empty");	
 		else if(exp_date.toString().equals("yyyy-mm-dd")) throw new Exception("Please set expiry date");
-		else if(qty.getQuantity() == 0) throw new Exception("Please set Quantity value");
+		else if(qty.getAmount() == 0) throw new Exception("Please set Quantity value");
 		else if(uom == null) throw new Exception("Please set UOM");
 		else if(cost.toString().equals("0.00")) throw new Exception("Cost amount is zero");
 		else if(unit_amount.toString().equals("0.00")) throw new Exception("Unit Amount is zero");

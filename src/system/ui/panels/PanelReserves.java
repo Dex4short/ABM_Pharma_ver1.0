@@ -1,5 +1,6 @@
 package system.ui.panels;
 
+import components.Button;
 import components.table.Row;
 import oop.Product;
 import oop.Remarks;
@@ -13,6 +14,7 @@ import system.ui.tables.TableReserves;
 public class PanelReserves extends UI4 implements Reserves{
 	private static final long serialVersionUID = 2111188953454121901L;
 	private TableReserves table_reserves;
+	private Button btn_restoreProduct, btn_disposeProduct;
 	
 	public PanelReserves() {
 		SearchPanelReserves search_panel_reserves = new SearchPanelReserves() {
@@ -24,25 +26,22 @@ public class PanelReserves extends UI4 implements Reserves{
 		};	
 		setSearchPanel(search_panel_reserves);
 		
-		ButtonRestoreProduct btn_restoreProduct = new ButtonRestoreProduct() {
+		btn_restoreProduct = new ButtonRestoreProduct() {
 			private static final long serialVersionUID = 7002474584549803354L;
 			@Override
 			public void onRestoreProduct(Product product) { restoreFromReserves(product); }
 			@Override
 			public Product[] getSelectedProducts() { return selectManyFromReserves(); }
 		};
-		btn_restoreProduct.setEnabled(false);
 		addButton(btn_restoreProduct);
 		
-		ButtonDisposeProduct btn_disposeProduct = new ButtonDisposeProduct() {
+		btn_disposeProduct = new ButtonDisposeProduct() {
 			private static final long serialVersionUID = 5138197980623655054L;
 			@Override
 			public void onDisposeProduct(Product product) {	disposeFromReserves(product); }
 			@Override
 			public Product[] getSelectedProducts() { return selectManyFromReserves(); }
-		
 		};
-		btn_disposeProduct.setEnabled(false);
 		addButton(btn_disposeProduct);
 
 		table_reserves = new TableReserves() {
@@ -94,6 +93,9 @@ public class PanelReserves extends UI4 implements Reserves{
 	}
 	@Override
 	public void onLoadAllFromReserves(Product[] products) {
+		btn_restoreProduct.setEnabled(false);
+		btn_disposeProduct.setEnabled(false);
+		
 		table_reserves.removeAllProducts();
 		table_reserves.addProducts(products);
 	}

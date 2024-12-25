@@ -17,7 +17,7 @@ import components.Label;
 import components.Padding;
 import components.panels.Panel;
 import components.scroll.ScrollPane;
-import oop.interfaces.Theme;
+import oop.implementations.Theme;
 
 public abstract class Table extends Panel implements Theme{
 	private static final long serialVersionUID = -8446662030696532231L;
@@ -271,14 +271,16 @@ public abstract class Table extends Panel implements Theme{
 				getRow(r).setBounds(0, getScrollY() + (row_h * r), row_w, row_h);
 			}
 		}
+		private boolean iterative_checking = false;
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			iterative_checking = true;
 			Row row = (Row)e.getSource();
 			while(selected_rows.size() > 0) {
 				selected_rows.get(0).setSelected(false);
 			}
+			iterative_checking = false;
 			row.setSelected(true);
-			onSelectRow(row);
 		}
 		@Override
 		public void mousePressed(MouseEvent e) {}
@@ -294,10 +296,16 @@ public abstract class Table extends Panel implements Theme{
 		public void itemStateChanged(ItemEvent e) {
 			Row row = (Row)((CheckBox)e.getSource()).getParent();
 			switch(e.getStateChange()){
-			case ItemEvent.SELECTED: selected_rows.add(row);
+			case ItemEvent.SELECTED: 
+				selected_rows.add(row);
 				break;
-			case ItemEvent.DESELECTED: selected_rows.remove(row);
+			case ItemEvent.DESELECTED: 
+				selected_rows.remove(row);
 				break;
+			}
+			
+			if(!iterative_checking) {
+				onSelectRow(row);
 			}
 		}
 		public void addRow(Row row) {

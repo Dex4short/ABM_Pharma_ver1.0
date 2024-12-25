@@ -1,7 +1,7 @@
 package database;
 
 import oop.Uom;
-import oop.enums.UomType;
+import oop.enumerations.UomType;
 
 public class MySQL_Uom {
 	public static String 

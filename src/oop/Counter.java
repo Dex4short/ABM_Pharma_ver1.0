@@ -1,6 +1,6 @@
 package oop;
 
-import oop.enums.CounterState;
+import oop.enumerations.CounterState;
 
 public class Counter {
 	private int counterNo, currentCart_no;

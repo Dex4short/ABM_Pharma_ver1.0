@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import oop.Packaging;
 import oop.Product;
 import oop.Uom;
-import oop.enums.ProductCondition;
+import oop.enumerations.ProductCondition;
 
 public class MySQL_Products {
 	
@@ -70,7 +70,7 @@ public class MySQL_Products {
 		ArrayList<Product> products = new ArrayList<Product>();
 		Uom uom = product.getPackaging().getUom().getSubUom();
 		int p=0;
-		while(uom != null && p<packagings.length) {
+		while(uom!=null && p<packagings.length) {
 			if(uom.getUnitType() == packagings[p].getUom().getUnitType()) {
 				products.add(selectProducts("where pack_id=" + packagings[p].getPackId())[0]);
 				uom = uom.getSubUom();

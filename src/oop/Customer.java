@@ -1,6 +1,6 @@
 package oop;
 
-import oop.enums.CustomerState;
+import oop.enumerations.CustomerState;
 
 public class Customer {
 	private int cust_id;

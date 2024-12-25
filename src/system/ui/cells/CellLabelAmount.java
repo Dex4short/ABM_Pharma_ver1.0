@@ -6,9 +6,9 @@ import java.awt.BorderLayout;
 import javax.swing.BorderFactory;
 
 import components.Label;
+import components._misc_.Graphix;
 import components.fields.TextField;
 import components.table.Cell;
-import extras.Graphix;
 import oop.Decimal;
 
 public class CellLabelAmount extends Cell{

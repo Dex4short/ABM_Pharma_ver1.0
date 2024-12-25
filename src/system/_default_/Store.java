@@ -3,7 +3,6 @@ package system._default_;
 import database.MySQL_Cart;
 import database.MySQL_Counter;
 import database.MySQL_Orders;
-import database.MySQL_Packaging;
 import database.MySQL_Products;
 import database.MySQL_Transactions;
 import oop.Cart;
@@ -12,7 +11,7 @@ import oop.Order;
 import oop.Packaging;
 import oop.Product;
 import oop.Transaction;
-import oop.enums.ProductCondition;
+import oop.enumerations.ProductCondition;
 import oop.essentials.Accountancy;
 
 public interface Store {
@@ -24,10 +23,12 @@ public interface Store {
 	public default void addToCart(Cart cart, Product main_product, Packaging[] extracted_packs, Packaging sub_pack) {		
 		Product sub_product = new Product(-1, main_product.getItem(), null, null, null);
 		
-		MySQL_Packaging.updatePackaging(extracted_packs[0]);
-		if(main_product.getPackaging().getParentPackId() != -1) MySQL_Products.updateProduct(main_product.getProdId(), ProductCondition.ARCHIVED);
+		main_product.getPackaging().setQty(extracted_packs[0].getQty());
+		if(main_product.getPackaging().getParentPackId() == -1) MySQL_Products.updateProduct(main_product); //if the main(selected) product is the parent ancestor
+		else MySQL_Products.updateProduct(main_product, (main_product.getPackaging().getQty().getAmount() != 0) ? ProductCondition.STORED : ProductCondition.ARCHIVED); //if the main(selected) product is the child ancestor
 		
 		if(main_product.getPackaging().getUom().getUnitType() == sub_pack.getUom().getUnitType()) {
+			sub_pack.setParentPackId(main_product.getPackaging().getPackId());
 			sub_product.setPackaging(sub_pack);
 			sub_product.setPricing(main_product.getPricing());
 		}
@@ -36,19 +37,18 @@ public interface Store {
 		
 		for(int n=0; n<product_children.length; n++) {
 			product_children[n].getPackaging().getQty().add(extracted_packs[n+1].getQty());
-			
-			MySQL_Products.updateProduct(
-				product_children[n],
-				(product_children[n].getPackaging().getQty().getQuantity()!=0) ? ProductCondition.STORED : ProductCondition.ARCHIVED
-			);
+			MySQL_Products.updateProduct(product_children[n], (product_children[n].getPackaging().getQty().getAmount() != 0) ? ProductCondition.STORED : ProductCondition.ARCHIVED);
 			
 			if(product_children[n].getPackaging().getUom().getUnitType() == sub_pack.getUom().getUnitType()) {
+				sub_pack.setParentPackId(product_children[n].getPackaging().getPackId());
 				sub_product.setPackaging(sub_pack);
 				sub_product.setPricing(product_children[n].getPricing());
 			}
 		}
-			
-		onAddToCart(MySQL_Orders.insertOrder(new Order(cart.getOrderNo(), sub_product, Accountancy.calculateNetAmount(sub_product))));
+		
+		Order order = new Order(cart.getOrderNo(), sub_product, Accountancy.calculateNetAmount(sub_product));
+		cart.addOrder(order);
+		onAddToCart(MySQL_Orders.insertOrder(order));
 	}
 	public default void removeFromCart() {
 		

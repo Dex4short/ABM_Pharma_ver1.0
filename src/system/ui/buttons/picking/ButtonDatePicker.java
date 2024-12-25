@@ -5,10 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import components.Button;
+import components._misc_.abstracts.Decoration;
 import components.pickers.DatePicker;
 import oop.Date;
-import oop.abstracts.Decoration;
-import oop.enums.Expiry;
+import oop.enumerations.Expiry;
 import oop.essentials.ProductChecker;
 import system.ui.Window;
 

@@ -1,7 +1,7 @@
 package system.ui.panels.actions;
 
 import oop.Product;
-import oop.enums.ProductCondition;
+import oop.enumerations.ProductCondition;
 import system.ui.Window;
 
 public abstract class ActionPanelAddProduct  extends ActionPanelProduct{
@@ -15,6 +15,7 @@ public abstract class ActionPanelAddProduct  extends ActionPanelProduct{
 		Window.load(
 			() -> {
 				ProductCondition condition = ProductCondition.STORED;
+				
 				int item_id=-1, parentPack_id=-1;
 				for(Product product: product_set) {
 					if(product == null) break;

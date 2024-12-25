@@ -3,7 +3,7 @@ package components;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 
-import oop.interfaces.Theme;
+import oop.implementations.Theme;
 import res.Resource;
 
 public class CheckBox extends JCheckBox implements Theme{
