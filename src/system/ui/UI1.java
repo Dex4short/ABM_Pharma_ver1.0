@@ -2,13 +2,11 @@ package system.ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import components.Button;
 import components.panels.Panel;
 import components.panels.SearchPanel;
+import components.table.Row;
 import components.table.Table;
 import oop.interfaces.Theme;
 
@@ -41,7 +39,13 @@ public class UI1 extends Panel implements Theme{
 		};
 		header_left.add(search_panel);
 		
-		table = new Table(new String[] {"A", "B", "C", "D", "E"});
+		table = new Table(new String[] {"A", "B", "C", "D", "E"}) {
+			private static final long serialVersionUID = 4351252363585860064L;
+			@Override
+			public void onSelectRow(Row row) {}
+			@Override
+			public void onPointRow(Row row) {}
+		};
 		add(table, BorderLayout.CENTER);
 		
 	}
@@ -61,7 +65,6 @@ public class UI1 extends Panel implements Theme{
 		this.search_panel = search_panel;
 	}
 	public void addButton(Button button) {
-		button.addMouseListener(closeSearchFilterAdapter());
 		header_right.add(button);
 	}
 	public Button getButton(int n) {
@@ -74,17 +77,8 @@ public class UI1 extends Panel implements Theme{
 		return table;
 	}
 	public void setTable(Table table) {
-		table.addMouseListener(closeSearchFilterAdapter());
 		remove(getTable());
 		add(table, BorderLayout.CENTER);
 		this.table = table;
-	}
-	public MouseListener closeSearchFilterAdapter() {
-		return new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				search_panel.getComboBox().close();
-			}
-		};
 	}
 }

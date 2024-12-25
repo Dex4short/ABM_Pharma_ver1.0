@@ -19,7 +19,7 @@ import components.panels.Panel;
 import components.scroll.ScrollPane;
 import oop.interfaces.Theme;
 
-public class Table extends Panel implements Theme{
+public abstract class Table extends Panel implements Theme{
 	private static final long serialVersionUID = -8446662030696532231L;
 	private Table_Head table_header;
 	private Table_Body table_body;
@@ -142,6 +142,9 @@ public class Table extends Panel implements Theme{
 		table_header.setCheckBoxEnabled(enable);
 		table_body.setCheckBoxesEnabled(enable);
 	}
+	
+	public abstract void onSelectRow(Row row);
+	public abstract void onPointRow(Row row);
 	
 	private final class Table_Head extends Panel implements ItemListener{
 		private static final long serialVersionUID = 7478862247310844785L;
@@ -275,20 +278,23 @@ public class Table extends Panel implements Theme{
 				selected_rows.get(0).setSelected(false);
 			}
 			row.setSelected(true);
+			onSelectRow(row);
 		}
 		@Override
 		public void mousePressed(MouseEvent e) {}
 		@Override
 		public void mouseReleased(MouseEvent e) {}
 		@Override
-		public void mouseEntered(MouseEvent e) {}
+		public void mouseEntered(MouseEvent e) {
+			onPointRow((Row)e.getSource());
+		}
 		@Override
 		public void mouseExited(MouseEvent e) {}
 		@Override
 		public void itemStateChanged(ItemEvent e) {
 			Row row = (Row)((CheckBox)e.getSource()).getParent();
 			switch(e.getStateChange()){
-			case ItemEvent.SELECTED:   selected_rows.add(row);
+			case ItemEvent.SELECTED: selected_rows.add(row);
 				break;
 			case ItemEvent.DESELECTED: selected_rows.remove(row);
 				break;

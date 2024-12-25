@@ -1,17 +1,16 @@
 package system.ui.bars;
 
-import components.fields.BarFields;
-import components.fields.DecimalField;
-import components.fields.PercentageField;
+import oop.Transaction;
 
-public class BarFieldOrder extends BarFields{
+public class BarFieldOrder extends BarFieldCart{
 	private static final long serialVersionUID = 8424383950064417067L;
 
 	public BarFieldOrder() {
-		addField("Discount", new PercentageField("0%"), 250, 20).setEditable(false);
-		addField("Total Net. Amount", new DecimalField("0.00"), 250, 20).setEditable(false);
+		getDiscountField().setEditable(false);
 	}
-	public void calculateTotalUnitAmount() {
-		
+	public void calculateDiscount_and_TotalNetAmount(Transaction transaction) {
+		getDiscountField().setPercent(transaction.getDiscount());
+		getTotalNetAmountField().setDecimal(transaction.getTotalNetAmount());
 	}
+	
 }

@@ -1,8 +1,5 @@
 package system.ui.panels;
 
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-
 import components.table.Row;
 import oop.Customer;
 import system._default_.Customers;
@@ -60,23 +57,14 @@ public class PanelCustomers extends UI1 implements Customers{
 		table_customers = new TableCustomers() {
 			private static final long serialVersionUID = 1L;
 			@Override
-			public void addRow(Row row) { super.addRow(wrap_row(row)); }
-			@Override
-			public void addRows(Row[] rows) {
-				for(Row ros : rows) wrap_row(ros);
-				super.addRows(rows);
+			public void onSelectRow(Row row) {
+				int selected_rows = getSelectedRows().length;
+				btn_delete_customer.setEnabled(selected_rows == 1);
+				btn_edit_customer.setEnabled(selected_rows > 0);
 			}
-			private Row wrap_row(Row row) {
-				row.addMouseListener(closeSearchFilterAdapter());
-				row.getCheckBox().addItemListener(new ItemListener() {
-					@Override
-					public void itemStateChanged(ItemEvent e) {
-						int selected_rows = getSelectedRows().length;
-						btn_delete_customer.setEnabled(selected_rows == 1);
-						btn_edit_customer.setEnabled(selected_rows > 0);
-					}
-				});
-				return row;
+			@Override
+			public void onPointRow(Row row) {
+				search_panel_customers.closeSearchFilter();
 			}
 		};
 		setTable(table_customers);

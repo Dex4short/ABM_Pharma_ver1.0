@@ -13,6 +13,14 @@ public class TableCustomers extends Table{
 	public TableCustomers() {
 		super(fields);
 	}
+	@Override
+	public void onSelectRow(Row row) {
+		//overridable block
+	}
+	@Override
+	public void onPointRow(Row row) {
+		//overridable block
+	}
 	public void addCustomer(Customer customer) {
 		addRow(new CustomerRow(customer));
 	}

@@ -1,5 +1,6 @@
 package system.ui.panels;
 
+import components.table.Row;
 import oop.Product;
 import oop.Transaction;
 import system._default_.Transactions;
@@ -16,25 +17,43 @@ import system.ui.tables.TableTransactions;
 
 public class PanelTransactions extends UI3 implements Transactions{
 	private static final long serialVersionUID = -4728899875964533207L;
+	
 	private TableTransactions table_transactions;
+	private BarFieldTransaction bar_field_transaction;
+
+	private ButtonReturnOrder btn_return_order;
+	private TableOrders table_orders;
+	private BarFieldOrder bar_field_order;
 
 	public PanelTransactions() {
-		SearchPanelTransactions search_customer = new SearchPanelTransactions() {
+		SearchPanelTransactions search_panel_customer = new SearchPanelTransactions() {
 			private static final long serialVersionUID = -3060789857476437659L;
 			@Override
 			public void onSearch(String category, String word) { searchCustomersFromTransactions(category, word); }
 		};
+		
 		ButtonPrintTransactions btn_print_transactions = new ButtonPrintTransactions();
 		
-		table_transactions = new TableTransactions();
+		table_transactions = new TableTransactions() {
+			private static final long serialVersionUID = 8004484913942693371L;
+			@Override
+			public void onSelectRow(Row row) {
+				getCustomerOrdersFromTransactions(getSelectedTransaction());
+			}
+			@Override
+			public void onPointRow(Row row) {
+				search_panel_customer.closeSearchFilter();
+			}
+		};
+		table_transactions.setCheckBoxesEnabled(false);
 		
-		BarFieldTransaction bar_field_transaction = new BarFieldTransaction();
-		getUiTop().setSearchPanel(search_customer);
+		bar_field_transaction = new BarFieldTransaction();
+		getUiTop().setSearchPanel(search_panel_customer);
 		getUiTop().addButton(btn_print_transactions);
 		getUiTop().setTable(table_transactions);
 		getUiTop().setBarFields(bar_field_transaction);
 		
-		SearchPanelOrders search_orders = new SearchPanelOrders() {
+		SearchPanelOrders search_panel_orders = new SearchPanelOrders() {
 			private static final long serialVersionUID = -3060789857476437659L;
 			@Override
 			public void onSearch(String category, String word) {
@@ -42,16 +61,29 @@ public class PanelTransactions extends UI3 implements Transactions{
 			}
 		};
 		ButtonPrintOrders btn_print_orders = new ButtonPrintOrders();
-		ButtonReturnOrder btn_return_order = new ButtonReturnOrder() {
+		
+		btn_return_order = new ButtonReturnOrder() {
 			private static final long serialVersionUID = 3251937345183043930L;
 			@Override
-			public void onReturnOrder() {
-				
+			public void onReturnOrder() { returnOrder(); }
+		};
+		btn_return_order.setEnabled(false);
+		
+		table_orders = new TableOrders() {
+			private static final long serialVersionUID = 6144003418942793339L;
+			@Override
+			public void onSelectRow(Row row) {
+				boolean hasSelected = table_orders.getSelectedRows().length == 1;
+				if(hasSelected) btn_return_order.setEnabled(true);
+			}
+			@Override
+			public void onPointRow(Row row) {
+				search_panel_orders.closeSearchFilter();
 			}
 		};
-		TableOrders table_orders = new TableOrders();
-		BarFieldOrder bar_field_order = new BarFieldOrder();
-		getUiBottom().setSearchPanel(search_orders);
+		
+		bar_field_order = new BarFieldOrder();
+		getUiBottom().setSearchPanel(search_panel_orders);
 		getUiBottom().addButton(btn_print_orders);
 		getUiBottom().addButton(btn_return_order);
 		getUiBottom().setTable(table_orders);
@@ -66,10 +98,6 @@ public class PanelTransactions extends UI3 implements Transactions{
 		// TODO Auto-generated method stub
 	}
 	@Override
-	public void onGetCustomerListFromTransactions() {
-		// TODO Auto-generated method stub
-	}
-	@Override
 	public void onPrintCustomerOrdersFromTransactions() {
 		// TODO Auto-generated method stub
 	}
@@ -78,12 +106,15 @@ public class PanelTransactions extends UI3 implements Transactions{
 		// TODO Auto-generated method stub
 	}
 	@Override
-	public void onGetCustomerOrdersFromTransactions() {
-		// TODO Auto-generated method stub
+	public void onGetCustomerOrdersFromTransactions(Transaction transction) {
+		table_orders.removeAllOredrs();
+		table_orders.addOrders(transction.getCart().getOrders());
+		bar_field_order.calculateDiscount_and_TotalNetAmount(transction);
 	}
 	@Override
 	public void onloadAllFromTransactions(Transaction transactions[]) {
 		table_transactions.removeAllTransactions();
 		table_transactions.addTransactions(transactions);
+		bar_field_transaction.calculateTotalCostAmount_and_Profit(transactions);
 	}
 }

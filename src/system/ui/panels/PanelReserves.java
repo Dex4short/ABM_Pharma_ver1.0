@@ -1,10 +1,5 @@
 package system.ui.panels;
 
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import components.table.Row;
 import oop.Product;
 import oop.Remarks;
@@ -53,33 +48,14 @@ public class PanelReserves extends UI4 implements Reserves{
 		table_reserves = new TableReserves() {
 			private static final long serialVersionUID = 2404680536760409457L;
 			@Override
-			public void addRow(Row row) {
-				listen(row);
-				super.addRow(row);
+			public void onSelectRow(Row row) {
+				boolean enable = getSelectedRows().length > 0;
+				btn_disposeProduct.setEnabled(enable);
+				btn_restoreProduct.setEnabled(enable);
 			}
 			@Override
-			public void addRows(Row[] rows) {
-				for(Row row: rows) {
-					listen(row);
-				}
-				super.addRows(rows);
-			}
-			private void listen(Row row) {
-				row.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						showRemarks(getSelectedProduct().getRemarks());
-					}
-				});
-				row.addMouseListener(closeSearchFilterAdapter());
-				row.getCheckBox().addItemListener(new ItemListener() {
-					@Override
-					public void itemStateChanged(ItemEvent e) {
-						boolean enable = getSelectedRows().length > 0;
-						btn_disposeProduct.setEnabled(enable);
-						btn_restoreProduct.setEnabled(enable);
-					}
-				});
+			public void onPointRow(Row row) {
+				search_panel_reserves.closeSearchFilter();
 			}
 		};
 		setTable(table_reserves);

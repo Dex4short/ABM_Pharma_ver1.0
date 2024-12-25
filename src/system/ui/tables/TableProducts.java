@@ -21,6 +21,14 @@ public class TableProducts extends Table{
 	public TableProducts(String fields[]) {
 		super(fields);
 	}
+	@Override
+	public void onSelectRow(Row row) {
+		//overridable block
+	}
+	@Override
+	public void onPointRow(Row row) {
+		//overridable block
+	}
 	public void addProduct(Product product) {
 		addRow(new ProductRow(product));
 	}

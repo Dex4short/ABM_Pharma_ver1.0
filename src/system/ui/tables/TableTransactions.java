@@ -14,6 +14,14 @@ public class TableTransactions extends Table{
 	public TableTransactions() {
 		super(fields);
 	}
+	@Override
+	public void onSelectRow(Row row) {
+		//overridable block
+	}
+	@Override
+	public void onPointRow(Row row) {
+		//overridable block
+	}
 	public void addTransaction(Transaction transaction) {
 		addRow(new TransactionRow(transaction));
 	}
@@ -47,10 +55,22 @@ public class TableTransactions extends Table{
 	public Transaction getTransaction(int n) {
 		return ((TransactionRow)getRow(n)).getTransaction();
 	}
+	public Transaction getSelectedTransaction() {
+		return ((TransactionRow)getSelectedRow()).getTransaction();
+	}
 	public Transaction[] getTransactions() {
 		Transaction transactions[] = new Transaction[getTransactionCount()];
 		for(int t=0; t<transactions.length; t++) {
 			transactions[t] = getTransaction(t);
+		}
+		return transactions;
+	}
+	public Transaction[] getSelectedTransactions() {
+		Row rows[] = getSelectedRows();
+		
+		Transaction transactions[] = new Transaction[rows.length];
+		for(int t=0; t<transactions.length; t++) {
+			transactions[t] = ((TransactionRow)rows[t]).getTransaction();
 		}
 		return transactions;
 	}

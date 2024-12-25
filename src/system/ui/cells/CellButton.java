@@ -2,6 +2,7 @@ package system.ui.cells;
 
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.BorderFactory;
 
@@ -12,6 +13,9 @@ public class CellButton extends Cell{
 	private static final long serialVersionUID = -752158914266118531L;
 	private Button button;
 
+	{
+		setBackground(new Color(0,0,0,0));
+	}
 	public CellButton() {
 		setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 	}

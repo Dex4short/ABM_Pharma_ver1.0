@@ -1,10 +1,5 @@
 package system.ui.panels;
 
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import components.table.Row;
 import oop.Product;
 import oop.Remarks;
@@ -21,14 +16,14 @@ public class PanelDisposal extends UI4 implements Disposal{
 	private TableDisposals table_disposals;
 	
 	public PanelDisposal() {
-		SearchPanelDisposal search_panel = new SearchPanelDisposal() {
+		SearchPanelDisposal search_panel_disposal = new SearchPanelDisposal() {
 			private static final long serialVersionUID = -154869804767992665L; 
 			@Override
 			public void onSearch(String category, String word) {
 				
 			}
 		};	
-		setSearchPanel(search_panel);
+		setSearchPanel(search_panel_disposal);
 		
 		ButtonRestoreProduct btn_restoreProduct = new ButtonRestoreProduct() {
 			private static final long serialVersionUID = 8773399964459745031L;
@@ -63,36 +58,16 @@ public class PanelDisposal extends UI4 implements Disposal{
 		table_disposals = new TableDisposals() {
 			private static final long serialVersionUID = 3129100619823684380L;
 			@Override
-			public void addRow(Row row) {
-				listen(row);
-				super.addRow(row);
+			public void onSelectRow(Row row) {
+				Row rows[] = getSelectedRows();
+				boolean enable = rows.length > 0;
+				btn_restoreProduct.setEnabled(enable);
+				btn_disposeProduct.setEnabled(enable);
+				btn_reserveProduct.setEnabled(enable);
 			}
 			@Override
-			public void addRows(Row[] rows) {
-				for(Row row: rows) {
-					listen(row);
-				}
-				super.addRows(rows);
-			}
-			private void listen(Row row) {
-				row.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						showRemarks(getSelectedProduct().getRemarks());
-					}
-				});
-				row.addMouseListener(closeSearchFilterAdapter());
-				row.getCheckBox().addItemListener(new ItemListener() {
-					Row rows[];
-					@Override
-					public void itemStateChanged(ItemEvent e) {
-						rows = getSelectedRows();
-						boolean enable = rows.length > 0;
-						btn_restoreProduct.setEnabled(enable);
-						btn_disposeProduct.setEnabled(enable);
-						btn_reserveProduct.setEnabled(enable);
-					}
-				});
+			public void onPointRow(Row row) {
+				search_panel_disposal.closeSearchFilter();
 			}
 		};
 		setTable(table_disposals);

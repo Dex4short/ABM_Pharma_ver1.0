@@ -88,10 +88,14 @@ public abstract class SearchPanel extends Panel{
 	public void setFilters(String filters[]) {
 		combo_button.setItems(filters);
 	}
+	public void closeSearchFilter() {
+		combo_button.close();
+	}
 	public void search(String category, String word) {
 		onSearch(category, word);
 		getComboBox().close();
 	}
+	
 	public abstract void onSearch(String category, String word);
 	
 	private class ComboButtonMouseListener extends MouseAdapter{

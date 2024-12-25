@@ -1,5 +1,6 @@
 package system.ui.tables;
 
+import components.table.Row;
 import oop.Order;
 import system.ui.cells.CellLabelDecimal;
 
@@ -44,9 +45,10 @@ public class TableOrders extends TableProducts{
 		return ((OrderRow)getRow(n)).getOrder();
 	}
 	public Order[] getOrders() {
-		Order orders[] = new Order[getProductCount()];
+		Row rows[] = getRows();
+		Order orders[] = new Order[rows.length];
 		for(int o=0; o<orders.length; o++) {
-			orders[o] = getOrder(o);
+			orders[o] = ((OrderRow)rows[o]).getOrder();
 		}
 		return orders;
 	}

@@ -4,7 +4,7 @@ import components.table.Column;
 import oop.Order;
 import system.ui.cells.CellButton;
 
-public class TableCart extends TableOrders{
+public abstract class TableCart extends TableOrders{
 	private static final long serialVersionUID = -5292964100747790231L;
 
 	public TableCart() {
@@ -23,6 +23,11 @@ public class TableCart extends TableOrders{
 		}
 		addRows(rows);
 	}
+	public void removeProduct() {
+		onRemoveProduct();
+	}
+	
+	public abstract void onRemoveProduct();
 	
 	public class ProductCartRow extends TableOrders.OrderRow{
 		private static final long serialVersionUID = 2233983822815909563L;

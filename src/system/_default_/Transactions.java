@@ -12,17 +12,14 @@ public interface Transactions {
 	public default void printCustomersFromTransactions() {
 		
 	}
-	public default void getCustomerListFromTransactions() {
-		
-	}
 	public default void printCustomerOrdersFromTransactions() {
 		
 	}
 	public default void returnCustomerOrderFromTransactions() {
 		
 	}
-	public default void getCustomerOrdersFromTransactions() {
-		
+	public default void getCustomerOrdersFromTransactions(Transaction transction) {
+		onGetCustomerOrdersFromTransactions(transction);
 	}
 	public default void loadAllFromTransactions() {
 		Transaction transactions[] = MySQL_Transactions.selectTransactions();
@@ -31,10 +28,9 @@ public interface Transactions {
 	
 	public void onSearchCustomersFromTransactions(Product products[]);
 	public void onPrintCustomersFromTransactions();
-	public void onGetCustomerListFromTransactions();
 	public void onPrintCustomerOrdersFromTransactions();
 	public void onReturnCustomerOrderFromTransactions();
-	public void onGetCustomerOrdersFromTransactions();
+	public void onGetCustomerOrdersFromTransactions(Transaction transction);
 	public void onloadAllFromTransactions(Transaction transactions[]);
 	
 	

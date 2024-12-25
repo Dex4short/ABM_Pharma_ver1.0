@@ -47,7 +47,13 @@ public abstract class ActionPanelProduct  extends ActionPanel{
 		super(new Label(null, "Product"));
 		setArc(20);
 		
-		table = new Table(TableProducts.fields);
+		table = new Table(TableProducts.fields) {
+			private static final long serialVersionUID = -3252429982982009814L;
+			@Override
+			public void onSelectRow(Row row) {}
+			@Override
+			public void onPointRow(Row row) {}
+		};
 		table.setSelectionEnabled(false);
 		table.setCheckBoxesEnabled(false);
 		getPanelBody().add(table, BorderLayout.CENTER);

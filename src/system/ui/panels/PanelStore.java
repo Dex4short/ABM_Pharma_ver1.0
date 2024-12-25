@@ -45,18 +45,20 @@ public class PanelStore extends UI3 implements Store{
 			@Override
 			public void onAddProductToCart(Packaging[] extracted_packs, Packaging sub_pack) { addToCart(getCart(), getSelectedProduct(), extracted_packs, sub_pack); }
 		};
+		table_product_aisle.setCheckBoxesEnabled(false);
 		getUiTop().setSearchPanel(search_panel_product);
 		getUiTop().setTable(table_product_aisle);
 		getUiTop().getBarFields().setVisible(false);
 		
-		table_product_cart = new TableCart();
+		table_product_cart = new TableCart() {
+			private static final long serialVersionUID = -6609667196159272458L;
+			@Override
+			public void onRemoveProduct() {}
+		};
+		table_product_cart.setCheckBoxesEnabled(false);
 		getUiBottom().setTable(table_product_cart);
 		
-		bar_field_cart = new BarFieldCart() {
-			private static final long serialVersionUID = 8573987007916262303L;
-			@Override
-			public Order[] getOrders() { return table_product_cart.getOrders(); }
-		};
+		bar_field_cart = new BarFieldCart();
 		getUiBottom().getSearchPanel().setVisible(false);
 		getUiBottom().setBarFields(bar_field_cart);
 		
@@ -82,7 +84,7 @@ public class PanelStore extends UI3 implements Store{
 	public void onAddToCart(Order order) {
 		loadAisleFromStore();
 		table_product_cart.addOrder(order);
-		bar_field_cart.calculateTotalAmount();
+		bar_field_cart.calculateTotalAmount(table_product_cart.getOrders());
 		Window.floatMessage(order.getProduct().getItem().getDescription() + " added to cart");
 	}
 	@Override
@@ -94,12 +96,13 @@ public class PanelStore extends UI3 implements Store{
 		table_product_cart.removeAllProducts();
 		bar_field_cart.clearFields();
 		openCounter(getCounter().getCounterNo());//reopen counter
+		Window.floatMessage("Check Out Successful!");
 	}
 	@Override
 	public void onLoadCartFromStore(Cart cart) {
 		table_product_cart.removeAllProducts();
 		table_product_cart.addOrders(cart.getOrders());
-		bar_field_cart.calculateTotalAmount();
+		bar_field_cart.calculateTotalAmount(cart.getOrders());
 	}
 	@Override
 	public void onLoadAisleFromStore(Product products[]) {

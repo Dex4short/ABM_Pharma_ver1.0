@@ -1,8 +1,5 @@
 package system.ui.panels;
 
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-
 import components.table.Row;
 import oop.Product;
 import oop.enums.ProductCondition;
@@ -74,32 +71,18 @@ public class PanelInventory extends UI1 implements Inventory{
 		table_products = new TableProducts() {
 			private static final long serialVersionUID = 3085703898743340238L;
 			@Override
-			public void addRow(Row row) {
-				listen(row);
-				super.addRow(row);
+			public void onSelectRow(Row row) {
+				int selected_rows = getSelectedRows().length;
+				boolean enable = selected_rows == 1;
+				btn_editProduct.setEnabled(enable);
+				
+				enable = enable || selected_rows > 0;
+				btn_disposeProduct.setEnabled(enable);
+				btn_reserveProduct.setEnabled(enable);
 			}
 			@Override
-			public void addRows(Row[] rows) {
-				for(Row row: rows) {
-					listen(row);
-				}
-				super.addRows(rows);
-			}
-			private void listen(Row row) {
-				row.addMouseListener(closeSearchFilterAdapter());
-				row.getCheckBox().addItemListener(new ItemListener() {
-					int selected_rows;
-					@Override
-					public void itemStateChanged(ItemEvent e) {
-						selected_rows = getSelectedRows().length;
-						boolean enable = selected_rows == 1;
-						btn_editProduct.setEnabled(enable);
-						
-						enable = enable || selected_rows > 0;
-						btn_disposeProduct.setEnabled(enable);
-						btn_reserveProduct.setEnabled(enable);
-					}
-				});
+			public void onPointRow(Row row) {
+				search_panel.closeSearchFilter();
 			}
 		};
 		setTable(table_products);
