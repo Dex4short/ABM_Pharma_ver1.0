@@ -18,9 +18,21 @@ public interface Inventory {
 		return onSelectInventorySet(product_parent, product_children);
 	}
 	public default void searchFromInventory(String category, String word) {
-		//Product products[] = null;
-		
-		//onSearchFromInventory();
+		String set[][] = {
+			{"Item No.", "item_no"},
+			{"Description", "description"},
+			{"Lot No.", "lot_no"},
+			{"Date Added", "date_added"},
+			{"Exp Date", "exp_date"},
+			{"Brand", "brand"},
+			{"Quantity", "qty"},
+			{"UOM", "uom"},
+			{"Cost", "cost"},
+			{"Unit Price", "unit_price"},
+			{"Discount", "discount"},
+			{"Unit Amount", "unit_amount"}
+		};
+		//onSearchFromInventory(MySQL_Products.selectProducts("where "));
 	}
 	public default void printFromInventory() {
 		

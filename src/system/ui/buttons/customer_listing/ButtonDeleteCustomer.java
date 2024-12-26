@@ -1,7 +1,8 @@
 package system.ui.buttons.customer_listing;
 
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 
@@ -11,7 +12,7 @@ import oop.Customer;
 import res.Resource;
 import system.ui.Window;
 
-public abstract class ButtonDeleteCustomer extends Button{
+public abstract class ButtonDeleteCustomer extends Button implements ActionListener{
 	private static final long serialVersionUID = -211465351098739393L;
 
 	public ButtonDeleteCustomer() {
@@ -19,9 +20,10 @@ public abstract class ButtonDeleteCustomer extends Button{
 		setPreferredSize(new Dimension(30,30));
 
 		setIcon(new ImageIcon(Resource.get("delete.png")));
+		addActionListener(this);
 	}
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		Window.getStackPanel().pushPanel(new DialogPanel("Delete Customer") {
 			private static final long serialVersionUID = -5908193837480508966L;
 			{

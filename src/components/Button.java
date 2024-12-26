@@ -143,8 +143,6 @@ public class Button extends JButton implements Theme, MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(!isEnabled()) return;
-		
-		//Overridable Content
 	}
 	public int getArc() {
 		return arc;

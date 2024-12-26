@@ -1,7 +1,8 @@
 package system.ui.buttons;
 
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 
@@ -12,16 +13,18 @@ import res.Resource;
 import system.ui.Window;
 import system.ui.panels.actions.ActionPanelEditProduct;
 
-public abstract class ButtonEditProduct extends Button{
+public abstract class ButtonEditProduct extends Button implements ActionListener{
 	private static final long serialVersionUID = 2805362815419509096L;
 
 	public ButtonEditProduct() {
 		setArc(30);
 		setPreferredSize(new Dimension(30,30));
+		
 		setIcon(new ImageIcon(Resource.get("pencil.png")));
+		addActionListener(this);
 	}
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		Window.load( () -> showActionPanel(), "");
 	}
 	public void editProduct(Product new_product, Product old_product, ProductCondition product_condition) {

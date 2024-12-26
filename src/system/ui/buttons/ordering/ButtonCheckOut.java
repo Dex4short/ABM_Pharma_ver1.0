@@ -1,6 +1,7 @@
 package system.ui.buttons.ordering;
 
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import components.Button;
 import oop.Cart;
@@ -11,16 +12,17 @@ import system.ui.Window;
 import system.ui.bars.BarFieldCart;
 import system.ui.panels.actions.ActionPanelCheckOut;
 
-public abstract class ButtonCheckOut extends Button.Quaternary{
+public abstract class ButtonCheckOut extends Button.Quaternary implements ActionListener{
 	private static final long serialVersionUID = -6341557504204266678L;
 	private BarFieldCart barField_cart;
 
 	public ButtonCheckOut(BarFieldCart barField_cart) {
 		super("Check Out");
 		setBarFieldCart(barField_cart);
+		addActionListener(this);
 	}
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		Window.getStackPanel().pushPanel(new ActionPanelCheckOut() {
 			private static final long serialVersionUID = -2886112591953422606L;
 			@Override

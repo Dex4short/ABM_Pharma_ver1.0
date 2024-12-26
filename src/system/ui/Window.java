@@ -48,7 +48,7 @@ public class Window extends JFrame implements Theme{
 		PanelLogin panel_login = new PanelLogin() {
 			private static final long serialVersionUID = 179005001334507847L;
 			@Override
-			public void openAdminInterface() {
+			public void onOpenAdminInterface() {
 				stack_panel.popPanel();
 				load(() -> {
 					PanelAdmin panel_admin = new PanelAdmin();
@@ -59,7 +59,7 @@ public class Window extends JFrame implements Theme{
 				});
 			}
 			@Override
-			public void openEmployeeInterface() {
+			public void onOpenEmployeeInterface() {
 				stack_panel.popPanel();
 				load(() -> {
 					PanelEmployee panel_employee = new PanelEmployee();

@@ -1,7 +1,8 @@
 package system.ui.buttons.customer_listing;
 
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 
@@ -12,7 +13,7 @@ import res.Resource;
 import system.ui.Window;
 import system.ui.panels.actions.ActionPanelCustomerEdit;
 
-public abstract class ButtonEditCustomer extends Button{
+public abstract class ButtonEditCustomer extends Button implements ActionListener{
 	private static final long serialVersionUID = 2805362815419509096L;
 
 	public ButtonEditCustomer() {
@@ -20,9 +21,10 @@ public abstract class ButtonEditCustomer extends Button{
 		setPreferredSize(new Dimension(30,30));
 
 		setIcon(new ImageIcon(Resource.get("pencil.png")));
+		addActionListener(this);
 	}
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		Window.getStackPanel().pushPanel(new ActionPanelCustomerEdit(getSelectedCustomer()) {
 			private static final long serialVersionUID = 9033808107673720043L;
 

@@ -36,6 +36,7 @@ public abstract class Table extends Panel implements Theme{
 		((BorderLayout)table_body.getLayout()).setHgap(5);
 		((BorderLayout)table_body.getLayout()).setVgap(5);
 		add(table_body, BorderLayout.CENTER);
+		
 	}	
 	public Table(String column_strs[]) {
 		setOpaque(false);
@@ -54,6 +55,7 @@ public abstract class Table extends Panel implements Theme{
 		((BorderLayout)table_body.getLayout()).setHgap(5);
 		((BorderLayout)table_body.getLayout()).setVgap(5);
 		add(table_body, BorderLayout.CENTER);
+
 	}
 	public CheckBox getMainCheckBox() {
 		return table_header.getCheckBox();
@@ -141,6 +143,9 @@ public abstract class Table extends Panel implements Theme{
 	public void setCheckBoxesEnabled(boolean enable) {
 		table_header.setCheckBoxEnabled(enable);
 		table_body.setCheckBoxesEnabled(enable);
+	}
+	public void selectRow(Row row) {
+		table_body.selectRow(row);
 	}
 	
 	public abstract void onSelectRow(Row row);
@@ -274,13 +279,9 @@ public abstract class Table extends Panel implements Theme{
 		private boolean iterative_checking = false;
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			iterative_checking = true;
-			Row row = (Row)e.getSource();
-			while(selected_rows.size() > 0) {
-				selected_rows.get(0).setSelected(false);
+			if(e.getSource() instanceof Row) {
+				selectRow((Row)e.getSource());
 			}
-			iterative_checking = false;
-			row.setSelected(true);
 		}
 		@Override
 		public void mousePressed(MouseEvent e) {}
@@ -288,7 +289,7 @@ public abstract class Table extends Panel implements Theme{
 		public void mouseReleased(MouseEvent e) {}
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			onPointRow((Row)e.getSource());
+			if(e.getSource() instanceof Row) onPointRow((Row)e.getSource());
 		}
 		@Override
 		public void mouseExited(MouseEvent e) {}
@@ -397,6 +398,14 @@ public abstract class Table extends Panel implements Theme{
 			for(int r=0; r<getRowCount(); r++) {
 				getRow(r).setSelectionEnabled(enabled);
 			}
+		}
+		public void selectRow(Row row) {
+			iterative_checking = true;
+			while(selected_rows.size() > 0) {
+				selected_rows.get(0).setSelected(false);
+			}
+			iterative_checking = false;
+			row.setSelected(true);
 		}
 		
 		private void align_rows() {

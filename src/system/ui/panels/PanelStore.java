@@ -28,6 +28,7 @@ public class PanelStore extends UI3 implements Store{
 	private BarFieldCart bar_field_cart;
 	private Counter counter;
 	private Cart cart;
+	private ButtonCheckOut btn_check_out;
 
 	public PanelStore() {
 		((GridLayout)getLayout()).setVgap(20);
@@ -58,11 +59,16 @@ public class PanelStore extends UI3 implements Store{
 		table_product_cart.setCheckBoxesEnabled(false);
 		getUiBottom().setTable(table_product_cart);
 		
-		bar_field_cart = new BarFieldCart();
+		bar_field_cart = new BarFieldCart() {
+			private static final long serialVersionUID = 7478430299572033345L;
+			@Override
+			public Order[] getOrders() { return table_product_cart.getOrders(); }
+			
+		};
 		getUiBottom().getSearchPanel().setVisible(false);
 		getUiBottom().setBarFields(bar_field_cart);
 		
-		ButtonCheckOut btn_check_out = new ButtonCheckOut(bar_field_cart) {
+		btn_check_out = new ButtonCheckOut(bar_field_cart) {
 			private static final long serialVersionUID = 7693465853429312072L;
 			@Override
 			public void onCheckOut(Transaction transaction) { checkOutFromStore(transaction); }
@@ -84,6 +90,7 @@ public class PanelStore extends UI3 implements Store{
 		loadAisleFromStore();
 		table_product_cart.addOrder(order);
 		bar_field_cart.calculateTotalAmount(table_product_cart.getOrders());
+		btn_check_out.setEnabled(cart.getOrders().length > 0);
 		Window.floatMessage(order.getProduct().getItem().getDescription() + " added to cart");
 	}
 	@Override
@@ -102,6 +109,7 @@ public class PanelStore extends UI3 implements Store{
 		table_product_cart.removeAllProducts();
 		table_product_cart.addOrders(cart.getOrders());
 		bar_field_cart.calculateTotalAmount(cart.getOrders());
+		btn_check_out.setEnabled(cart.getOrders().length > 0);
 	}
 	@Override
 	public void onLoadAisleFromStore(Product products[]) {

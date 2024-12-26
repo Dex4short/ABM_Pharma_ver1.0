@@ -11,23 +11,29 @@ import oop.Product;
 
 public class Accountancy {
 
-	public static Decimal calculateUnitAmount(Decimal unit_price, Percentage discount) {
+	public static Decimal calculateDiscountedAmount(Decimal amount, Percentage discount) {
 		return new Decimal(
-				unit_price.toBigDecimal().subtract(
-						unit_price.toBigDecimal().multiply(
-								discount.toBigDecimal()
-						)
+			amount.toBigDecimal().subtract(
+				amount.toBigDecimal().multiply(
+					discount.toBigDecimal()
 				)
+			)
 		);
 	}
-	public static Decimal calculateNetAmount(Packaging packaging, Pricing pricing) {
-		int quantity = packaging.getQty().getAmount();
-		
+	public static Decimal calculateUnitAmount(Decimal unit_price, Percentage discount) {
+		return calculateDiscountedAmount(unit_price, discount);
+	}
+	public static Decimal calculateAmountByQuantity(Decimal amount, int quantity) {
+		return new Decimal(amount.toBigDecimal().multiply(new BigDecimal(quantity)));
+	}
+	public static Decimal calculateNetAmount(Decimal amount, Percentage discount, int quantity) {
 		Decimal 
-		unit_amount = calculateUnitAmount(pricing.getUnitPrice(), pricing.getDiscount()),
-		net_amount = new Decimal(unit_amount.toBigDecimal().multiply(new BigDecimal(quantity)));
-		
+		discounted_amount = calculateDiscountedAmount(amount, discount),
+		net_amount = calculateAmountByQuantity(discounted_amount, quantity);
 		return net_amount;
+	}
+	public static Decimal calculateNetAmount(Packaging packaging, Pricing pricing) {		
+		return calculateNetAmount(pricing.getUnitPrice(), pricing.getDiscount(), packaging.getQty().getAmount());
 	}
 	public static Decimal calculateNetAmount(Product product) {
 		return calculateNetAmount(product.getPackaging(), product.getPricing());

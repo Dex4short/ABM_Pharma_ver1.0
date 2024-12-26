@@ -40,11 +40,11 @@ public abstract class TableAisle extends TableProducts{
 				private static final long serialVersionUID = 8362326710498493098L;
 				@Override
 				public void onAddToCart(Packaging extracted_packs[], Packaging sub_pack) {
-					addProductToCart(extracted_packs, sub_pack);;
+					addProductToCart(extracted_packs, sub_pack);
 				}
 			};
 			addCell(cell_btn);
-			cell_btn.getButton().addMouseListener(this);
+			cell_btn.getButton().addActionListener(e -> selectRow(this));
 		}
 	}
 }

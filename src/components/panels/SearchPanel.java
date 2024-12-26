@@ -2,8 +2,6 @@ package components.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
@@ -51,12 +49,7 @@ public abstract class SearchPanel extends Panel{
 		search_button.setArc(26);
 		search_button.setIcon(Graphix.alterImageIcon(Resource.get("search.png"), main_color[2], search_button));
 		search_button.setBorder(BorderFactory.createEmptyBorder(0,23,0,23));
-		search_button.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				search(combo_button.getText(), search_field.getText());
-			}
-		});
+		search_button.addActionListener(e -> search(combo_button.getText(), search_field.getText()));
 		add(search_button, BorderLayout.EAST);
 		
 		addComponentListener(new ComponentAdapter() {

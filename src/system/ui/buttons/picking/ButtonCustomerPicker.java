@@ -1,6 +1,7 @@
 package system.ui.buttons.picking;
 
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import components.Button;
 import oop.Customer;
@@ -8,14 +9,15 @@ import res.Resource;
 import system.ui.Window;
 import system.ui.panels.actions.ActionPanelCustomerList;
 
-public abstract class ButtonCustomerPicker extends Button{
+public abstract class ButtonCustomerPicker extends Button implements ActionListener{
 	private static final long serialVersionUID = -7885493071011496579L;
 
 	public ButtonCustomerPicker() {
 		super(Resource.getAsImageIcon("customers.png"));
+		addActionListener(this);
 	}
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		Window.getStackPanel().pushPanel(new ActionPanelCustomerList() {
 			private static final long serialVersionUID = 732374242146259948L;
 			@Override

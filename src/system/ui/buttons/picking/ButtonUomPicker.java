@@ -8,7 +8,7 @@ import oop.Uom;
 import system.ui.Window;
 import system.ui.panels.actions.ActionPanelUOMPicker;
 
-public class ButtonUomPicker extends Button{
+public class ButtonUomPicker extends Button implements ActionListener{
 	private static final long serialVersionUID = -4419033569562646499L;
 	private ActionPanelUOMPicker uom_picker;
 
@@ -26,13 +26,11 @@ public class ButtonUomPicker extends Button{
 				Window.getStackPanel().popPanel();
 			}
 		};
-		
-		addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Window.getStackPanel().pushPanel(uom_picker, 400, 300);
-			}
-		});
+		addActionListener(this);
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Window.getStackPanel().pushPanel(uom_picker, 400, 300);
 	}
 	public ActionPanelUOMPicker getUomPicker() {
 		return uom_picker;

@@ -1,7 +1,8 @@
 package system.ui.buttons.customer_listing;
 
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -13,7 +14,7 @@ import res.Resource;
 import system.ui.Window;
 import system.ui.panels.actions.ActionPanelCustomerAdd;
 
-public abstract class ButtonAddCustomer extends Button{
+public abstract class ButtonAddCustomer extends Button implements ActionListener{
 	private static final long serialVersionUID = -8319852584060410711L;
 
 	public ButtonAddCustomer() {
@@ -23,9 +24,11 @@ public abstract class ButtonAddCustomer extends Button{
 		
 		setIcon(new ImageIcon(Resource.get("add.png")));
 		setText("Add Customer");
+		
+		addActionListener(this);
 	}
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		Window.getStackPanel().pushPanel(new ActionPanelCustomerAdd() {
 			private static final long serialVersionUID = 2483456328408759972L;
 

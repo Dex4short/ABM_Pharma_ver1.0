@@ -3,8 +3,6 @@ package components.panels;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
@@ -25,12 +23,7 @@ public abstract class ActionPanel extends TitledPanel{
 		cancel.setPreferredSize(new Dimension(50, 30));
 		cancel.setMaximumSize(getPreferredSize());
 		cancel.setMinimumSize(getPreferredSize());
-		cancel.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				onCancel();
-			}
-		});
+		cancel.addActionListener(e -> onCancel());
 		footer.add(cancel);
 		
 		ok = new Button();
@@ -38,12 +31,7 @@ public abstract class ActionPanel extends TitledPanel{
 		ok.setPreferredSize(new Dimension(50, 30));
 		ok.setMaximumSize(getPreferredSize());
 		ok.setMinimumSize(getPreferredSize());
-		ok.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				onOk();
-			}
-		});
+		ok.addActionListener(e -> onOk());
 		footer.add(ok);
 	}
 	public ActionPanel(Label title) {

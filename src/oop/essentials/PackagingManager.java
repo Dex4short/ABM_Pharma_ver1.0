@@ -10,9 +10,6 @@ import oop.Uom;
 public class PackagingManager {
 
 	public static Packaging[] extract(Packaging main_pack, Packaging sub_pack) {
-		System.out.println("---------------------------------------extracting");
-		System.out.println("main pack:" + main_pack.toString());
-		System.out.println("sub pack:" + sub_pack.toString());
 		ArrayList<PackagingData> pack_datas = new ArrayList<PackagingData>();
 		
 		Quantity mainPack_qty = main_pack.getQty(), subPack_qty = sub_pack.getQty();
@@ -51,8 +48,6 @@ public class PackagingManager {
 			else {
 				extracted_packages[p].setParentPackId(main_pack.getPackId());
 			}
-
-			System.out.println(pack_datas.get(p).toString());
 		}
 
 		return extracted_packages;

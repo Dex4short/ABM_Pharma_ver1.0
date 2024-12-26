@@ -2,6 +2,7 @@ package system.ui.panels;
 
 import components.table.Row;
 import oop.Decimal;
+import oop.Order;
 import oop.Percentage;
 import oop.Product;
 import oop.Transaction;
@@ -88,7 +89,11 @@ public class PanelTransactions extends UI3 implements Transactions{
 				}
 			};
 			
-			bar_field_order = new BarFieldOrder();
+			bar_field_order = new BarFieldOrder() {
+				private static final long serialVersionUID = 3245637567587405898L;
+				@Override
+				public Order[] getOrders() { return table_orders.getOrders(); }
+			};
 			getUiBottom().setSearchPanel(search_panel_orders);
 			getUiBottom().addButton(btn_print_orders);
 			getUiBottom().addButton(btn_return_order);
