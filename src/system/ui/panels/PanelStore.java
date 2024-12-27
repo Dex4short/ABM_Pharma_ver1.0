@@ -6,13 +6,14 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 
 import components.Padding;
-import oop.Cart;
-import oop.Counter;
-import oop.Order;
-import oop.Packaging;
-import oop.Product;
-import oop.Transaction;
 import system._default_.Store;
+import system.managers.NotificationsManager;
+import system.objects.Cart;
+import system.objects.Counter;
+import system.objects.Order;
+import system.objects.Packaging;
+import system.objects.Product;
+import system.objects.Transaction;
 import system.ui.UI3;
 import system.ui.Window;
 import system.ui.bars.BarFieldCart;
@@ -113,6 +114,7 @@ public class PanelStore extends UI3 implements Store{
 	}
 	@Override
 	public void onLoadAisleFromStore(Product products[]) {
+		NotificationsManager.clearNotifications();
 		table_product_aisle.removeAllProducts();
 		table_product_aisle.addProducts(products);
 	}

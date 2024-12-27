@@ -1,6 +1,8 @@
 package system.ui.panels.actions;
 
-import oop.Remarks;
+import system.objects.Date;
+import system.objects.Remarks;
+import system.objects.Time;
 import system.ui.Window;
 
 public abstract class ActionPanelRemarksReserve extends ActionPanelRemarks{
@@ -10,15 +12,15 @@ public abstract class ActionPanelRemarksReserve extends ActionPanelRemarks{
 		super("Reserve Remarks");
 	}
 	@Override
-	public void onRemarksOk(Remarks remarks) {
+	public void onRemarksOk(Time time, Date date, String details) {
 		Window.load( () -> {
-			reserveRemarksOk(remarks);
+			reserveRemarksOk(time, date, details);
 		}, "Reserving...");
 	}
-	public void reserveRemarksOk(Remarks remarks) {
-		remarks.setDetails(getTitleField().getText() + "\n \n" + getRemarksField().getText());
-		onReserveRemarksOk(remarks);
+	public void reserveRemarksOk(Time time, Date date, String details) {
+		onReserveRemarksOk(new Remarks(-1, date, time, details));
 	}
 	
 	public abstract void onReserveRemarksOk(Remarks remarks);
+	
 }

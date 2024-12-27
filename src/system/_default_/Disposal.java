@@ -1,9 +1,9 @@
 package system._default_;
 
 import database.MySQL_Products;
-import oop.Product;
-import oop.Remarks;
-import oop.enumerations.ProductCondition;
+import system.enumerators.ProductCondition;
+import system.objects.Product;
+import system.objects.Remarks;
 
 public interface Disposal {
 	
@@ -17,11 +17,13 @@ public interface Disposal {
 		onSearchFromDisposal();
 	}
 	public default void restoreFromDisposal(Product product) {
-		MySQL_Products.updateProduct(product, ProductCondition.STORED);
+		product.setProduct_condition(ProductCondition.STORED);
+		MySQL_Products.updateProduct(product);
 		onRestoreFromDisposal(product);
 	}
 	public default void reserveFromDisposal(Product product) {
-		MySQL_Products.updateProduct(product, ProductCondition.RESERVED);
+		product.setProduct_condition(ProductCondition.RESERVED);
+		MySQL_Products.updateProduct(product);
 		onReserveFromDisposal(product);
 	}
 	public default void deleteFromDisposal() {

@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import components.Button;
-import oop.Customer;
 import res.Resource;
+import system.objects.Customer;
 import system.ui.Window;
 import system.ui.panels.actions.ActionPanelCustomerList;
 

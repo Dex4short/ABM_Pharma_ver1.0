@@ -1,13 +1,13 @@
 package system._default_;
 
 import database.MySQL_Security;
-import oop.Access;
-import oop.enumerations.SecurityRole;
+import system.enumerators.SecurityRole;
+import system.objects.Access;
 
 public interface Login {
 
 	public default void inputPassword(char password[]) {
-		Object result[] = MySQL_Security.select_where_password_is(password);
+		Object result[] = MySQL_Security.selectSecurityData(password);
 		
 		Access access = null;//access denied
 		if(result != null) {

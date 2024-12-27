@@ -3,7 +3,7 @@ package system.ui.tables;
 import components.table.Cell;
 import components.table.Row;
 import components.table.Table;
-import oop.Customer;
+import system.objects.Customer;
 import system.ui.cells.CellLabel;
 
 public class TableCustomers extends Table{

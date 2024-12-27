@@ -2,9 +2,10 @@ package system.ui.panels;
 
 import components.Button;
 import components.table.Row;
-import oop.Product;
-import oop.enumerations.ProductCondition;
 import system._default_.Inventory;
+import system.enumerators.ProductCondition;
+import system.managers.NotificationsManager;
+import system.objects.Product;
 import system.ui.UI1;
 import system.ui.Window;
 import system.ui.buttons.ButtonAddProduct;
@@ -132,6 +133,8 @@ public class PanelInventory extends UI1 implements Inventory{
 	}
 	@Override
 	public void onLoadAllFromInventory(Product[] products) {
+		NotificationsManager.clearNotifications();
+		
 		btn_reserveProduct.setEnabled(false);
 		btn_disposeProduct.setEnabled(false);
 		btn_editProduct.setEnabled(false);

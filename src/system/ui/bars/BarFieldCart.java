@@ -6,13 +6,13 @@ import java.awt.event.MouseEvent;
 import components.fields.BarFields;
 import components.fields.DecimalField;
 import components.fields.PercentageField;
-import oop.Decimal;
-import oop.Order;
-import oop.Percentage;
-import oop.essentials.Accountancy;
+import system.managers.AccountancyManager;
+import system.objects.Decimal;
+import system.objects.Order;
+import system.objects.Percentage;
 import system.ui.Window;
 import system.ui.panels.actions.ActionPanelDiscountEntry;
-import system.ui.panels.actions.ActionPanelInputPassword;
+import system.ui.panels.actions.ActionPanelPasswordEntry;
 
 public abstract class BarFieldCart extends BarFields{
 	private static final long serialVersionUID = 1918054933901629685L;
@@ -60,8 +60,8 @@ public abstract class BarFieldCart extends BarFields{
 	}
 	public void calculateTotalAmount(Order orders[]) {
 		Decimal 
-		total_net_amount = Accountancy.calculateTotalNetAmount(orders);
-		total_net_amount = Accountancy.calculateDiscountedAmount(total_net_amount, getDiscount());
+		total_net_amount = AccountancyManager.calculateTotalNetAmount(orders);
+		total_net_amount = AccountancyManager.calculateDiscountedAmount(total_net_amount, getDiscount());
 		setTotalNetAmount(total_net_amount);
 		decimal_field.setDecimal(getTotalNetAmount());
 	}
@@ -70,7 +70,7 @@ public abstract class BarFieldCart extends BarFields{
 		decimal_field.setDecimal(new Decimal());
 	}
 	public void requestOpenDiscountEntry() {
-		Window.getStackPanel().pushPanel(new ActionPanelInputPassword() {
+		Window.getStackPanel().pushPanel(new ActionPanelPasswordEntry() {
 			private static final long serialVersionUID = -6820031977053812772L;
 			@Override
 			public void onPasswordOk() {

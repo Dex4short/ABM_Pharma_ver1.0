@@ -9,7 +9,10 @@ import javax.swing.ImageIcon;
 
 import components.Button;
 import res.Resource;
+import system.objects.Order;
+import system.objects.Transaction;
 import system.ui.Window;
+import system.ui.panels.dialogs.DialogReturnProduct;
 
 public abstract class ButtonReturnOrder extends Button implements ActionListener{
 	private static final long serialVersionUID = -8319852584060410711L;
@@ -25,10 +28,20 @@ public abstract class ButtonReturnOrder extends Button implements ActionListener
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Window.floatMessageAndBeep("currently not available");
+		Window.getStackPanel().pushPanel(new DialogReturnProduct(getSelectedTransacton(), getSelectedOrders()) {
+			private static final long serialVersionUID = -4230431942636921503L;
+			@Override
+			public void onReturnProductOk(Order orders[]) {
+				returnOrder(orders);
+			}
+		}, 200, 200);
 	}
-	public void returnOrder() {
-		onReturnOrder();
+	public void returnOrder(Order orders[]) {
+		onReturnOrder(orders);
 	}
-	public abstract void onReturnOrder();
+	
+	public abstract void onReturnOrder(Order orders[]);
+	public abstract Transaction getSelectedTransacton();
+	public abstract Order[] getSelectedOrders();
+	
 }

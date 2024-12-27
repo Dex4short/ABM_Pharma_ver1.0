@@ -14,7 +14,7 @@ import javax.swing.BorderFactory;
 import components.list.Item;
 import components.list.ListPane;
 import components.panels.Panel;
-import oop.essentials.Settings;
+import system._default_.Settings;
 
 public class ComboBox extends Button implements ActionListener{
 	private static final long serialVersionUID = 2967464342223499866L;

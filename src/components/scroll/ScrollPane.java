@@ -27,7 +27,7 @@ public abstract class ScrollPane extends Panel {
 		
 		panel_view.setLayout(null);
 		panel_view.addMouseWheelListener(vertical_scrollbar);
-		panel_view.addContainerListener(new ContainerListener() {
+		panel_view.addContainerListener(new ContainerListener() {//something not working
 			@Override
 			public void componentRemoved(ContainerEvent e) {
 				vertical_scrollbar.update();
@@ -64,6 +64,10 @@ public abstract class ScrollPane extends Panel {
 	}
 	public int getScrollY() {
 		return scroll_y;
+	}
+	public void updateScrollers() {
+		vertical_scrollbar.update();
+		horizontal_scrollbar.update();
 	}
 
 	public abstract int viewingWidth();

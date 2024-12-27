@@ -3,7 +3,7 @@ package system.ui.cells;
 
 import javax.swing.BorderFactory;
 
-import oop.Uom;
+import system.objects.Uom;
 import system.ui.buttons.picking.ButtonUomPicker;
 
 public class CellButtonUomPicker extends CellButton{

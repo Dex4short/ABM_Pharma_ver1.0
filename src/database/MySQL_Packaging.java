@@ -1,8 +1,8 @@
 package database;
 
-import oop.Packaging;
-import oop.Quantity;
-import oop.enumerations.PackagingLine;
+import system.enumerators.PackagingLine;
+import system.objects.Packaging;
+import system.objects.Quantity;
 
 public class MySQL_Packaging {
 	public static final String 

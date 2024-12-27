@@ -1,7 +1,7 @@
 package system.ui.panels.actions;
 
-import oop.Product;
-import oop.enumerations.ProductCondition;
+import system.enumerators.ProductCondition;
+import system.objects.Product;
 import system.ui.Window;
 
 public abstract class ActionPanelAddProduct  extends ActionPanelProduct{

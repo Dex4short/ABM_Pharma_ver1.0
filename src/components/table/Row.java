@@ -2,6 +2,7 @@ package components.table;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -20,7 +21,7 @@ public class Row extends Panel implements MouseListener, ItemListener{
 	private Decoration normal, hover, highlight;
 	private CheckBox check_box;
 	private JPanel row_pane;
-	private boolean isSelectionEnabled=true;
+	private boolean isSelectionEnabled=true, depricated=false;
 
 	public Row(Cell cell[]) {
 		setArc(5);
@@ -46,6 +47,14 @@ public class Row extends Panel implements MouseListener, ItemListener{
 		
 		addMouseListener(this);
 		
+	}
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		if(isDepricated()) {
+			g.setColor(main_color[4]);
+			g.drawLine(0, getHeight()/2, getWidth(), getHeight()/2);
+		}
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -88,6 +97,12 @@ public class Row extends Panel implements MouseListener, ItemListener{
 	}
 	public void setSelected(boolean isSelected) {
 		check_box.setSelected(isSelected);
+	}
+	public boolean isDepricated() {
+		return depricated;
+	}
+	public void setDepricated(boolean depricated) {
+		this.depricated = depricated;
 	}
 	public void setSelectionEnabled(boolean enable) {
 		isSelectionEnabled = enable;

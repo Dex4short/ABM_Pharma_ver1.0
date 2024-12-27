@@ -8,8 +8,8 @@ import javax.swing.ImageIcon;
 
 import components.Button;
 import components.panels.DialogPanel;
-import oop.Customer;
 import res.Resource;
+import system.objects.Customer;
 import system.ui.Window;
 
 public abstract class ButtonDeleteCustomer extends Button implements ActionListener{

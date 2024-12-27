@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import components.fields.ParagraphField;
-import oop.implementations.Theme;
+import system.ui.appearance.Theme;
 
 public class UI4 extends UI1 implements Theme{
 	private static final long serialVersionUID = 5294758605465387431L;

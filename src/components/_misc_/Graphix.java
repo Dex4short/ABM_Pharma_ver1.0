@@ -68,8 +68,8 @@ public class Graphix {
 		return new ImageIcon(alterImage(buff_img, color, observer));
 	}
 	
-	public static class RoundRect extends Area{
-		public RoundRect(int x, int y, int w, int h, int arcW, int arcH, boolean arc_topLeft, boolean arc_topRight, boolean arc_bottomLeft, boolean arc_bottomRight) {
+	public static class RoundRect2D extends Area{
+		public RoundRect2D(int x, int y, int w, int h, int arcW, int arcH, boolean arc_topLeft, boolean arc_topRight, boolean arc_bottomLeft, boolean arc_bottomRight) {
 			add(new Area(new Rectangle2D.Double(x, y, w, h)));
 		
 			if(arc_topLeft) {

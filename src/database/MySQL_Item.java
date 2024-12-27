@@ -1,7 +1,7 @@
 package database;
 
-import oop.Date;
-import oop.Item;
+import system.objects.Date;
+import system.objects.Item;
 
 public class MySQL_Item {
 	public static final String 

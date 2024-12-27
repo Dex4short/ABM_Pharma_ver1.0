@@ -1,6 +1,6 @@
 package system.ui.tables;
 
-import oop.Product;
+import system.objects.Product;
 import system.ui.cells.CellLabel;
 
 public class TableReserves extends TableProducts{
@@ -30,18 +30,10 @@ public class TableReserves extends TableProducts{
 	
 	public class ProductReservesRow extends ProductRow{
 		private static final long serialVersionUID = 2778698924837158048L;
-		private Product product;
 
 		public ProductReservesRow(Product product) {
 			super(product);
-			addCell(new CellLabel(product.getRemarks().extractTitleFromDetails()));
-			setProduct(product);
-		}
-		public Product getProduct() {
-			return product;
-		}
-		public void setProduct(Product product) {
-			this.product = product;
+			addCell(new CellLabel(product.getRemarks().toStringTitleDetail()));
 		}
 	}
 }

@@ -14,7 +14,7 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 
 import components.panels.Panel;
-import oop.implementations.Theme;
+import system.ui.appearance.Theme;
 
 public class TabPane extends Panel implements Theme{
 	private static final long serialVersionUID = 2593805313851461876L;

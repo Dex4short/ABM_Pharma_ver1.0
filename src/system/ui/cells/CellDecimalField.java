@@ -5,7 +5,7 @@ import javax.swing.BorderFactory;
 
 import components.fields.DecimalField;
 import components.table.Cell;
-import oop.Decimal;
+import system.objects.Decimal;
 
 public class CellDecimalField extends Cell{
 	private static final long serialVersionUID = 1103410566052126699L;

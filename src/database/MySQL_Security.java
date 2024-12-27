@@ -1,5 +1,7 @@
 package database;
 
+import system.enumerators.SecurityRole;
+
 public class MySQL_Security {
 
 	/**
@@ -9,7 +11,7 @@ public class MySQL_Security {
 	 @return 
 	 	Object[] {(int)sec_id, (String)sec_role}
 	 */
-	public static Object[] select_where_password_is(char password[]) {
+	public static Object[] selectSecurityData(char password[]) {
 		String pass = "";
 		for(char p: password) {
 			pass += p;
@@ -29,5 +31,22 @@ public class MySQL_Security {
 			//has no result
 			return null; // no registered data
 		}
+	}
+	public static void updateSecurityData(SecurityRole role, char old_password[], char new_password[]) {
+		Object data[] = selectSecurityData(old_password);
+		
+		if(data == null) throw new RuntimeException("Please input the correct current password");
+		
+		String new_pass = "";
+		for(char p: new_password) {
+			new_pass += p;
+		}
+		
+		MySQL.update(
+			"security", 
+			new String[] {"password"}, 
+			new Object[] {new_pass}, 
+			"where role='" + role.name() + "'"
+		);
 	}
 }

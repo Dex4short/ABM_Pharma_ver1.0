@@ -9,8 +9,8 @@ import java.util.TimerTask;
 
 import components._misc_.Graphix.Shadow;
 import components._misc_.interfaces.Drawable;
-import oop.implementations.Theme;
 import system.ui.Window;
+import system.ui.appearance.Theme;
 
 public class MessageFloater extends Rectangle implements Drawable{
 	private static final long serialVersionUID = 1853594968606075303L;

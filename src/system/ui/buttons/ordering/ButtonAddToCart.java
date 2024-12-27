@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import components.Button;
-import oop.Packaging;
+import system.objects.Packaging;
 import system.ui.Window;
 import system.ui.panels.actions.ActionPanelPackageAddToCart;
 

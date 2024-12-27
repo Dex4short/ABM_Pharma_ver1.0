@@ -86,8 +86,8 @@ public abstract class ActionPanelCustomer extends ActionPanel{
 			if(str[s].isEmpty()) {
 				throw new RuntimeException("Please input customer " + field[s]);
 			}
-			else if(str[s].length() > 64) {
-				throw new RuntimeException("Input limit is 64 characters only");
+			else if(str[s].length() > 32) {
+				throw new RuntimeException("Input limit is 32 characters only");
 			}
 		}
 		

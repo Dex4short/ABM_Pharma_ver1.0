@@ -11,8 +11,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import components._misc_.Graphix;
-import oop.essentials.Settings;
-import oop.implementations.Theme;
+import system._default_.Settings;
+import system.ui.appearance.Theme;
 
 public class Panel extends JPanel implements Theme{
 	private static final long serialVersionUID = -4587780315956796207L;
@@ -32,8 +32,8 @@ public class Panel extends JPanel implements Theme{
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
-				area = new Graphix.RoundRect(0, 0, getWidth(), getHeight(), arc, arc, corner[0], corner[1], corner[2], corner[3]);
-				shadow_area = new Graphix.RoundRect(0, 0, getWidth()-1, getHeight()-1, arc-2, arc-2, corner[0], corner[1], corner[2], corner[3]);
+				area = new Graphix.RoundRect2D(0, 0, getWidth(), getHeight(), arc, arc, corner[0], corner[1], corner[2], corner[3]);
+				shadow_area = new Graphix.RoundRect2D(0, 0, getWidth()-1, getHeight()-1, arc-2, arc-2, corner[0], corner[1], corner[2], corner[3]);
 
 				if(getRootPane() != null) {
 					getRootPane().revalidate();
@@ -41,8 +41,8 @@ public class Panel extends JPanel implements Theme{
 				}
 			}
 		});
-		area = new Graphix.RoundRect(0, 0, getWidth(), getHeight(), arc, arc, corner[0], corner[1], corner[2], corner[3]);
-		shadow_area = new Graphix.RoundRect(0, 0, getWidth()-1, getHeight()-1, arc-2, arc-2, corner[0], corner[1], corner[2], corner[3]);
+		area = new Graphix.RoundRect2D(0, 0, getWidth(), getHeight(), arc, arc, corner[0], corner[1], corner[2], corner[3]);
+		shadow_area = new Graphix.RoundRect2D(0, 0, getWidth()-1, getHeight()-1, arc-2, arc-2, corner[0], corner[1], corner[2], corner[3]);
 		
 	}
 	@Override
@@ -50,13 +50,17 @@ public class Panel extends JPanel implements Theme{
 		g2d = (Graphics2D)g;
 		Settings.rendering_hint(g2d);
 
-		g2d.setColor(getBackground());
-		g2d.fill(area);
+		if(getBackground().getAlpha() != 0) {
+			g2d.setColor(getBackground());
+			g2d.fill(area);
+		}
 		
 		super.paint(g2d);
 
-		g2d.setColor(getForeground());
-		g2d.draw(shadow_area);
+		if(getForeground().getAlpha() != 0) {
+			g2d.setColor(getForeground());
+			g2d.draw(shadow_area);
+		}
 	}
 	public int getArc() {
 		return arc;
@@ -64,7 +68,7 @@ public class Panel extends JPanel implements Theme{
 	public void setArc(int arc) {
 		this.arc = arc;
 		corner = new boolean[] {true, true, true, true};
-		shadow_area = new Graphix.RoundRect(0, 0, getWidth()-1, getHeight()-1, arc-2, arc-2, corner[0], corner[1], corner[2], corner[3]);
+		shadow_area = new Graphix.RoundRect2D(0, 0, getWidth()-1, getHeight()-1, arc-2, arc-2, corner[0], corner[1], corner[2], corner[3]);
 		setBorder(BorderFactory.createEmptyBorder(arc/2, arc/2, arc/2, arc/2));
 	}
 	public Area getArea() {

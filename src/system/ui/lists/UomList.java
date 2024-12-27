@@ -9,7 +9,7 @@ import components.Label;
 import components.list.Item;
 import components.list.ListPane;
 import components.panels.Panel;
-import oop.Uom;
+import system.objects.Uom;
 
 public abstract class UomList extends ListPane{
 	private static final long serialVersionUID = 3237075334125591989L;

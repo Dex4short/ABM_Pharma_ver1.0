@@ -2,8 +2,8 @@ package system.ui.bars;
 
 import components.fields.BarFields;
 import components.fields.DecimalField;
-import oop.Decimal;
-import oop.Transaction;
+import system.objects.Decimal;
+import system.objects.Transaction;
 
 public class BarFieldTransaction extends BarFields{
 	private static final long serialVersionUID = 8424383950064417067L;

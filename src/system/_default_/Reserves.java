@@ -1,9 +1,9 @@
 package system._default_;
 
 import database.MySQL_Products;
-import oop.Product;
-import oop.Remarks;
-import oop.enumerations.ProductCondition;
+import system.enumerators.ProductCondition;
+import system.objects.Product;
+import system.objects.Remarks;
 
 public interface Reserves {
 	
@@ -18,11 +18,13 @@ public interface Reserves {
 		onSearchFromInventory();
 	}
 	public default void restoreFromReserves(Product product) {
-		MySQL_Products.updateProduct(product, ProductCondition.STORED);
+		product.setProduct_condition(ProductCondition.STORED);
+		MySQL_Products.updateProduct(product);
 		onRestoreFromReserves(product);
 	}
 	public default void disposeFromReserves(Product product) {
-		MySQL_Products.updateProduct(product, ProductCondition.DISPOSED);
+		product.setProduct_condition(ProductCondition.DISPOSED);
+		MySQL_Products.updateProduct(product);
 		onDisposeFromReserves(product);
 	}
 	public default void showRemarks(Remarks remarks) {

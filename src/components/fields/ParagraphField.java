@@ -7,8 +7,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JTextArea;
 
 import components.drawables.RoundRect;
-import oop.essentials.Settings;
-import oop.implementations.Theme;
+import system._default_.Settings;
+import system.ui.appearance.Theme;
 
 public class ParagraphField extends JTextArea implements Theme{
 	private static final long serialVersionUID = 7124779313820186668L;

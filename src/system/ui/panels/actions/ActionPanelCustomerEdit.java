@@ -1,6 +1,6 @@
 package system.ui.panels.actions;
 
-import oop.Customer;
+import system.objects.Customer;
 
 public abstract class ActionPanelCustomerEdit extends ActionPanelCustomer{
 	private static final long serialVersionUID = 8600068670153503408L;

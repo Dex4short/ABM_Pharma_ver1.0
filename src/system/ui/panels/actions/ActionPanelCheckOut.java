@@ -10,10 +10,10 @@ import components.Button;
 import components.Label;
 import components.fields.TextField;
 import components.panels.Panel;
-import oop.Customer;
-import oop.Date;
-import oop.Transaction;
-import oop.enumerations.CustomerState;
+import system.enumerators.CustomerState;
+import system.objects.Customer;
+import system.objects.Date;
+import system.objects.Transaction;
 import system.ui.buttons.picking.ButtonCustomerPicker;
 
 public abstract class ActionPanelCheckOut extends ActionPanelCustomer{

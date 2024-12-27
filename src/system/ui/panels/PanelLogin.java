@@ -18,9 +18,9 @@ import components.Label;
 import components._misc_.Graphix;
 import components.fields.PasswordField;
 import components.panels.Panel;
-import oop.essentials.Settings;
 import res.Resource;
 import system._default_.Login;
+import system._default_.Settings;
 import system.ui.Window;
 
 public abstract class PanelLogin extends Panel implements Login, KeyListener{

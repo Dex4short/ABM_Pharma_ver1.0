@@ -7,15 +7,15 @@ import java.awt.event.ActionListener;
 import components.Button;
 import components._misc_.abstracts.Decoration;
 import components.pickers.DatePicker;
-import oop.Date;
-import oop.enumerations.Expiry;
-import oop.essentials.ProductChecker;
+import system.enumerators.Quality;
+import system.managers.QualityManager;
+import system.objects.Date;
 import system.ui.Window;
 
 public class ButtonDatePicker extends Button.Notified implements ActionListener{
 	private static final long serialVersionUID = -8947393395162386027L;
 	private DatePicker date_picker;
-	private Expiry exp_state;
+	private Quality exp_state;
 	private boolean auto_check_expiry=true;
 
 	public ButtonDatePicker(String date) {
@@ -70,7 +70,7 @@ public class ButtonDatePicker extends Button.Notified implements ActionListener{
 		setText(date.toString());
 		checkExpiry();
 	}
-	public void setState(Expiry exp_state) {
+	public void setState(Quality exp_state) {
 		setAccentColorDecoration(exp_state.getState());
 		this.exp_state = exp_state;
 		
@@ -80,7 +80,7 @@ public class ButtonDatePicker extends Button.Notified implements ActionListener{
 	public void setAutoCheckExpiry(boolean auto_check_expiry) {
 		this.auto_check_expiry = auto_check_expiry;
 		if(!auto_check_expiry) {
-			setState(Expiry.NEUTRAL);
+			setState(Quality.NEUTRAL);
 		}
 	}
 	public DatePicker getDatePicker() {
@@ -89,31 +89,18 @@ public class ButtonDatePicker extends Button.Notified implements ActionListener{
 	public Date getDate() {
 		return new Date(getText());
 	}
-	public Expiry getState() {
+	public Quality getState() {
 		return exp_state;
 	}
 	public void checkExpiry() {
 		if(!auto_check_expiry) return;
 		
 		if(getText().equals("yyyy-mm-dd")) {
-			setState(Expiry.UNSET);
+			setState(Quality.UNSET);
 		}
 		else {
-			Date date = new Date();
 			Date expiry = new Date(getText());
-
-			if(ProductChecker.bestBefore(date, expiry, 9)) {
-				setState(Expiry.Good);
-			}
-			else if(ProductChecker.bestBefore(date, expiry, 4)) {
-				setState(Expiry.Warning);
-			}
-			else if(ProductChecker.bestBefore(date, expiry, 0)){
-				setState(Expiry.Bad);
-			}
-			else {
-				setState(Expiry.Expired);
-			}
+			setState(QualityManager.isExpired(expiry));
 		}
 	}
 	public boolean isAutoCheckExpiry() {

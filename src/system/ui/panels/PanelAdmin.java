@@ -14,10 +14,12 @@ import components.Label;
 import components.panels.Panel;
 import components.tab.Tab;
 import components.tab.TabPane;
-import oop.implementations.Theme;
 import res.Resource;
 import system._default_.Administrator;
 import system.ui.Window;
+import system.ui.appearance.Theme;
+import system.ui.buttons.accessibility.ButtonNotifications;
+import system.ui.buttons.accessibility.ButtonSettings;
 
 public class PanelAdmin extends Panel implements Theme, Administrator{
 	private static final long serialVersionUID = 4864384612729816588L;
@@ -40,18 +42,32 @@ public class PanelAdmin extends Panel implements Theme, Administrator{
 		header.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 		panel.add(header, BorderLayout.NORTH);
 		
-		Panel header_left = new Panel();
-		header_left.setArc(10);
-		header_left.setLayout(new FlowLayout(FlowLayout.LEFT));
+		Panel header_left = new Panel() {
+			private static final long serialVersionUID = -1602411307098764274L;
+			{
+				setArc(10);
+				setLayout(new FlowLayout(FlowLayout.LEFT));
+				
+				Label logo = new Label(new ImageIcon(Resource.get("ABM LOGO 2.png")));
+				logo.setBorder(BorderFactory.createEmptyBorder());
+				add(logo);
+			}
+		};
 		header.add(header_left);
 		
-		Label logo = new Label(new ImageIcon(Resource.get("ABM LOGO 2.png")));
-		logo.setBorder(BorderFactory.createEmptyBorder());
-		header_left.add(logo);
-		
-		Panel header_right = new Panel();
-		header_right.setArc(10);
-		header_right.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		Panel header_right = new Panel() {
+			private static final long serialVersionUID = -1602411307098764274L;
+			{
+				setArc(10);
+				setLayout(new FlowLayout(FlowLayout.RIGHT));
+				
+				ButtonSettings btn_settings = new ButtonSettings();
+				add(btn_settings);
+				
+				ButtonNotifications btn_notifications = new ButtonNotifications();
+				add(btn_notifications);
+			}
+		};
 		header.add(header_right);
 		
 		Panel center = new Panel();
@@ -180,8 +196,10 @@ public class PanelAdmin extends Panel implements Theme, Administrator{
 		}, "Loading Disposals...");
 	}
 	@Override
-	public void onToReturns() {
-		
+	public void onToProductReturns(PanelProductReturns product_returns) {
+		Window.load(() -> {
+			product_returns.loadAllReturnedProducts();
+		}, "Loading Product Returns...");
 	}
 	@Override
 	public void onToStatistics() {

@@ -2,9 +2,9 @@ package system.ui.panels;
 
 import components.Button;
 import components.table.Row;
-import oop.Product;
-import oop.Remarks;
 import system._default_.Reserves;
+import system.objects.Product;
+import system.objects.Remarks;
 import system.ui.UI4;
 import system.ui.buttons.ButtonDisposeProduct;
 import system.ui.buttons.ButtonRestoreProduct;
@@ -85,11 +85,7 @@ public class PanelReserves extends UI4 implements Reserves{
 	}
 	@Override
 	public void onShowRemarks(Remarks remarks) {
-		getParagraphField().setText(
-				"Date:\t" + remarks.getDate().toString() + "\n" +
-				"Time:\t" + remarks.getTime().toString() + "\n" + 
-				"Remarks:\t" + remarks.getDetails()
-		);
+		getParagraphField().setText(remarks.toStringFullDetails());
 	}
 	@Override
 	public void onLoadAllFromReserves(Product[] products) {

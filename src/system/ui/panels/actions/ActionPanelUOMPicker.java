@@ -20,9 +20,9 @@ import components.list.Item;
 import components.list.ListPane;
 import components.panels.ActionPanel;
 import components.panels.Panel;
-import oop.Uom;
-import oop.enumerations.UomType;
-import oop.essentials.UomPresets;
+import system.enumerators.UomType;
+import system.managers.UomManager;
+import system.objects.Uom;
 
 public abstract class ActionPanelUOMPicker extends ActionPanel {
 	private static final long serialVersionUID = 8885051793237377183L;
@@ -68,7 +68,7 @@ public abstract class ActionPanelUOMPicker extends ActionPanel {
 		subUom_panel = new SubUomPanel();
 		center_panel.add(subUom_panel);
 
-		setSelectedUom(UomPresets.set[0]);
+		setSelectedUom(UomManager.set[0]);
 		
 		addComponentListener(new ComponentAdapter() {
 			@Override
@@ -87,7 +87,7 @@ public abstract class ActionPanelUOMPicker extends ActionPanel {
 		onUomCancel();
 	}
 	public Uom getSelectedUom() {
-		UomPresets.prepareIds(selected_uom);
+		UomManager.prepareIds(selected_uom);
 		return selected_uom;
 	}
 	public void setSelectedUom(Uom uom) {
@@ -144,15 +144,15 @@ public abstract class ActionPanelUOMPicker extends ActionPanel {
 			sub_uoms = "";
 			
 			int i;
-			for(i=0; i<UomPresets.set.length; i++) {
-				uom = UomPresets.set[i];
+			for(i=0; i<UomManager.set.length; i++) {
+				uom = UomManager.set[i];
 				
 				main_uom = uom.getUnitType().toString();
 				while(uom.getSubUom() != null) {
 					uom = uom.getSubUom();
 					sub_uoms += (": " + uom.getUnitType() + " ");
 				}
-				addItem(new UomItem(main_uom + " " + (sub_uoms.equals("") ? "" : sub_uoms), UomPresets.set[i]));
+				addItem(new UomItem(main_uom + " " + (sub_uoms.equals("") ? "" : sub_uoms), UomManager.set[i]));
 				
 				main_uom = "";
 				sub_uoms = "";
@@ -205,7 +205,7 @@ public abstract class ActionPanelUOMPicker extends ActionPanel {
 						JComponent unitSize_field;
 						UomType uom_type = subUom.getUnitType();
 						if(uom_type==UomType.capsule || uom_type==UomType.tablet) {
-							unitSize_field = new Stepper(UomPresets.sizes, UomPresets.sizeIndexOf(subUom.getUnitSize()+"")) {
+							unitSize_field = new Stepper(UomManager.sizes, UomManager.sizeIndexOf(subUom.getUnitSize()+"")) {
 								private static final long serialVersionUID = 1L;
 								@Override
 								public void onIncrement(String selectedIterationValue) {

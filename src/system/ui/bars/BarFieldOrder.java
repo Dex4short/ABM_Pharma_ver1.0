@@ -1,6 +1,6 @@
 package system.ui.bars;
 
-import oop.Transaction;
+import system.objects.Transaction;
 
 public abstract class BarFieldOrder extends BarFieldCart{
 	private static final long serialVersionUID = 8424383950064417067L;

@@ -5,7 +5,7 @@ import java.awt.FlowLayout;
 import components.Label;
 import components.fields.PercentageField;
 import components.panels.ActionPanel;
-import oop.Percentage;
+import system.objects.Percentage;
 import system.ui.Window;
 
 public abstract class ActionPanelDiscountEntry extends ActionPanel{

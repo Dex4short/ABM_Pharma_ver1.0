@@ -1,6 +1,6 @@
 package system.ui.panels.actions;
 
-import oop.Product;
+import system.objects.Product;
 import system.ui.Window;
 
 public abstract class ActionPanelEditProduct  extends ActionPanelProduct{

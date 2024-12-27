@@ -1,8 +1,8 @@
 package database;
 
-import oop.Date;
-import oop.Remarks;
-import oop.Time;
+import system.objects.Date;
+import system.objects.Remarks;
+import system.objects.Time;
 
 public class MySQL_Remarks {
 	public static final String 

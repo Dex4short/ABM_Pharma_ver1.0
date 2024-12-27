@@ -3,7 +3,7 @@ package components;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 
-import oop.implementations.Theme;
+import system.ui.appearance.Theme;
 public class Label extends JLabel implements Theme{
 	private static final long serialVersionUID = -1236396874946398354L;
 

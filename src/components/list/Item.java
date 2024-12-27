@@ -11,7 +11,7 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 
 import components.panels.Panel;
-import oop.essentials.Settings;
+import system._default_.Settings;
 
 public class Item extends Panel implements MouseListener{
 	private static final long serialVersionUID = -3861311087822060976L;
@@ -37,6 +37,14 @@ public class Item extends Panel implements MouseListener{
 		setName(string);
 		
 		add(new Label(string), BorderLayout.CENTER);
+		addMouseListener(this);
+	}
+	public Item() {
+		setArc(5);
+		setLayout(new BorderLayout());
+		setBackground(main_color[2]);
+		setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
+		
 		addMouseListener(this);
 	}
 	@Override

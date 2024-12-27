@@ -16,7 +16,7 @@ create table uom(uom_id varchar(16), name varchar(16), size int, subUom_id varch
 
 create table pricing(price_id int, cost decimal(12,2), unit_price decimal(12,2), discount varchar(4), unit_amount decimal(12,2));
 
-create table remarks(rem_id int, rem_date Date, rem_time Time, details varchar(64));
+create table remarks(rem_id int, rem_date Date, rem_time Time, details varchar(128));
 
 create table counter(counter_no int, active_time time, counter_state varchar(5), currentCart_no int);
 insert into counter values(	0, '00:00:00', 'CLOSE', 0);

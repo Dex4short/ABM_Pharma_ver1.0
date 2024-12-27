@@ -17,7 +17,7 @@ import components.Label;
 import components.Padding;
 import components.panels.Panel;
 import components.scroll.ScrollPane;
-import oop.implementations.Theme;
+import system.ui.appearance.Theme;
 
 public abstract class Table extends Panel implements Theme{
 	private static final long serialVersionUID = -8446662030696532231L;
@@ -418,6 +418,8 @@ public abstract class Table extends Panel implements Theme{
 			for(int r=0; r<getRowCount(); r++) {
 				getRow(r).setBounds(0, getScrollY() + (row_h * r), row_w, row_h);
 			}
+			
+			updateScrollers();
 			
 			if(getRootPane() != null) {
 				getRootPane().revalidate();

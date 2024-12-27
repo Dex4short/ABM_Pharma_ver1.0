@@ -3,8 +3,8 @@ package components;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 
-import oop.implementations.Theme;
 import res.Resource;
+import system.ui.appearance.Theme;
 
 public class CheckBox extends JCheckBox implements Theme{
 	private static final long serialVersionUID = 7088141605327845374L;

@@ -1,8 +1,8 @@
 package system.ui.tables;
 
 import components.table.Column;
-import oop.Packaging;
-import oop.Product;
+import system.objects.Packaging;
+import system.objects.Product;
 import system.ui.cells.CellButtonAddToCart;
 
 

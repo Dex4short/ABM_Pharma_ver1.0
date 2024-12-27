@@ -2,7 +2,7 @@ package system.ui.cells;
 
 import javax.swing.BorderFactory;
 
-import oop.Date;
+import system.objects.Date;
 
 public class CellLabelDate extends CellButtonDatePicker{
 	private static final long serialVersionUID = -752158914266118531L;

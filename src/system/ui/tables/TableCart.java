@@ -1,7 +1,7 @@
 package system.ui.tables;
 
 import components.table.Column;
-import oop.Order;
+import system.objects.Order;
 import system.ui.cells.CellButton;
 
 public abstract class TableCart extends TableOrders{
@@ -38,6 +38,13 @@ public abstract class TableCart extends TableOrders{
 			cell_btn.getButton().setArc(20);
 			addCell(cell_btn);
 		}
-		
+		@Override
+		public void checkExpiry() {
+			//disabled
+		}
+		@Override
+		public void checkStock() {
+			//disabled
+		}
 	}
 }

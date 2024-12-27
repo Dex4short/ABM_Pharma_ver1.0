@@ -2,10 +2,10 @@ package database;
 
 import java.util.ArrayList;
 
-import oop.Packaging;
-import oop.Product;
-import oop.Uom;
-import oop.enumerations.ProductCondition;
+import system.enumerators.ProductCondition;
+import system.objects.Packaging;
+import system.objects.Product;
+import system.objects.Uom;
 
 public class MySQL_Products {
 	
@@ -13,12 +13,12 @@ public class MySQL_Products {
 	table_name = "products",
 	table_columns[] = {"prod_id", "item_id", "pack_id", "price_id", "rem_id", "prod_condition"};
 	
-	public static Product insertProduct(Product product, ProductCondition condition) {		
+	public static Product insertProduct(Product product) {		
 		product.setProdId(MySQL.nextUID(table_columns[0], table_name));
 		
-		if(condition == ProductCondition.STORED) MySQL_Item.insertItem(product.getItem());
+		if(product.getProductCondition() == ProductCondition.STORED) MySQL_Item.insertItem(product.getItem());
 		MySQL_Packaging.insertPackaging(product.getPackaging());
-		if(condition != ProductCondition.ORDERED) MySQL_Pricing.insertPricing(product.getPricing());
+		if(product.getProductCondition() != ProductCondition.ORDERED) MySQL_Pricing.insertPricing(product.getPricing());
 		
 		MySQL.insert(
 			table_name,
@@ -29,14 +29,14 @@ public class MySQL_Products {
 				product.getPackaging().getPackId(),
 				product.getPricing().getPriceId(),
 				-1,
-				condition.name()
+				product.getProductCondition().name()
 			}
 		);
 		
 		return product;
 	}
-	public static Product selectProduct(int prod_id, ProductCondition condition) {
-		return selectProducts("where prod_id=" + prod_id + " and prod_condition='" + condition + "' ")[0];
+	public static Product selectProduct(int prod_id) {
+		return selectProducts("where prod_id=" + prod_id)[0];
 	}
 	public static Product[] selectProducts(ProductCondition condition) {
 		return selectProducts("where prod_condition='" + condition +"' ");
@@ -55,7 +55,8 @@ public class MySQL_Products {
 				MySQL_Item.selectItem((int)results[r][1]),
 				MySQL_Packaging.selectPackaging((int)results[r][2]),
 				MySQL_Pricing.selectPricing((int)results[r][3]),
-				MySQL_Remarks.selectRemarks((int)results[r][4])
+				MySQL_Remarks.selectRemarks((int)results[r][4]),
+				ProductCondition.valueOf((String)results[r][5])
 			);
 		}
 		
@@ -88,7 +89,7 @@ public class MySQL_Products {
 		
 		MySQL.delete(table_name, "where prod_id=" + product.getProdId());
 	}
-	public static void updateProduct(Product product, ProductCondition condition) {
+	public static void updateProduct(Product product) {
 		MySQL_Item.updateItem(product.getItem());
 		MySQL_Packaging.updatePackaging(product.getPackaging());
 		MySQL_Pricing.updatePricing(product.getPricing());
@@ -102,27 +103,7 @@ public class MySQL_Products {
 				product.getPackaging().getPackId(),
 				product.getPricing().getPriceId(),
 				(product.getRemarks() != null) ? product.getRemarks().getRemId() : -1,
-				condition.name()
-			},
-			"where prod_id=" + product.getProdId()
-		);
-	}
-	public static void updateProduct(int prod_id, ProductCondition condition) {
-		MySQL.update(table_name, new String[] {"prod_condition"}, new Object[]{condition.name()}, "where prod_id=" + prod_id);
-	}
-	public static void updateProduct(Product product) {
-		MySQL_Item.updateItem(product.getItem());
-		MySQL_Packaging.updatePackaging(product.getPackaging());
-		MySQL_Pricing.updatePricing(product.getPricing());
-		
-		MySQL.update(
-			table_name,
-			new String[] {"item_id", "pack_id", "price_id", "rem_id"},
-			new Object[] {
-				product.getItem().getItemId(),
-				product.getPackaging().getPackId(),
-				product.getPricing().getPriceId(),
-				(product.getRemarks()!=null) ? product.getRemarks().getRemId() : -1
+				product.getProductCondition().name()
 			},
 			"where prod_id=" + product.getProdId()
 		);

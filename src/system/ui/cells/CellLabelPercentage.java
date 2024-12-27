@@ -5,7 +5,7 @@ import javax.swing.BorderFactory;
 
 import components.Label;
 import components.table.Cell;
-import oop.Percentage;
+import system.objects.Percentage;
 
 public class CellLabelPercentage extends Cell{
 	private static final long serialVersionUID = -752158914266118531L;

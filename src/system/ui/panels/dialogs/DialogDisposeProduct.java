@@ -1,8 +1,8 @@
 package system.ui.panels.dialogs;
 
 import components.panels.DialogPanel;
-import oop.Product;
-import oop.Remarks;
+import system.objects.Product;
+import system.objects.Remarks;
 import system.ui.Window;
 import system.ui.panels.actions.ActionPanelRemarksDispose;
 
@@ -17,7 +17,16 @@ public abstract class DialogDisposeProduct extends DialogPanel{
 	}
 	@Override
 	public void onOk() {
-		showActionPanel();
+		Window.getStackPanel().pushPanel(new ActionPanelRemarksDispose() {
+			private static final long serialVersionUID = 6447871600282867621L;
+			@Override
+			public void onDisposeRemarksOk(Remarks remarks) {
+				for(Product product: products) {
+					product.setRemarks(remarks);
+					disposeProductOk(product);
+				}
+			}
+		}, 300, 250);
 		Window.getStackPanel().popPanel(this);
 	}
 	@Override
@@ -36,16 +45,4 @@ public abstract class DialogDisposeProduct extends DialogPanel{
 	
 	public abstract void onDisposeProductOk(Product product);
 	
-	private void showActionPanel() {
-		Window.getStackPanel().pushPanel(new ActionPanelRemarksDispose() {
-			private static final long serialVersionUID = 6447871600282867621L;
-			@Override
-			public void onDisposeRemarksOk(Remarks remarks) {
-				for(Product product: products) {
-					product.setRemarks(remarks);
-					disposeProductOk(product);
-				}
-			}
-		}, 300, 250);
-	}
 }

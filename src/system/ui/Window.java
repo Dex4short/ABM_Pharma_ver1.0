@@ -1,17 +1,21 @@
 package system.ui;
 
-import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 
 import components._misc_.Graphix.Shadow;
 import components.drawables.MessageFloater;
+import components.panels.PopUpPanel;
 import components.panels.StackPanel;
-import oop.implementations.Theme;
+import components.panels.TitledPanel;
+import io.InputOutput;
+import system.ui.appearance.Theme;
 import system.ui.overlays.LoadingScreen;
 import system.ui.overlays.LoadingScreenAdapater;
 import system.ui.panels.PanelAdmin;
@@ -21,13 +25,23 @@ import system.ui.panels.PanelLogin;
 public class Window extends JFrame implements Theme{
 	private static final long serialVersionUID = -6729595845570486177L;
 	private static StackPanel stack_panel;
+	private static PopUpPanel popup_panel;
 	private static MessageFloater message_floater;
 
 	public Window() {        
 		setTitle("ABM Pharma - DIMS Rev.2");
 		setLayout(null);
 
+		//String theme_mode = InputOutput.read("theme_settings.txt");
+		//if(theme_mode.equals("Dark Mode")) darkMode();
+		//else lightMode();
+		
 		message_floater = new MessageFloater();
+
+		popup_panel = new PopUpPanel();
+		popup_panel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		popup_panel.setBorder(BorderFactory.createEmptyBorder(60, 20, 20, 20));
+		add(popup_panel);
 		
 		stack_panel = new StackPanel() {
 			private static final long serialVersionUID = 2661178564787006879L;
@@ -35,7 +49,6 @@ public class Window extends JFrame implements Theme{
 			@Override
 			public void paint(Graphics g) {
 				super.paint(g);
-				
 				g2d = (Graphics2D)g;
 				message_floater.setBounds(0, 0, getWidth(), getHeight());
 				message_floater.draw(g2d);
@@ -43,7 +56,8 @@ public class Window extends JFrame implements Theme{
 		};
 		stack_panel.setBackground(main_color[0]);
 		stack_panel.setName("abm");
-		add(stack_panel, BorderLayout.CENTER);
+		add(stack_panel);
+		
 		
 		PanelLogin panel_login = new PanelLogin() {
 			private static final long serialVersionUID = 179005001334507847L;
@@ -73,6 +87,7 @@ public class Window extends JFrame implements Theme{
 			@Override
 			public void componentResized(ComponentEvent e) {
 				stack_panel.setBounds(0, 0, getContentPane().getWidth(), getContentPane().getHeight());
+				popup_panel.setBounds(0, 0, getContentPane().getWidth(), getContentPane().getHeight());
 				revalidate();
 				repaint();
 			}
@@ -105,5 +120,8 @@ public class Window extends JFrame implements Theme{
 			runnable.run();
 			getStackPanel().popPanel(loading_screen);
 		}, 0, Shadow.shadow_color, main_color[2], load_name);
+	}
+	public static PopUpPanel getPopUpPanel() {
+		return popup_panel;
 	}
 }

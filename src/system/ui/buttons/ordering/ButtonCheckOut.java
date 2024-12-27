@@ -4,10 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import components.Button;
-import oop.Cart;
-import oop.Counter;
-import oop.Transaction;
-import oop.essentials.Accountancy;
+import system.managers.AccountancyManager;
+import system.objects.Cart;
+import system.objects.Counter;
+import system.objects.Transaction;
 import system.ui.Window;
 import system.ui.bars.BarFieldCart;
 import system.ui.panels.actions.ActionPanelCheckOut;
@@ -34,13 +34,12 @@ public abstract class ButtonCheckOut extends Button.Quaternary implements Action
 	public void checkOut(Transaction transaction) {
 		transaction.setCounter(getCounter());
 		transaction.setCart(getCart());
-		transaction.setCostAmount(Accountancy.calculateCostAmount(getCart().getOrders()));
+		transaction.setCostAmount(AccountancyManager.calculateCostAmount(getCart().getOrders()));
 		transaction.setDiscount(getBarFieldCart().getDiscount());
 		transaction.setTotalNetAmount(getBarFieldCart().getTotalNetAmount());
-		transaction.setProfit(Accountancy.calculateProfit(transaction.getTotalNetAmount(), transaction.getCostAmount()));
+		transaction.setProfit(AccountancyManager.calculateProfit(transaction.getTotalNetAmount(), transaction.getCostAmount()));
 		onCheckOut(transaction);
 	}
-
 	public BarFieldCart getBarFieldCart() {
 		return barField_cart;
 	}

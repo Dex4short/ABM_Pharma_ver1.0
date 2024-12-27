@@ -1,6 +1,6 @@
 package system.ui.tables;
 
-import oop.Product;
+import system.objects.Product;
 import system.ui.cells.CellLabel;
 
 public class TableDisposals extends TableProducts{
@@ -24,18 +24,19 @@ public class TableDisposals extends TableProducts{
 	
 	public class ProductDisposalRow extends ProductRow{
 		private static final long serialVersionUID = 2778698924837158048L;
-		private Product product;
 
 		public ProductDisposalRow(Product product) {
 			super(product);
-			addCell(new CellLabel(product.getRemarks().extractTitleFromDetails()));
+			addCell(new CellLabel(product.getRemarks().toStringTitleDetail()));
 			setProduct(product);
 		}
-		public Product getProduct() {
-			return product;
+		@Override
+		public void checkExpiry() {
+			//disabled
 		}
-		public void setProduct(Product product) {
-			this.product = product;
+		@Override
+		public void checkStock() {
+			//disabled
 		}
 	}
 }

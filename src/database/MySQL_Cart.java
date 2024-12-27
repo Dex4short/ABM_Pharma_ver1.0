@@ -1,7 +1,7 @@
 package database;
 
-import oop.Cart;
-import oop.Order;
+import system.objects.Cart;
+import system.objects.Order;
 
 public class MySQL_Cart {
 	public static final String

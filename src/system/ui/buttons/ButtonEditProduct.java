@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 
 import components.Button;
-import oop.Product;
-import oop.enumerations.ProductCondition;
 import res.Resource;
+import system.enumerators.ProductCondition;
+import system.objects.Product;
 import system.ui.Window;
 import system.ui.panels.actions.ActionPanelEditProduct;
 

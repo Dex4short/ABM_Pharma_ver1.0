@@ -14,7 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
 import components.panels.Panel;
-import oop.implementations.Theme;
+import system.ui.appearance.Theme;
 
 public abstract class Stepper extends Panel implements Theme{
 	private static final long serialVersionUID = 1L;

@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import components.Button;
-import oop.Uom;
+import system.objects.Uom;
 import system.ui.Window;
 import system.ui.panels.actions.ActionPanelUOMPicker;
 

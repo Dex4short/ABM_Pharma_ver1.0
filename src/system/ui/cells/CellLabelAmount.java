@@ -9,7 +9,7 @@ import components.Label;
 import components._misc_.Graphix;
 import components.fields.TextField;
 import components.table.Cell;
-import oop.Decimal;
+import system.objects.Decimal;
 
 public class CellLabelAmount extends Cell{
 	private static final long serialVersionUID = -752158914266118531L;

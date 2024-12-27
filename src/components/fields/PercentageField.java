@@ -2,7 +2,7 @@ package components.fields;
 
 import java.math.BigDecimal;
 
-import oop.Percentage;
+import system.objects.Percentage;
 
 public class PercentageField extends NumericField{
 	private static final long serialVersionUID = 8046081737338819617L;

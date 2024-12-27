@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 
 import components.Button;
-import oop.Customer;
-import oop.enumerations.CustomerState;
 import res.Resource;
+import system.enumerators.CustomerState;
+import system.objects.Customer;
 import system.ui.Window;
 import system.ui.panels.actions.ActionPanelCustomerEdit;
 

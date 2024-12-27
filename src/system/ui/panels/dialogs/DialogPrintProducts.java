@@ -1,7 +1,7 @@
 package system.ui.panels.dialogs;
 
 import components.panels.DialogPanel;
-import oop.Product;
+import system.objects.Product;
 import system.ui.Window;
 
 public abstract class DialogPrintProducts extends DialogPanel{

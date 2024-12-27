@@ -9,10 +9,10 @@ import components.Label;
 import components.fields.NumericField;
 import components.panels.ActionPanel;
 import components.panels.Panel;
-import oop.Packaging;
-import oop.Quantity;
-import oop.Uom;
-import oop.enumerations.PackagingLine;
+import system.enumerators.PackagingLine;
+import system.objects.Packaging;
+import system.objects.Quantity;
+import system.objects.Uom;
 import system.ui.Window;
 import system.ui.lists.UomList;
 

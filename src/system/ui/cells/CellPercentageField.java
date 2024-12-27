@@ -4,7 +4,7 @@ import javax.swing.BorderFactory;
 
 import components.fields.PercentageField;
 import components.table.Cell;
-import oop.Percentage;
+import system.objects.Percentage;
 
 public class CellPercentageField extends Cell{
 	private static final long serialVersionUID = 2493091177359096476L;

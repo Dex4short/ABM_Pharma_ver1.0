@@ -4,6 +4,7 @@ import components.panels.Panel;
 import system.ui.panels.PanelCustomers;
 import system.ui.panels.PanelDisposal;
 import system.ui.panels.PanelInventory;
+import system.ui.panels.PanelProductReturns;
 import system.ui.panels.PanelReserves;
 import system.ui.panels.PanelStore;
 import system.ui.panels.PanelTransactions;
@@ -26,7 +27,7 @@ public interface Administrator {
 		onToDisposal((PanelDisposal)nextPanel());
 	}
 	public default void toProductReturns() {
-		onToReturns();
+		onToProductReturns((PanelProductReturns)nextPanel());
 	}
 	public default void toStatistics() {
 		onToStatistics();
@@ -41,7 +42,7 @@ public interface Administrator {
 	public void onToStore(PanelStore store);
 	public void onToReserves(PanelReserves reserves);
 	public void onToDisposal(PanelDisposal disposal);
-	public void onToReturns();
+	public void onToProductReturns(PanelProductReturns product_returns);
 	public void onToStatistics();
 	public void onToCustomers(PanelCustomers customers);
 	

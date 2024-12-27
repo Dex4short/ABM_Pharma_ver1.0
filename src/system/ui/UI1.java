@@ -8,7 +8,7 @@ import components.panels.Panel;
 import components.panels.SearchPanel;
 import components.table.Row;
 import components.table.Table;
-import oop.implementations.Theme;
+import system.ui.appearance.Theme;
 
 public class UI1 extends Panel implements Theme{
 	private static final long serialVersionUID = 5294758605465387431L;

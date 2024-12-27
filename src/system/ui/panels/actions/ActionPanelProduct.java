@@ -14,18 +14,18 @@ import components.panels.ActionPanel;
 import components.table.Cell;
 import components.table.Row;
 import components.table.Table;
-import oop.Date;
-import oop.Decimal;
-import oop.Item;
-import oop.Packaging;
-import oop.Percentage;
-import oop.Pricing;
-import oop.Product;
-import oop.Quantity;
-import oop.Remarks;
-import oop.Uom;
-import oop.enumerations.PackagingLine;
-import oop.essentials.Accountancy;
+import system.enumerators.PackagingLine;
+import system.managers.AccountancyManager;
+import system.objects.Date;
+import system.objects.Decimal;
+import system.objects.Item;
+import system.objects.Packaging;
+import system.objects.Percentage;
+import system.objects.Pricing;
+import system.objects.Product;
+import system.objects.Quantity;
+import system.objects.Remarks;
+import system.objects.Uom;
 import system.ui.Window;
 import system.ui.buttons.picking.ButtonUomPicker;
 import system.ui.cells.CellButtonDatePicker;
@@ -147,7 +147,8 @@ public abstract class ActionPanelProduct  extends ActionPanel{
 				new Item(-1, item_no, description, lot_no, date_added, exp_date, brand),
 				new Packaging(-1, qty, uom, -1, PackagingLine.Ancestor, -1),
 				new Pricing(-1, cost, unit_price, discount, unit_amount),
-				new Remarks(-1)
+				new Remarks(-1),
+				null
 		);
 	}
 	public void productOk() {
@@ -227,7 +228,7 @@ public abstract class ActionPanelProduct  extends ActionPanel{
 				@Override
 				public void keyReleased(KeyEvent e) {
 					try {
-						unit_amount_label.setText(Accountancy.calculateUnitAmount(unit_price_field.getDecimal(), discount_field.getPercent()).toString());
+						unit_amount_label.setText(AccountancyManager.calculateUnitAmount(unit_price_field.getDecimal(), discount_field.getPercent()).toString());
 						unit_price_field.setForeground(text_color[0]);
 					} catch (Exception ex) {
 						//ex.printStackTrace();
@@ -240,7 +241,7 @@ public abstract class ActionPanelProduct  extends ActionPanel{
 				@Override
 				public void keyReleased(KeyEvent e) {
 					try {
-						unit_amount_label.setText(Accountancy.calculateUnitAmount(unit_price_field.getDecimal(), discount_field.getPercent()).toString());
+						unit_amount_label.setText(AccountancyManager.calculateUnitAmount(unit_price_field.getDecimal(), discount_field.getPercent()).toString());
 						discount_field.setForeground(text_color[0]);
 					}catch (Exception ex) {
 						//ex.printStackTrace();

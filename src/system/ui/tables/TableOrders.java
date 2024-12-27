@@ -1,7 +1,8 @@
 package system.ui.tables;
 
 import components.table.Row;
-import oop.Order;
+import system.enumerators.ProductCondition;
+import system.objects.Order;
 import system.ui.cells.CellLabelDecimal;
 
 public class TableOrders extends TableProducts{
@@ -55,6 +56,14 @@ public class TableOrders extends TableProducts{
 	public int getOrderCount() {
 		return getRowCount();
 	}
+	public Order[] getSelectedOrders() {
+		Row rows[] = getSelectedRows();
+		Order orders[] = new Order[rows.length];
+		for(int o=0; o<orders.length; o++) {
+			orders[o] = ((OrderRow)rows[o]).getOrder();
+		}
+		return orders;
+	}
 	
 	public class OrderRow extends ProductRow{
 		private static final long serialVersionUID = 2778698924837158048L;
@@ -66,12 +75,23 @@ public class TableOrders extends TableProducts{
 			addCell(new CellLabelDecimal(order.getNetAmount()));
 			//getCell(3).setVisible(false);
 			//getCell(8).setVisible(false);
+			
+			if(order.getProduct().getProductCondition() == ProductCondition.RETURNED) setDepricated(true);
+			
 		}
 		public Order getOrder() {
 			return order;
 		}
 		public void setOrder(Order order) {
 			this.order = order;
+		}
+		@Override
+		public void checkExpiry() {
+			//disabled
+		}
+		@Override
+		public void checkStock() {
+			//disabled
 		}
 	}
 }

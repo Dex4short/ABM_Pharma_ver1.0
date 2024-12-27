@@ -15,6 +15,7 @@ public class TitledPanel extends Panel{
 
 	{
 		setArc(20);
+		setForeground(main_color[3]);
 	}
 	public TitledPanel(Label title) {
 		setLayout(new BorderLayout());

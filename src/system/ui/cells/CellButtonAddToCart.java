@@ -1,8 +1,8 @@
 package system.ui.cells;
 
 
-import oop.Packaging;
-import oop.Product;
+import system.objects.Packaging;
+import system.objects.Product;
 import system.ui.buttons.ordering.ButtonAddToCart;
 
 public abstract class CellButtonAddToCart extends CellButton{

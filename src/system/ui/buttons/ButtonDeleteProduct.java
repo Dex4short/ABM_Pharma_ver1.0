@@ -7,8 +7,8 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 
 import components.Button;
-import oop.Product;
 import res.Resource;
+import system.objects.Product;
 
 public abstract class ButtonDeleteProduct extends Button implements ActionListener{
 	private static final long serialVersionUID = -211465351098739393L;

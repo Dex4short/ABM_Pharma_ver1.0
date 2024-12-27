@@ -1,8 +1,8 @@
 package system._default_;
 
 import database.MySQL_Customer;
-import oop.Customer;
-import oop.enumerations.CustomerState;
+import system.enumerators.CustomerState;
+import system.objects.Customer;
 
 public interface Customers {
 	

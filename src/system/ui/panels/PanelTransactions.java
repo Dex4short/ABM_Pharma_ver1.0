@@ -1,12 +1,12 @@
 package system.ui.panels;
 
 import components.table.Row;
-import oop.Decimal;
-import oop.Order;
-import oop.Percentage;
-import oop.Product;
-import oop.Transaction;
 import system._default_.Transactions;
+import system.objects.Decimal;
+import system.objects.Order;
+import system.objects.Percentage;
+import system.objects.Product;
+import system.objects.Transaction;
 import system.ui.UI3;
 import system.ui.bars.BarFieldOrder;
 import system.ui.bars.BarFieldTransaction;
@@ -73,7 +73,11 @@ public class PanelTransactions extends UI3 implements Transactions{
 			btn_return_order = new ButtonReturnOrder() {
 				private static final long serialVersionUID = 3251937345183043930L;
 				@Override
-				public void onReturnOrder() { returnOrder(); }
+				public void onReturnOrder(Order orders[]) { returnCustomersOrderFromTransactions(orders); }
+				@Override
+				public Transaction getSelectedTransacton() { return selectFromTransactions(); }
+				@Override
+				public Order[] getSelectedOrders() { return selectCustomerOrdersFromTransactions(); }
 			};
 			
 			table_orders = new TableOrders() {
@@ -81,7 +85,7 @@ public class PanelTransactions extends UI3 implements Transactions{
 				@Override
 				public void onSelectRow(Row row) {
 					boolean hasSelected = table_orders.getSelectedRows().length == 1;
-					if(hasSelected) btn_return_order.setEnabled(true);
+					if(hasSelected && !row.isDepricated()) btn_return_order.setEnabled(true);
 				}
 				@Override
 				public void onPointRow(Row row) {
@@ -102,6 +106,14 @@ public class PanelTransactions extends UI3 implements Transactions{
 		}
 	}
 	@Override
+	public Transaction onSelectFromTransactions() {
+		return table_transactions.getSelectedTransaction();
+	}
+	@Override
+	public Order[] onSelectCustomerOrdersFromTransactions() {
+		return table_orders.getSelectedOrders();
+	}
+	@Override
 	public void onSearchCustomersFromTransactions(Product[] products) {
 		// TODO Auto-generated method stub
 	}
@@ -114,8 +126,16 @@ public class PanelTransactions extends UI3 implements Transactions{
 		// TODO Auto-generated method stub
 	}
 	@Override
-	public void onReturnCustomerOrderFromTransactions() {
-		// TODO Auto-generated method stub
+	public void onReturnCustomerOrderFromTransactions(Order orders[]) {
+		int trans_id = table_transactions.getSelectedTransaction().getTransId();
+		
+		loadAllFromTransactions();
+		for(Transaction transaction: table_transactions.getTransactions()) {
+			if(transaction.getTransId() == trans_id) {
+				getCustomerOrdersFromTransactions(transaction);
+				break;
+			}
+		}
 	}
 	@Override
 	public void onGetCustomerOrdersFromTransactions(Transaction transction) {

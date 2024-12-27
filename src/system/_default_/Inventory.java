@@ -1,8 +1,8 @@
 package system._default_;
 
 import database.MySQL_Products;
-import oop.Product;
-import oop.enumerations.ProductCondition;
+import system.enumerators.ProductCondition;
+import system.objects.Product;
 
 public interface Inventory {
 
@@ -39,17 +39,20 @@ public interface Inventory {
 		onPrintFromInventory();
 	}
 	public default void reserveFromInventory(Product product) {
-		MySQL_Products.updateProduct(product, ProductCondition.RESERVED);
+		product.setProduct_condition(ProductCondition.RESERVED);
+		MySQL_Products.updateProduct(product);
 		onReserveFromInventory(product);
 	}
 	public default void disposeFromInventory(Product product) {
-		MySQL_Products.updateProduct(product, ProductCondition.DISPOSED);
+		product.setProduct_condition(ProductCondition.DISPOSED);
+		MySQL_Products.updateProduct(product);
 		onDisposeFromInventory(product);
 	}
 	public default void editFromInventory(Product new_product, Product old_product, ProductCondition condition) {
 		if(new_product!=null) {
 			if(old_product==null) {
-				MySQL_Products.insertProduct(new_product, condition);
+				new_product.setProduct_condition(condition);
+				MySQL_Products.insertProduct(new_product);
 			}
 			else {
 				MySQL_Products.updateProduct(new_product);
@@ -66,7 +69,8 @@ public interface Inventory {
 		if(condition == ProductCondition.STORED) onEditFromInventory(new_product);
 	}
 	public default void addToInventory(Product product, ProductCondition condition) {
-		MySQL_Products.insertProduct(product, condition);
+		product.setProduct_condition(condition);
+		MySQL_Products.insertProduct(product);
 		if(condition == ProductCondition.STORED) onAddToInventory(product);
 	}
 	public default void loadAllFromInventory() {

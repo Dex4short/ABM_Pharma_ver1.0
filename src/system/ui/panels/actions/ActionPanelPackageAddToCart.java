@@ -1,7 +1,7 @@
 package system.ui.panels.actions;
 
-import oop.Packaging;
-import oop.essentials.PackagingManager;
+import system.managers.PackagingManager;
+import system.objects.Packaging;
 import system.ui.Window;
 
 public abstract class ActionPanelPackageAddToCart extends ActionPanelPackage{

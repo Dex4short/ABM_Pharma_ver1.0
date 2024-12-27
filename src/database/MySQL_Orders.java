@@ -2,9 +2,9 @@ package database;
 
 import java.math.BigDecimal;
 
-import oop.Decimal;
-import oop.Order;
-import oop.enumerations.ProductCondition;
+import system.enumerators.ProductCondition;
+import system.objects.Decimal;
+import system.objects.Order;
 
 public class MySQL_Orders {
 	public static final String 
@@ -12,7 +12,9 @@ public class MySQL_Orders {
 	table_columns[] = {"order_no", "prod_id", "net_amount"};
 
 	public static Order insertOrder(Order order) {
-		MySQL_Products.insertProduct(order.getProduct(), ProductCondition.ORDERED);
+		order.getProduct().setProduct_condition(ProductCondition.ORDERED);
+		
+		MySQL_Products.insertProduct(order.getProduct());
 		MySQL.insert(
 			table_name,
 			table_columns,
@@ -35,7 +37,7 @@ public class MySQL_Orders {
 		for(int r=0; r<results.length; r++) {
 			orders[r] = new Order(
 				order_no,
-				MySQL_Products.selectProduct((int)results[r][0], ProductCondition.ORDERED),
+				MySQL_Products.selectProduct((int)results[r][0]),
 				new Decimal((BigDecimal)results[r][1])
 			);
 		}

@@ -2,9 +2,9 @@ package system.ui.panels;
 
 import components.Button;
 import components.table.Row;
-import oop.Product;
-import oop.Remarks;
 import system._default_.Disposal;
+import system.objects.Product;
+import system.objects.Remarks;
 import system.ui.UI4;
 import system.ui.buttons.ButtonDeleteProduct;
 import system.ui.buttons.ButtonReserveProduct;

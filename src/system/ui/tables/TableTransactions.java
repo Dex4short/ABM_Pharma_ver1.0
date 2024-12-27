@@ -3,7 +3,7 @@ package system.ui.tables;
 import components.table.Cell;
 import components.table.Row;
 import components.table.Table;
-import oop.Transaction;
+import system.objects.Transaction;
 import system.ui.cells.CellLabel;
 import system.ui.cells.CellLabelDecimal;
 

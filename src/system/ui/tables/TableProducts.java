@@ -1,9 +1,17 @@
 package system.ui.tables;
 
+import java.awt.Color;
+
+import components.drawables.Dot;
 import components.table.Cell;
 import components.table.Row;
 import components.table.Table;
-import oop.Product;
+import system.enumerators.Quality;
+import system.managers.NotificationsManager;
+import system.managers.PackagingManager;
+import system.managers.QualityManager;
+import system.objects.Notification;
+import system.objects.Product;
 import system.ui.cells.CellLabel;
 import system.ui.cells.CellLabelDate;
 import system.ui.cells.CellLabelDecimal;
@@ -73,7 +81,9 @@ public class TableProducts extends Table{
 		return getRowCount();
 	}
 	public Product getSelectedProduct() {
-		return ((ProductRow)getSelectedRow()).getProduct();
+		Row row = getSelectedRow();
+		if(row != null) return ((ProductRow)getSelectedRow()).getProduct();
+		else return null;
 	}
 	public Product[] getSelectedProducts() {
 		Row rows[] = getSelectedRows();
@@ -104,12 +114,38 @@ public class TableProducts extends Table{
 				new CellLabelDecimal(product.getPricing().getUnitAmount())
 			});
 			setProduct(product);
+			
+			checkStock();
+			checkExpiry();
 		}
 		public Product getProduct() {
 			return product;
 		}
 		public void setProduct(Product product) {
 			this.product = product;
+		}
+		public void checkStock() {
+			boolean 
+			warning = PackagingManager.isRunningOut(product.getPackaging()),
+			caution = PackagingManager.isOutOfStock(product.getPackaging());
+			
+			Dot dot = ((CellLabelQuantity)getCell(6)).getDot();
+			
+			if(caution) {
+				dot.setColor(Color.red);
+				NotificationsManager.pushNotification(new Notification.OutOfStock(product));
+			}
+			else if(warning) {
+				dot.setColor(Color.orange);
+				NotificationsManager.pushNotification(new Notification.RunningOutOfStock(product));
+			}
+			dot.setShow(warning || caution);
+		}
+		public void checkExpiry() {
+			Quality quality = QualityManager.isExpired(product.getItem().getExpDate());
+			if(quality==Quality.Warning || quality==Quality.Bad || quality==Quality.Expired) {
+				NotificationsManager.pushNotification(new Notification.ProductQuality(product));
+			}
 		}
 	}
 }

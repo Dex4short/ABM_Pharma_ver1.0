@@ -1,8 +1,8 @@
 package database;
 
-import oop.Counter;
-import oop.Time;
-import oop.enumerations.CounterState;
+import system.enumerators.CounterState;
+import system.objects.Counter;
+import system.objects.Time;
 
 public class MySQL_Counter {
 	public static final String 

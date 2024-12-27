@@ -2,8 +2,8 @@ package system.ui.panels;
 
 import components.Button;
 import components.table.Row;
-import oop.Customer;
 import system._default_.Customers;
+import system.objects.Customer;
 import system.ui.UI1;
 import system.ui.Window;
 import system.ui.buttons.customer_listing.ButtonAddCustomer;

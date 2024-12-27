@@ -1,6 +1,6 @@
 package components.fields;
 
-import oop.Decimal;
+import system.objects.Decimal;
 
 public class DecimalField extends StrictTextField{
 	private static final long serialVersionUID = 8046081737338819617L;

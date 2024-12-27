@@ -4,7 +4,7 @@ import javax.swing.BorderFactory;
 
 import components.fields.TwinNumericField;
 import components.table.Cell;
-import oop.Quantity;
+import system.objects.Quantity;
 
 public class CellQuantityField extends Cell{
 	private static final long serialVersionUID = -1866512012059963833L;

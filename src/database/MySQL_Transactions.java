@@ -2,12 +2,12 @@ package database;
 
 import java.math.BigDecimal;
 
-import oop.Customer;
-import oop.Date;
-import oop.Decimal;
-import oop.Percentage;
-import oop.Transaction;
-import oop.enumerations.CustomerState;
+import system.enumerators.CustomerState;
+import system.objects.Customer;
+import system.objects.Date;
+import system.objects.Decimal;
+import system.objects.Percentage;
+import system.objects.Transaction;
 
 public class MySQL_Transactions {
 	public static final String

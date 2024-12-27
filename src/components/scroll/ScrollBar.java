@@ -12,7 +12,7 @@ import java.awt.event.MouseWheelListener;
 import javax.swing.JPanel;
 
 import components.panels.Panel;
-import oop.implementations.Theme;
+import system.ui.appearance.Theme;
 
 public abstract class ScrollBar extends Panel implements Theme, ComponentListener, MouseListener, MouseMotionListener, MouseWheelListener{
 	private static final long serialVersionUID = 1370122204785526953L;

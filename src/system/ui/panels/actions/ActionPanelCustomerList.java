@@ -3,7 +3,7 @@ package system.ui.panels.actions;
 import java.awt.BorderLayout;
 
 import components.panels.ActionPanel;
-import oop.Customer;
+import system.objects.Customer;
 import system.ui.Window;
 import system.ui.panels.PanelCustomers;
 import system.ui.tables.TableCustomers;

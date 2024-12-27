@@ -1,8 +1,8 @@
 package system.ui.panels.dialogs;
 
 import components.panels.DialogPanel;
-import oop.Product;
-import oop.Remarks;
+import system.objects.Product;
+import system.objects.Remarks;
 import system.ui.Window;
 import system.ui.panels.actions.ActionPanelRemarksReserve;
 
