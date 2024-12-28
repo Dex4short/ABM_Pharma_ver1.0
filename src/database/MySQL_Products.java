@@ -108,4 +108,12 @@ public class MySQL_Products {
 			"where prod_id=" + product.getProdId()
 		);
 	}
+	public static void updateProduct(int pack_id, ProductCondition product_condition) {
+		MySQL.update(
+			table_name,
+			new String[] {"prod_condition"},
+			new Object[] {product_condition.name()}, 
+			"where pack_id=" + pack_id
+		);
+	}
 }

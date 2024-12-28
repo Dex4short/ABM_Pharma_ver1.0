@@ -4,7 +4,7 @@ import components.panels.DialogPanel;
 import system.objects.Product;
 import system.objects.Remarks;
 import system.ui.Window;
-import system.ui.panels.actions.remarking.ActionPanelRemarksReservation;
+import system.ui.panels.actions.remarks.ActionPanelRemarksReservation;
 
 public abstract class DialogReserveProduct extends DialogPanel{
 	private static final long serialVersionUID = -6761604159530514131L;

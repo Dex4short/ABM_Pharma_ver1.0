@@ -97,8 +97,15 @@ public class PanelStore extends UI3 implements Store{
 		Window.floatMessage(order.getProduct().getItem().getDescription() + " added to cart");
 	}
 	@Override
-	public void onRemoveFromCart(Packaging[] extracted_packs, Packaging sub_pack) {
-		// TODO Auto-generated method
+	public void onRemoveFromCart(Order order) {
+		loadAisleFromStore();
+		loadCartFromStore(counter);
+		
+		String qty = "";
+		if(!order.getProduct().getPackaging().getQty().isOutOfStock()) {
+			qty = " (" + order.getProduct().getPackaging().getQty() + ")";
+		}
+		Window.floatMessage(order.getProduct().getItem().getDescription() + " removed" + qty);
 	}
 	@Override
 	public void onCheckOutFromStore() {

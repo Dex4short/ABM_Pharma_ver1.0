@@ -3,6 +3,7 @@ package system.managers;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import system.enumerators.PackagingLine;
 import system.objects.Packaging;
 import system.objects.Quantity;
 import system.objects.Uom;
@@ -41,7 +42,7 @@ public class PackagingManager {
 			pack_datas.get(p).setQuantity_B(subPack_qty, magnitude);
 			pack_datas.get(p).subtract();
 			
-			extracted_packages[p] = pack_datas.get(p).createPackaging();
+			extracted_packages[p] = pack_datas.get(p).createPackaging(main_pack.getPackagingLine(), main_pack.getPackagingGroup());
 			if(p==0) {
 				extracted_packages[p].setPackId(main_pack.getPackId());
 			}
@@ -51,11 +52,13 @@ public class PackagingManager {
 		}
 		return extracted_packages;
 	}
+	/*
 	public static void merge(Packaging main_pack, Packaging sub_pack) {
 		throw new RuntimeException("PackagingManager.merge() is currently not available...");
 	}
+	*/
 	
-	public static class PackagingData {
+	private static class PackagingData {
 		private Uom uom;
 		private Quantity quantity;
 		private BigDecimal amount_a, amount_b, length, scale;
@@ -83,6 +86,7 @@ public class PackagingManager {
 				quantity.setSize(value);
 			}
 		}
+		/*
 		public void add() {
 			if(uom.getUnitSize() == 1) {
 				quantity.setAmount(amount_a.add(amount_b).intValue());
@@ -93,8 +97,9 @@ public class PackagingManager {
 				quantity.setSize(value);
 			}
 		}
-		public Packaging createPackaging() {
-			return new Packaging(-1, quantity, uom, -1, null, -1);
+		*/
+		public Packaging createPackaging(PackagingLine pack_line, int pack_group) {
+			return new Packaging(-1, quantity, uom, -1, pack_line, pack_group);
 		}
 		public String toString() {
 			return  

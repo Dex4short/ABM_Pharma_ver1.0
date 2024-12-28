@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import components.Button;
 import res.Resource;
 import system.objects.Product;
+import system.ui.Window;
 
 public abstract class ButtonDeleteProduct extends Button implements ActionListener{
 	private static final long serialVersionUID = -211465351098739393L;
@@ -32,6 +33,7 @@ public abstract class ButtonDeleteProduct extends Button implements ActionListen
 		};
 		Window.getStackPanel().pushPanel(dialog_dispose_product, 200, 200);
 		*/
+		Window.floatMessageAndBeep("Currently not Available");
 	}
 	public void deleteProduct(Product product) {
 		onDeleteProduct(product);

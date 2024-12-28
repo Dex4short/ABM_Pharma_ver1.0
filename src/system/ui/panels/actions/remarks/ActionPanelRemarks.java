@@ -1,4 +1,4 @@
-package system.ui.panels.actions.remarking;
+package system.ui.panels.actions.remarks;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

@@ -81,6 +81,24 @@ public abstract class ActionPanelPackage extends ActionPanel{
 	public void onCancel() {
 		Window.getStackPanel().popPanel();
 	}
+	public UomList getUomList() {
+		return uom_list;
+	}
+	public void setUomList(UomList uom_list) {
+		this.uom_list = uom_list;
+	}
+	public Packaging getMainPack() {
+		return main_pack;
+	}
+	public void setMainPack(Packaging main_pack) {
+		this.main_pack = main_pack;
+	}
+	public Packaging getSubPack() {
+		return sub_pack;
+	}
+	public void setSubPack(Packaging sub_pack) {
+		this.sub_pack = sub_pack;
+	}
 	public void setUomLabel(UomLabel uom_label) {
 		this.uom_label = uom_label;
 	}

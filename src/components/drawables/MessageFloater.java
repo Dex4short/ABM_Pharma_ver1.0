@@ -1,13 +1,13 @@
 package components.drawables;
 
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import components._misc_.Graphix.Shadow;
 import components._misc_.interfaces.Drawable;
 import system.ui.Window;
 import system.ui.appearance.Theme;
@@ -18,9 +18,12 @@ public class MessageFloater extends Rectangle implements Drawable{
 	private int y_translate, str_w, str_h, rect_w, rect_h, rect_arc,delay;
 	private float opacity=1.00f;
 	private Timer timer;
+	private Color background, foreground;
 
 	public MessageFloater() {
 		message="";
+		setBackground(Color.black);
+		setForeground(Color.white);
 	}
 	@Override
 	public void onDraw(Graphics2D g2d) {
@@ -35,13 +38,25 @@ public class MessageFloater extends Rectangle implements Drawable{
 
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
 		
-		g2d.setColor(Shadow.shadow_color);
+		g2d.setColor(background);
 		g2d.fillRoundRect((width/2) - (rect_w/2), height - y_translate, rect_w, rect_h, rect_arc, rect_arc);
 		
-		g2d.setColor(Theme.text_color[3]);
+		g2d.setColor(foreground);
 		g2d.drawString(message, (width/2) - (str_w/2), height + (rect_h/2) + (str_h/2) - y_translate);
 		
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+	}
+	public Color getForeground() {
+		return foreground;
+	}
+	public void setForeground(Color foreground) {
+		this.foreground = foreground;
+	}
+	public Color getBackground() {
+		return background;
+	}
+	public void setBackground(Color background) {
+		this.background = background;
 	}
 	public void floatMessage(String message) {
 		if(timer != null) {

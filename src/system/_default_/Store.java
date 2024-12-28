@@ -6,6 +6,7 @@ import database.MySQL_Orders;
 import database.MySQL_Packaging;
 import database.MySQL_Products;
 import database.MySQL_Transactions;
+import system.enumerators.PackagingLine;
 import system.enumerators.ProductCondition;
 import system.managers.AccountancyManager;
 import system.objects.Cart;
@@ -13,6 +14,7 @@ import system.objects.Counter;
 import system.objects.Order;
 import system.objects.Packaging;
 import system.objects.Product;
+import system.objects.Quantity;
 import system.objects.Transaction;
 
 public interface Store {
@@ -60,21 +62,24 @@ public interface Store {
 		
 		Order order = new Order(cart.getOrderNo(), sub_product, AccountancyManager.calculateNetAmount(sub_product));
 		Order orders[] = selectOrdersFromStore();
+		
 		boolean hassExistingOrder = false;
-		for(Order next_order: orders) {
-			hassExistingOrder = next_order.getProduct().getPackaging().getParentPackId() == order.getProduct().getPackaging().getParentPackId();
-			
-			if(hassExistingOrder) {
-				next_order.getProduct().getPackaging().getQty().add(order.getProduct().getPackaging().getQty());
-				next_order.getNetAmount().add(order.getNetAmount());
+		if(orders != null) {
+			for(Order next_order: orders) {
+				hassExistingOrder = next_order.getProduct().getPackaging().getParentPackId() == order.getProduct().getPackaging().getParentPackId();
 				
-				order.setProduct(next_order.getProduct());
-				order.setNetAmount(AccountancyManager.calculateNetAmount(order));
-				break;
+				if(hassExistingOrder) {
+					next_order.getProduct().getPackaging().getQty().add(order.getProduct().getPackaging().getQty());
+					next_order.getNetAmount().add(order.getNetAmount());
+					
+					order.setProduct(next_order.getProduct());
+					order.setNetAmount(AccountancyManager.calculateNetAmount(order));
+					break;
+				}
 			}
 		}
 		
-		if(order.getProduct().getProdId()==-1) 
+		if(!hassExistingOrder) 
 			MySQL_Orders.insertOrder(order);
 		else 
 			MySQL_Orders.updateOrder(order);
@@ -89,16 +94,50 @@ public interface Store {
 		System.out.println("sub pack-------------------------------------------------");
 		System.out.println(sub_pack.toString());
 		
-		/*
-		Packaging ancestor_packs[]= MySQL_Packaging.selectPackagings(main_product.getPackaging().getPackagingLine(), main_product.getPackaging().getPackagingGroup());
-		for(Packaging ancestor_pack: ancestor_packs) {
-			if(ancestor_pack.getPackId() == main_product.getPackaging().getParentPackId()) {
-				System.out.println("match");
+		Packaging main_order_pack = main_order.getProduct().getPackaging();
+		sub_pack.setParentPackId(main_order_pack.getParentPackId());
+		
+		Packaging ancestor_packs[] = MySQL_Packaging.selectPackagings(PackagingLine.Ancestor, main_order_pack.getPackagingGroup());
+		boolean hasOrigin = false;
+		if(ancestor_packs != null) {
+			for(Packaging ancestor_pack: ancestor_packs) {
+				hasOrigin = ancestor_pack.getPackId() == main_order_pack.getParentPackId();
+				
+				if(hasOrigin) {
+					ancestor_pack.getQty().add(sub_pack.getQty());
+					break;
+				}
 			}
 		}
-		*/
 		
-		onRemoveFromCart(extracted_packs, sub_pack);
+		if(!hasOrigin) throw new RuntimeException("The origin no longer exists, unable to return product...");
+
+		extracted_packs[0].setParentPackId(main_order_pack.getParentPackId());
+		if(extracted_packs[0].getQty().isOutOfStock()) {
+			MySQL_Orders.deleteOrder(main_order);
+		}
+		else {
+			MySQL_Packaging.updatePackaging(extracted_packs[0]);
+		}
+		
+		int	amount, uom_size, modulo, quotient;
+		for(int a=ancestor_packs.length-1; a>0; a--) {
+			amount = ancestor_packs[a].getQty().getAmount();
+			uom_size = ancestor_packs[a].getUom().getUnitSize();
+			
+			modulo = amount % uom_size;
+			quotient = amount / uom_size;
+			
+			ancestor_packs[a].setQty(new Quantity(modulo));
+			ancestor_packs[a-1].getQty().add(new Quantity(quotient));
+			
+			MySQL_Packaging.updatePackaging(ancestor_packs[a]);
+			System.out.println("quotient:" + quotient);
+			if(modulo == 0) MySQL_Products.updateProduct(ancestor_packs[a].getPackId(), ProductCondition.ARCHIVED);
+		}
+		MySQL_Packaging.updatePackaging(ancestor_packs[0]);
+		
+		onRemoveFromCart(main_order);
 	}
 	public default void checkOutFromStore(Transaction transaction) {
 		MySQL_Transactions.instertTransaction(transaction);
@@ -122,7 +161,7 @@ public interface Store {
 	public Order[] onSelectOrdersFromStore();
 	public void onSearchFromStore();
 	public void onAddToCart(Order order);
-	public void onRemoveFromCart(Packaging[] extracted_packs, Packaging sub_pack);
+	public void onRemoveFromCart(Order order);
 	public void onCheckOutFromStore();
 	public void onLoadAisleFromStore(Product products[]);
 	public void onLoadCartFromStore(Cart cart);

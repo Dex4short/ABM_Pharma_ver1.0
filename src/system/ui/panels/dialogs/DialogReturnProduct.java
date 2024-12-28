@@ -5,7 +5,7 @@ import system.objects.Order;
 import system.objects.Remarks;
 import system.objects.Transaction;
 import system.ui.Window;
-import system.ui.panels.actions.remarking.ActionPanelRemarksReturning;
+import system.ui.panels.actions.remarks.ActionPanelRemarksReturning;
 
 public abstract class DialogReturnProduct extends DialogPanel{
 	private static final long serialVersionUID = 3800261841382671423L;

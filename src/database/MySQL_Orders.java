@@ -44,6 +44,10 @@ public class MySQL_Orders {
 		
 		return orders;
 	}
+	public static void deleteOrder(Order order) {
+		MySQL.delete(table_name, "where order_no=" + order.getOrderNo() + " and prod_id=" + order.getProduct().getProdId());
+		MySQL_Packaging.deletePackaging(order.getProduct().getPackaging());
+	}
 	public static void updateOrder(Order order, ProductCondition product_condition) {
 		order.getProduct().setProduct_condition(product_condition);
 		MySQL_Products.updateProduct(order.getProduct());

@@ -23,7 +23,7 @@ public class NotificationsManager {
 	}
 	public static void removeNotificationFor(Product product) {
 		int index = notifications_list.findNotificationIndexFor(product);
-		notifications_list.removeNotification(index);
+		if(index != -1) notifications_list.removeNotification(index);
 		dot.setShow(notifications_list.getItemCount() > 0);
 	}
 	public static void clearNotifications() {

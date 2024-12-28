@@ -1,4 +1,4 @@
-package system.ui.panels.actions.remarking;
+package system.ui.panels.actions.remarks;
 
 import system.objects.Date;
 import system.objects.Remarks;

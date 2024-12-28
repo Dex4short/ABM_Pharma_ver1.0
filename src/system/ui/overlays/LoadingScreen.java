@@ -17,6 +17,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import components.panels.Panel;
+import system.ABM_Pharma;
 import system.ui.appearance.Theme;
 
 public abstract class LoadingScreen extends Panel implements Theme{
@@ -116,10 +117,11 @@ public abstract class LoadingScreen extends Panel implements Theme{
 		setLoadingForeground(fg_color);
 		setLoadName(load_name);
 
+		ABM_Pharma.loading = true;
 		loading = true;
 		
 		Timer timer = new Timer(20, new ActionListener() {
-			JRootPane root_pane;
+			private JRootPane root_pane;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.invokeLater(() -> {

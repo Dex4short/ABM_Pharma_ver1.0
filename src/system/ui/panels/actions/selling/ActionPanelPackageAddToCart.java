@@ -15,8 +15,12 @@ public abstract class ActionPanelPackageAddToCart extends ActionPanelPackage{
 	@Override
 	public void onPackageOk(Packaging main_pack, Packaging sub_pack) {
 		Window.load(() -> {
-			Packaging extracted_packs[] = PackagingManager.extract(main_pack, sub_pack);			
-			packageAddToCartOk(extracted_packs, sub_pack);
+			try {
+				Packaging extracted_packs[] = PackagingManager.extract(main_pack, sub_pack);
+				packageAddToCartOk(extracted_packs, sub_pack);
+			} catch (Exception e) {
+				Window.floatMessageAndBeep(e.getMessage());
+			}
 		}, "Adding to Cart...");
 	}
 	public void packageAddToCartOk(Packaging extracted_packs[], Packaging sub_pack) {
