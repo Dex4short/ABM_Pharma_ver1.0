@@ -11,8 +11,8 @@ import system.objects.Decimal;
 import system.objects.Order;
 import system.objects.Percentage;
 import system.ui.Window;
-import system.ui.panels.actions.ActionPanelDiscountEntry;
-import system.ui.panels.actions.ActionPanelPasswordEntry;
+import system.ui.panels.actions.security.ActionPanelPasswordEntry;
+import system.ui.panels.actions.selling.ActionPanelDiscountEntry;
 
 public abstract class BarFieldCart extends BarFields{
 	private static final long serialVersionUID = 1918054933901629685L;

@@ -16,6 +16,9 @@ import system.objects.Transaction;
 
 public interface Store {
 	
+	public default Order[] selectOrdersFromStore() {
+		return onSelectOrdersFromStore();
+	}
 	public default void searchFromStore() {
 		
 		onSearchFromStore();
@@ -52,13 +55,42 @@ public interface Store {
 			}
 		}
 		
-		Order order = new Order(cart.getOrderNo(), sub_product, AccountancyManager.calculateNetAmount(sub_product));
-		cart.addOrder(order);
-		onAddToCart(MySQL_Orders.insertOrder(order));
-	}
-	public default void removeFromCart() {
+		sub_product.getPackaging().setPackagingGroup(main_product.getPackaging().getPackagingGroup());
 		
-		onRemoveFromCart();
+		Order order = new Order(cart.getOrderNo(), sub_product, AccountancyManager.calculateNetAmount(sub_product));
+		Order orders[] = selectOrdersFromStore();
+		boolean hassExistingOrder = false;
+		for(Order next_order: orders) {
+			hassExistingOrder = next_order.getProduct().getPackaging().getParentPackId() == order.getProduct().getPackaging().getParentPackId();
+			
+			if(hassExistingOrder) {
+				next_order.getProduct().getPackaging().getQty().add(order.getProduct().getPackaging().getQty());
+				next_order.getNetAmount().add(order.getNetAmount());
+				
+				order.setProduct(next_order.getProduct());
+				order.setNetAmount(AccountancyManager.calculateNetAmount(order));
+				break;
+			}
+		}
+		
+		if(order.getProduct().getProdId()==-1) 
+			MySQL_Orders.insertOrder(order);
+		else 
+			MySQL_Orders.updateOrder(order);
+		
+		onAddToCart(order);
+	}
+	public default void removeFromCart(Packaging[] extracted_packs, Packaging sub_pack) {
+		System.out.println("extracted packs------------------------------------------");
+		for(Packaging extracted_pack: extracted_packs) {
+			System.out.println(extracted_pack.toString());
+		}
+		System.out.println("sub pack-------------------------------------------------");
+		System.out.println(sub_pack.toString());
+		
+		
+		
+		onRemoveFromCart(extracted_packs, sub_pack);
 	}
 	public default void checkOutFromStore(Transaction transaction) {
 		MySQL_Transactions.instertTransaction(transaction);
@@ -79,9 +111,10 @@ public interface Store {
 		onOpenCounter(counter);
 	}
 
+	public Order[] onSelectOrdersFromStore();
 	public void onSearchFromStore();
 	public void onAddToCart(Order order);
-	public void onRemoveFromCart();
+	public void onRemoveFromCart(Packaging[] extracted_packs, Packaging sub_pack);
 	public void onCheckOutFromStore();
 	public void onLoadAisleFromStore(Product products[]);
 	public void onLoadCartFromStore(Cart cart);

@@ -1,4 +1,4 @@
-package system.ui.panels.actions;
+package system.ui.panels.actions.remarking;
 
 import system.objects.Date;
 import system.objects.Remarks;
@@ -6,12 +6,12 @@ import system.objects.Time;
 import system.objects.Transaction;
 import system.ui.Window;
 
-public abstract class ActionPanelRemarksReturn extends ActionPanelRemarks{
+public abstract class ActionPanelRemarksReturning extends ActionPanelRemarks{
 	private static final long serialVersionUID = 9160139962791406360L;
 	private Transaction transaction;
 
-	public ActionPanelRemarksReturn(Transaction transaction) {
-		super("Return Remarks");
+	public ActionPanelRemarksReturning(Transaction transaction) {
+		super("Returning Remarks");
 		setTransaction(transaction);
 	}
 	@Override

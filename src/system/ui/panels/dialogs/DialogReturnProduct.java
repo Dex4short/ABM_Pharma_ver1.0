@@ -5,7 +5,7 @@ import system.objects.Order;
 import system.objects.Remarks;
 import system.objects.Transaction;
 import system.ui.Window;
-import system.ui.panels.actions.ActionPanelRemarksReturn;
+import system.ui.panels.actions.remarking.ActionPanelRemarksReturning;
 
 public abstract class DialogReturnProduct extends DialogPanel{
 	private static final long serialVersionUID = 3800261841382671423L;
@@ -20,7 +20,7 @@ public abstract class DialogReturnProduct extends DialogPanel{
 	}
 	@Override
 	public void onOk() {
-		Window.getStackPanel().pushPanel(new ActionPanelRemarksReturn(getTransaction()) {
+		Window.getStackPanel().pushPanel(new ActionPanelRemarksReturning(getTransaction()) {
 			private static final long serialVersionUID = 3958441542959575603L;
 			@Override
 			public void onReturnRemarksOk(Remarks remarks) {

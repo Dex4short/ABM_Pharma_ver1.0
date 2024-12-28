@@ -1,6 +1,6 @@
 package system._default_;
 
-import database.MySQL_Products;
+import database.MySQL_Orders;
 import database.MySQL_Transactions;
 import system.enumerators.ProductCondition;
 import system.objects.Order;
@@ -26,8 +26,7 @@ public interface Transactions {
 	}
 	public default void returnCustomersOrderFromTransactions(Order orders[]) {
 		for(Order order: orders) {
-			order.getProduct().setProduct_condition(ProductCondition.RETURNED);
-			MySQL_Products.updateProduct(order.getProduct());
+			MySQL_Orders.updateOrder(order, ProductCondition.RETURNED);
 		}
 		onReturnCustomerOrderFromTransactions(orders);
 	}

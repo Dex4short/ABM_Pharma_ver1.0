@@ -33,16 +33,6 @@ public class ListPane extends ScrollPane implements Theme, ComponentListener{
 		setGap(0, 0);
 	}
 	@Override
-	public void componentResized(ComponentEvent e) {
-		align();
-	}
-	@Override
-	public void componentMoved(ComponentEvent e) {}
-	@Override
-	public void componentShown(ComponentEvent e) {}
-	@Override
-	public void componentHidden(ComponentEvent e) {}
-	@Override
 	public int viewingWidth() {
 		return 0;
 	}
@@ -54,6 +44,22 @@ public class ListPane extends ScrollPane implements Theme, ComponentListener{
 	public void onScrollPanel(int scroll_x, int scroll_y) {
 		yTranslate = scroll_y;
 		align();
+	}
+	@Override
+	public void componentResized(ComponentEvent e) {
+		align();
+	}
+	@Override
+	public void componentMoved(ComponentEvent e) {
+		//overridable content
+	}
+	@Override
+	public void componentShown(ComponentEvent e) {
+		//overridable content
+	}
+	@Override
+	public void componentHidden(ComponentEvent e) {
+		//overridable content
 	}
 	public JPanel getListContainer() {
 		return list_container;
@@ -159,7 +165,6 @@ public class ListPane extends ScrollPane implements Theme, ComponentListener{
 			}
 			selected_item = ((Item)e.getSource());
 			selected_item.setSelected(true);
-			
 		}
 		@Override
 		public void mousePressed(MouseEvent e) {}
@@ -170,6 +175,5 @@ public class ListPane extends ScrollPane implements Theme, ComponentListener{
 		@Override
 		public void mouseExited(MouseEvent e) {}
 	}
-
 
 }

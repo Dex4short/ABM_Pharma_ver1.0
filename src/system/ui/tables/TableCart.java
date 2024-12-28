@@ -2,7 +2,8 @@ package system.ui.tables;
 
 import components.table.Column;
 import system.objects.Order;
-import system.ui.cells.CellButton;
+import system.objects.Packaging;
+import system.ui.cells.clickable.CellButtonRemoveFromCart;
 
 public abstract class TableCart extends TableOrders{
 	private static final long serialVersionUID = -5292964100747790231L;
@@ -23,28 +24,30 @@ public abstract class TableCart extends TableOrders{
 		}
 		addRows(rows);
 	}
-	public void removeProduct() {
-		onRemoveProduct();
+	public void removeOrderFromCart(Packaging[] extracted_packs, Packaging sub_pack) {
+		onRemoveOrderFromCart(extracted_packs, sub_pack);
 	}
 	
-	public abstract void onRemoveProduct();
+	public abstract void onRemoveOrderFromCart(Packaging[] extracted_packs, Packaging sub_pack);
 	
 	public class ProductCartRow extends TableOrders.OrderRow{
 		private static final long serialVersionUID = 2233983822815909563L;
 	
 		public ProductCartRow(Order order) {
 			super(order);
-			CellButton cell_btn = new CellButton("- Remove");
-			cell_btn.getButton().setArc(20);
+			CellButtonRemoveFromCart cell_btn = new CellButtonRemoveFromCart(order) {
+				private static final long serialVersionUID = -351539179842848737L;
+				@Override
+				public void onRemoveFromCart(Packaging[] extracted_packs, Packaging sub_pack) {
+					removeOrderFromCart(extracted_packs, sub_pack);
+				}
+			};
+			cell_btn.getButton().addActionListener(e -> selectRow(this));
 			addCell(cell_btn);
 		}
 		@Override
-		public void checkExpiry() {
-			//disabled
-		}
+		public void checkExpiry() {	/*disabled*/ }
 		@Override
-		public void checkStock() {
-			//disabled
-		}
+		public void checkStock() { /*disabled*/ }
 	}
 }

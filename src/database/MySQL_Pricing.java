@@ -46,15 +46,14 @@ public class MySQL_Pricing {
 	}
 	public static void updatePricing(Pricing pricing) {
 		MySQL.update(
-				table_name,
-				table_columns,
-				new Object[] {
-						pricing.getPriceId(),
-						pricing.getCost().toBigDecimal(),
-						pricing.getUnitPrice().toBigDecimal(),
-						pricing.getDiscount().toString(),
-						pricing.getUnitAmount().toBigDecimal()
-				},
-				"where price_id=" + pricing.getPriceId());
+			table_name,
+			new String[] {"cost", "unit_price", "discount", "unit_amount"},
+			new Object[] {
+				pricing.getCost().toBigDecimal(),
+				pricing.getUnitPrice().toBigDecimal(),
+				pricing.getDiscount().toString(),
+				pricing.getUnitAmount().toBigDecimal()
+			},
+			"where price_id=" + pricing.getPriceId());
 	}
 }

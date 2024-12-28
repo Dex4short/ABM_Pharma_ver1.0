@@ -7,7 +7,7 @@ import components.Button;
 import res.Resource;
 import system.objects.Customer;
 import system.ui.Window;
-import system.ui.panels.actions.ActionPanelCustomerList;
+import system.ui.panels.actions.catering.ActionPanelCustomerList;
 
 public abstract class ButtonCustomerPicker extends Button implements ActionListener{
 	private static final long serialVersionUID = -7885493071011496579L;

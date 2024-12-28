@@ -50,8 +50,8 @@ public interface Inventory {
 	}
 	public default void editFromInventory(Product new_product, Product old_product, ProductCondition condition) {
 		if(new_product!=null) {
+			new_product.setProduct_condition(condition);
 			if(old_product==null) {
-				new_product.setProduct_condition(condition);
 				MySQL_Products.insertProduct(new_product);
 			}
 			else {

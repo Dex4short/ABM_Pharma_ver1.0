@@ -44,4 +44,20 @@ public class MySQL_Orders {
 		
 		return orders;
 	}
+	public static void updateOrder(Order order, ProductCondition product_condition) {
+		order.getProduct().setProduct_condition(product_condition);
+		MySQL_Products.updateProduct(order.getProduct());
+	}
+	public static void updateOrder(Order order) {
+		MySQL.update(
+			table_name,
+			new String[] {"prod_id", "net_amount"},
+			new Object[] {
+				order.getProduct().getProdId(),
+				order.getNetAmount().toBigDecimal()
+			},
+			"where order_no=" + order.getOrderNo() + " and prod_id=" + order.getProduct().getProdId()
+		);
+		MySQL_Products.updateProduct(order.getProduct());
+	}
 }

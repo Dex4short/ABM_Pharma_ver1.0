@@ -1,7 +1,7 @@
 package system.ui.tables;
 
 import system.objects.Product;
-import system.ui.cells.CellLabel;
+import system.ui.cells.labeling.CellLabel;
 
 public class TableDisposals extends TableProducts{
 	private static final long serialVersionUID = 4737286913516237032L;

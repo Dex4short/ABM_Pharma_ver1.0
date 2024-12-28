@@ -14,6 +14,7 @@ import res.Resource;
 import system._default_.Settings;
 import system.managers.NotificationsManager;
 import system.ui.Window;
+import system.ui.panels.popups.PopUpNotifications;
 
 public class ButtonNotifications extends Button.Tertiary implements ActionListener{
 	private static final long serialVersionUID = -617514616688765454L;
@@ -39,6 +40,6 @@ public class ButtonNotifications extends Button.Tertiary implements ActionListen
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Window.getPopUpPanel().popUp(NotificationsManager.getPopupNotifications());
+		Window.getPopUpPanel().popUp(new PopUpNotifications());
 	}
 }

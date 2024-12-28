@@ -12,7 +12,7 @@ import res.Resource;
 import system.enumerators.CustomerState;
 import system.objects.Customer;
 import system.ui.Window;
-import system.ui.panels.actions.ActionPanelCustomerAdd;
+import system.ui.panels.actions.catering.ActionPanelCustomerAdd;
 
 public abstract class ButtonAddCustomer extends Button implements ActionListener{
 	private static final long serialVersionUID = -8319852584060410711L;

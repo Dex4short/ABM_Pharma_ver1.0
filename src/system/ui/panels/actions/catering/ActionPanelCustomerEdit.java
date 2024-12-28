@@ -1,4 +1,4 @@
-package system.ui.panels.actions;
+package system.ui.panels.actions.catering;
 
 import system.objects.Customer;
 

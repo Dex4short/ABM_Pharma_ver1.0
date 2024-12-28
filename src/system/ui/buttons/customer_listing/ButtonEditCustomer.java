@@ -11,7 +11,7 @@ import res.Resource;
 import system.enumerators.CustomerState;
 import system.objects.Customer;
 import system.ui.Window;
-import system.ui.panels.actions.ActionPanelCustomerEdit;
+import system.ui.panels.actions.catering.ActionPanelCustomerEdit;
 
 public abstract class ButtonEditCustomer extends Button implements ActionListener{
 	private static final long serialVersionUID = 2805362815419509096L;

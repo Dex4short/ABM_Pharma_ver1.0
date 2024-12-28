@@ -30,7 +30,7 @@ public class PanelStore extends UI3 implements Store{
 	private Counter counter;
 	private Cart cart;
 	private ButtonCheckOut btn_check_out;
-
+	
 	public PanelStore() {
 		((GridLayout)getLayout()).setVgap(20);
 		
@@ -55,7 +55,7 @@ public class PanelStore extends UI3 implements Store{
 		table_product_cart = new TableCart() {
 			private static final long serialVersionUID = -6609667196159272458L;
 			@Override
-			public void onRemoveProduct() {}
+			public void onRemoveOrderFromCart(Packaging[] extracted_packs, Packaging sub_pack) { removeFromCart(extracted_packs, sub_pack); }
 		};
 		table_product_cart.setCheckBoxesEnabled(false);
 		getUiBottom().setTable(table_product_cart);
@@ -63,8 +63,7 @@ public class PanelStore extends UI3 implements Store{
 		bar_field_cart = new BarFieldCart() {
 			private static final long serialVersionUID = 7478430299572033345L;
 			@Override
-			public Order[] getOrders() { return table_product_cart.getOrders(); }
-			
+			public Order[] getOrders() { return selectOrdersFromStore(); }
 		};
 		getUiBottom().getSearchPanel().setVisible(false);
 		getUiBottom().setBarFields(bar_field_cart);
@@ -83,19 +82,22 @@ public class PanelStore extends UI3 implements Store{
 		bar_field_cart.add(new Padding(btn_check_out, 4, 10, 4, 10), BorderLayout.EAST);
 	}
 	@Override
+	public Order[] onSelectOrdersFromStore() {
+		return table_product_cart.getOrders();
+	}
+	@Override
 	public void onSearchFromStore() {
 		// TODO Auto-generated method stub
 	}
 	@Override
 	public void onAddToCart(Order order) {
+		cart.addOrder(order);
 		loadAisleFromStore();
-		table_product_cart.addOrder(order);
-		bar_field_cart.calculateTotalAmount(table_product_cart.getOrders());
-		btn_check_out.setEnabled(cart.getOrders().length > 0);
+		loadCartFromStore(counter);
 		Window.floatMessage(order.getProduct().getItem().getDescription() + " added to cart");
 	}
 	@Override
-	public void onRemoveFromCart() {
+	public void onRemoveFromCart(Packaging[] extracted_packs, Packaging sub_pack) {
 		// TODO Auto-generated method
 	}
 	@Override

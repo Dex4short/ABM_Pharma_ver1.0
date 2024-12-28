@@ -10,8 +10,8 @@ import components.list.Item;
 import res.Resource;
 import system.enumerators.SecurityRole;
 import system.ui.Window;
-import system.ui.panels.actions.ActionPanelPasswordEntry;
-import system.ui.panels.actions.ActionPanelSecuritySettings;
+import system.ui.panels.actions.security.ActionPanelPasswordEntry;
+import system.ui.panels.actions.security.ActionPanelSecuritySettings;
 
 public abstract class ItemSecurity extends Item{
 	private static final long serialVersionUID = 2949663695614910176L;

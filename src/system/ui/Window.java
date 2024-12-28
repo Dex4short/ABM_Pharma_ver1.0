@@ -13,8 +13,6 @@ import components._misc_.Graphix.Shadow;
 import components.drawables.MessageFloater;
 import components.panels.PopUpPanel;
 import components.panels.StackPanel;
-import components.panels.TitledPanel;
-import io.InputOutput;
 import system.ui.appearance.Theme;
 import system.ui.overlays.LoadingScreen;
 import system.ui.overlays.LoadingScreenAdapater;
@@ -110,7 +108,7 @@ public class Window extends JFrame implements Theme{
 		loading_screen.load(() -> {
 			runnable.run();
 			getStackPanel().popPanel(loading_screen);
-		}, 0, main_color[0], main_color[2], "Loading...");
+		}, main_color[0], main_color[2], "Loading...");
 	}
 	public static void load(Runnable runnable, String load_name) {//needs better approach	
 		LoadingScreen loading_screen = new LoadingScreenAdapater();
@@ -119,7 +117,7 @@ public class Window extends JFrame implements Theme{
 		loading_screen.load(() -> {
 			runnable.run();
 			getStackPanel().popPanel(loading_screen);
-		}, 0, Shadow.shadow_color, main_color[2], load_name);
+		}, Shadow.shadow_color, main_color[2], load_name);
 	}
 	public static PopUpPanel getPopUpPanel() {
 		return popup_panel;

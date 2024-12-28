@@ -3,7 +3,7 @@ package system.ui.tables;
 import components.table.Row;
 import system.enumerators.ProductCondition;
 import system.objects.Order;
-import system.ui.cells.CellLabelDecimal;
+import system.ui.cells.labeling.CellLabelDecimal;
 
 public class TableOrders extends TableProducts{
 	private static final long serialVersionUID = 4737286913516237032L;
@@ -25,7 +25,7 @@ public class TableOrders extends TableProducts{
 	public void removeOrder(int n) {
 		removeRow(n);
 	}
-	public void removeOrdr(Order order) {
+	public void removeOrder(Order order) {
 		int n=0;
 		for(Order o: getOrders()) {
 			if(o == order) {

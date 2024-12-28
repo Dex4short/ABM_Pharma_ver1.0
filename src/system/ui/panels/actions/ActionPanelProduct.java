@@ -28,13 +28,14 @@ import system.objects.Remarks;
 import system.objects.Uom;
 import system.ui.Window;
 import system.ui.buttons.picking.ButtonUomPicker;
-import system.ui.cells.CellButtonDatePicker;
-import system.ui.cells.CellButtonUomPicker;
 import system.ui.cells.CellDecimalField;
-import system.ui.cells.CellLabelAmount;
 import system.ui.cells.CellPercentageField;
 import system.ui.cells.CellQuantityField;
 import system.ui.cells.CellTextField;
+import system.ui.cells.clickable.CellButtonDatePicker;
+import system.ui.cells.clickable.CellButtonUomPicker;
+import system.ui.cells.labeling.CellLabelAmount;
+import system.ui.panels.actions.selling.ActionPanelUOMPicker;
 import system.ui.tables.TableProducts;
 
 public abstract class ActionPanelProduct  extends ActionPanel{

@@ -1,4 +1,4 @@
-package system.ui.panels.actions;
+package system.ui.panels.actions.security;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

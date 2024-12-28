@@ -4,8 +4,8 @@ import components.table.Cell;
 import components.table.Row;
 import components.table.Table;
 import system.objects.Transaction;
-import system.ui.cells.CellLabel;
-import system.ui.cells.CellLabelDecimal;
+import system.ui.cells.labeling.CellLabel;
+import system.ui.cells.labeling.CellLabelDecimal;
 
 public class TableTransactions extends Table{
 	private static final long serialVersionUID = 4737286913516237032L;

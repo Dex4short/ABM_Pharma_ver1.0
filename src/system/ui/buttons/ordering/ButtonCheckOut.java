@@ -10,7 +10,7 @@ import system.objects.Counter;
 import system.objects.Transaction;
 import system.ui.Window;
 import system.ui.bars.BarFieldCart;
-import system.ui.panels.actions.ActionPanelCheckOut;
+import system.ui.panels.actions.selling.ActionPanelCheckOut;
 
 public abstract class ButtonCheckOut extends Button.Quaternary implements ActionListener{
 	private static final long serialVersionUID = -6341557504204266678L;

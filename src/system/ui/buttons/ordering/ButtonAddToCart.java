@@ -8,7 +8,7 @@ import javax.swing.BorderFactory;
 import components.Button;
 import system.objects.Packaging;
 import system.ui.Window;
-import system.ui.panels.actions.ActionPanelPackageAddToCart;
+import system.ui.panels.actions.selling.ActionPanelPackageAddToCart;
 
 public abstract class ButtonAddToCart extends Button implements ActionListener{
 	private static final long serialVersionUID = -8319852584060410711L;

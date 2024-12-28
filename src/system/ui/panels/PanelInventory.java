@@ -115,10 +115,12 @@ public class PanelInventory extends UI1 implements Inventory{
 	}
 	@Override
 	public void onReserveFromInventory(Product product) {
+		NotificationsManager.removeNotificationFor(product);
 		table_products.removeProduct(product);
 	}
 	@Override
 	public void onDisposeFromInventory(Product product) {
+		NotificationsManager.removeNotificationFor(product);
 		table_products.removeProduct(product);
 	}
 	@Override

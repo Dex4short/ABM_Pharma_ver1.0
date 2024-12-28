@@ -1,4 +1,4 @@
-package system.ui.panels.actions;
+package system.ui.panels.actions.selling;
 
 import java.awt.FlowLayout;
 

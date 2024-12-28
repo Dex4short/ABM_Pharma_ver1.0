@@ -1,4 +1,4 @@
-package system.ui.panels.actions;
+package system.ui.panels.actions.catering;
 
 public abstract class ActionPanelCustomerAdd extends ActionPanelCustomer{
 	private static final long serialVersionUID = 8600068670153503408L;

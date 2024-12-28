@@ -16,8 +16,10 @@ public class Notification {
 	caution_icon = Resource.getAsImageIcon("caution.png");
 	private String title, details;
 	private ImageIcon imageIcon;
+	private Product product;
 	
-	public Notification(ImageIcon imageIcon,String title, String Details) {
+	public Notification(Product product, ImageIcon imageIcon,String title, String Details) {
+		setProduct(product);
 		setImageIcon(imageIcon);
 		setTitle(title);
 		setDetails(Details);
@@ -40,10 +42,17 @@ public class Notification {
 	public void setImageIcon(ImageIcon imageIcon) {
 		this.imageIcon = imageIcon;
 	}
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 
 	public static class RunningOutOfStock extends Notification{
 		public RunningOutOfStock(Product product) {
 			super(
+				product,
 				stock_warning_icon,
 				"Warning! Running out of stock...", 
 				"Item No.: " + product.getItem().getItemNo() + "\n" +
@@ -62,7 +71,7 @@ public class Notification {
 	} 
 	public static class ProductQuality extends Notification{
 		public ProductQuality(Product product) {
-			super(null, null, null);
+			super(product, null, null, null);
 			
 			Quality quality = QualityManager.isExpired(product);
 			

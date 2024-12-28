@@ -1,4 +1,4 @@
-package system.ui.panels.actions;
+package system.ui.panels.actions.catering;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;

@@ -9,6 +9,7 @@ import java.awt.geom.Area;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 
 import components._misc_.Graphix;
 import system._default_.Settings;
@@ -30,14 +31,16 @@ public class Panel extends JPanel implements Theme{
 		
 		corner = new boolean[] {true, true, true, true};
 		addComponentListener(new ComponentAdapter() {
+			private JRootPane root_pane;
 			@Override
 			public void componentResized(ComponentEvent e) {
 				area = new Graphix.RoundRect2D(0, 0, getWidth(), getHeight(), arc, arc, corner[0], corner[1], corner[2], corner[3]);
 				shadow_area = new Graphix.RoundRect2D(0, 0, getWidth()-1, getHeight()-1, arc-2, arc-2, corner[0], corner[1], corner[2], corner[3]);
 
-				if(getRootPane() != null) {
-					getRootPane().revalidate();
-					getRootPane().repaint();
+				root_pane = getRootPane();
+				if(root_pane != null) {
+					root_pane.revalidate();
+					root_pane.repaint();
 				}
 			}
 		});

@@ -4,7 +4,7 @@ import components.table.Cell;
 import components.table.Row;
 import components.table.Table;
 import system.objects.Customer;
-import system.ui.cells.CellLabel;
+import system.ui.cells.labeling.CellLabel;
 
 public class TableCustomers extends Table{
 	private static final long serialVersionUID = 5910798367373357936L;

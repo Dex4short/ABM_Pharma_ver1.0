@@ -3,7 +3,7 @@ package system.ui.tables;
 import components.table.Column;
 import system.objects.Packaging;
 import system.objects.Product;
-import system.ui.cells.CellButtonAddToCart;
+import system.ui.cells.clickable.CellButtonAddToCart;
 
 
 public abstract class TableAisle extends TableProducts{
@@ -43,8 +43,8 @@ public abstract class TableAisle extends TableProducts{
 					addProductToCart(extracted_packs, sub_pack);
 				}
 			};
-			addCell(cell_btn);
 			cell_btn.getButton().addActionListener(e -> selectRow(this));
+			addCell(cell_btn);
 		}
 	}
 }

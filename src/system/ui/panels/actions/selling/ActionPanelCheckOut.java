@@ -1,4 +1,4 @@
-package system.ui.panels.actions;
+package system.ui.panels.actions.selling;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -15,6 +15,7 @@ import system.objects.Customer;
 import system.objects.Date;
 import system.objects.Transaction;
 import system.ui.buttons.picking.ButtonCustomerPicker;
+import system.ui.panels.actions.catering.ActionPanelCustomer;
 
 public abstract class ActionPanelCheckOut extends ActionPanelCustomer{
 	private static final long serialVersionUID = 4491895076388050006L;

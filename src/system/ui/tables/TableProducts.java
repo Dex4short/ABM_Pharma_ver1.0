@@ -12,12 +12,12 @@ import system.managers.PackagingManager;
 import system.managers.QualityManager;
 import system.objects.Notification;
 import system.objects.Product;
-import system.ui.cells.CellLabel;
-import system.ui.cells.CellLabelDate;
-import system.ui.cells.CellLabelDecimal;
-import system.ui.cells.CellLabelPercentage;
-import system.ui.cells.CellLabelQuantity;
-import system.ui.cells.CellLabelUom;
+import system.ui.cells.labeling.CellLabel;
+import system.ui.cells.labeling.CellLabelDate;
+import system.ui.cells.labeling.CellLabelDecimal;
+import system.ui.cells.labeling.CellLabelPercentage;
+import system.ui.cells.labeling.CellLabelQuantity;
+import system.ui.cells.labeling.CellLabelUom;
 
 public class TableProducts extends Table{
 	private static final long serialVersionUID = 4737286913516237032L;

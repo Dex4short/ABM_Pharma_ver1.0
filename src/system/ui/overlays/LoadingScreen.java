@@ -5,12 +5,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseWheelEvent;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import javax.swing.JRootPane;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 
 import components.panels.Panel;
 import system.ui.appearance.Theme;
@@ -105,42 +109,38 @@ public abstract class LoadingScreen extends Panel implements Theme{
 		this.load_name = load_name;
 	}
 	public void load(Runnable runnable_load) {
-		load(runnable_load, 1000, loading_background, loading_foreground, "Loading...");
+		load(runnable_load, loading_background, loading_foreground, "Loading...");
 	}
-	public void load(Runnable runnable_load, int delay) {
-		load(runnable_load, delay, loading_background, loading_foreground, "Loading...");
-	}
-	public void load(Runnable runnable_load, int delay, Color bg_color, Color fg_color, String load_name) {		
+	public void load(Runnable runnable_load, Color bg_color, Color fg_color, String load_name) {		
 		setLoadingBackground(bg_color);
 		setLoadingForeground(fg_color);
 		setLoadName(load_name);
 
 		loading = true;
 		
-		Timer timer = new Timer();
-		timer.scheduleAtFixedRate(new TimerTask() {
+		Timer timer = new Timer(20, new ActionListener() {
+			JRootPane root_pane;
 			@Override
-			public void run() {
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.invokeLater(() -> {
+					root_pane = getRootPane();
+					if(root_pane != null) root_pane.repaint();
+				});
 				onLoading(runnable_load.getClass().getName());
-				if(getRootPane() != null) getRootPane().repaint();
 			}
-		}, 0, 20);
+		});
+		timer.start();
 		
 		new Thread() {
-			public void run() {
+			public void run() {				
 				runnable_load.run();
 				
-				try {
-					Thread.sleep(delay);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
-				loading = false;
-				timer.cancel();
+				SwingUtilities.invokeLater(() -> {
+					loading = false;
+					timer.stop();
+				});
 			}
-		}.start();
-		
+		}.start();		
 	}
 	
 	public abstract void onLoading(String load_name);
