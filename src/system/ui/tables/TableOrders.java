@@ -56,6 +56,13 @@ public class TableOrders extends TableProducts{
 	public int getOrderCount() {
 		return getRowCount();
 	}
+	public Order getSelectedOrder() {
+		Row row = getSelectedRow();
+		if(row != null) {
+			return ((OrderRow)row).getOrder();
+		}
+		return null;
+	}
 	public Order[] getSelectedOrders() {
 		Row rows[] = getSelectedRows();
 		Order orders[] = new Order[rows.length];

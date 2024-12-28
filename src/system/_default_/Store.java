@@ -81,7 +81,7 @@ public interface Store {
 		
 		onAddToCart(order);
 	}
-	public default void removeFromCart(Cart cart, Product main_product,Packaging[] extracted_packs, Packaging sub_pack) {
+	public default void removeFromCart(Cart cart, Order main_order, Packaging[] extracted_packs, Packaging sub_pack) {
 		System.out.println("extracted packs------------------------------------------");
 		for(Packaging extracted_pack: extracted_packs) {
 			System.out.println(extracted_pack.toString());
@@ -89,12 +89,14 @@ public interface Store {
 		System.out.println("sub pack-------------------------------------------------");
 		System.out.println(sub_pack.toString());
 		
+		/*
 		Packaging ancestor_packs[]= MySQL_Packaging.selectPackagings(main_product.getPackaging().getPackagingLine(), main_product.getPackaging().getPackagingGroup());
 		for(Packaging ancestor_pack: ancestor_packs) {
 			if(ancestor_pack.getPackId() == main_product.getPackaging().getParentPackId()) {
 				System.out.println("match");
 			}
 		}
+		*/
 		
 		onRemoveFromCart(extracted_packs, sub_pack);
 	}

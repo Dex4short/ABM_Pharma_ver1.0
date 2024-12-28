@@ -55,7 +55,7 @@ public class PanelStore extends UI3 implements Store{
 		table_product_cart = new TableCart() {
 			private static final long serialVersionUID = -6609667196159272458L;
 			@Override
-			public void onRemoveOrderFromCart(Packaging[] extracted_packs, Packaging sub_pack) { removeFromCart(getCart(), getSelectedProduct(),extracted_packs, sub_pack); }
+			public void onRemoveOrderFromCart(Packaging[] extracted_packs, Packaging sub_pack) { removeFromCart(getCart(), getSelectedOrder(),extracted_packs, sub_pack); }
 		};
 		table_product_cart.setCheckBoxesEnabled(false);
 		getUiBottom().setTable(table_product_cart);
