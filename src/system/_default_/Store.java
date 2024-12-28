@@ -3,6 +3,7 @@ package system._default_;
 import database.MySQL_Cart;
 import database.MySQL_Counter;
 import database.MySQL_Orders;
+import database.MySQL_Packaging;
 import database.MySQL_Products;
 import database.MySQL_Transactions;
 import system.enumerators.ProductCondition;
@@ -80,7 +81,7 @@ public interface Store {
 		
 		onAddToCart(order);
 	}
-	public default void removeFromCart(Packaging[] extracted_packs, Packaging sub_pack) {
+	public default void removeFromCart(Cart cart, Product main_product,Packaging[] extracted_packs, Packaging sub_pack) {
 		System.out.println("extracted packs------------------------------------------");
 		for(Packaging extracted_pack: extracted_packs) {
 			System.out.println(extracted_pack.toString());
@@ -88,7 +89,12 @@ public interface Store {
 		System.out.println("sub pack-------------------------------------------------");
 		System.out.println(sub_pack.toString());
 		
-		
+		Packaging ancestor_packs[]= MySQL_Packaging.selectPackagings(main_product.getPackaging().getPackagingLine(), main_product.getPackaging().getPackagingGroup());
+		for(Packaging ancestor_pack: ancestor_packs) {
+			if(ancestor_pack.getPackId() == main_product.getPackaging().getParentPackId()) {
+				System.out.println("match");
+			}
+		}
 		
 		onRemoveFromCart(extracted_packs, sub_pack);
 	}

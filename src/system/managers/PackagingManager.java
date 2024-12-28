@@ -52,10 +52,10 @@ public class PackagingManager {
 		return extracted_packages;
 	}
 	public static void merge(Packaging main_pack, Packaging sub_pack) {
-		
+		throw new RuntimeException("PackagingManager.merge() is currently not available...");
 	}
 	
-	private static class PackagingData {
+	public static class PackagingData {
 		private Uom uom;
 		private Quantity quantity;
 		private BigDecimal amount_a, amount_b, length, scale;
