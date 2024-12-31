@@ -1,7 +1,6 @@
 package system.ui.panels.actions.remarks;
 
 import system.objects.Date;
-import system.objects.Remarks;
 import system.objects.Time;
 import system.objects.Transaction;
 import system.ui.Window;
@@ -27,11 +26,9 @@ public abstract class ActionPanelRemarksReturning extends ActionPanelRemarks{
 		this.transaction = transaction;
 	}
 	public void returnRemarksOk(Time time, Date date, String details) {
-		Transaction transaction = getTransaction();
-		details += "Customer: " + transaction.getCustomer().getCustomerName() + "\nLot No.: " +	transaction.getTinNo();
-		onReturnRemarksOk(new Remarks(-1, date,	time, details));
+		onReturnRemarksOk(time, date, details);
 	}
 	
-	public abstract void onReturnRemarksOk(Remarks remarks);
+	public abstract void onReturnRemarksOk(Time time, Date date, String details);
 	
 }

@@ -100,7 +100,7 @@ public class ButtonDatePicker extends Button.Notified implements ActionListener{
 		}
 		else {
 			Date expiry = new Date(getText());
-			setState(QualityManager.isExpired(expiry));
+			setState(QualityManager.checkQuality(expiry));
 		}
 	}
 	public boolean isAutoCheckExpiry() {

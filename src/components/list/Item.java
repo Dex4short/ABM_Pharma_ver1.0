@@ -83,9 +83,11 @@ public class Item extends Panel implements MouseListener{
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
+		//overridable function
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		//overridable function
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {

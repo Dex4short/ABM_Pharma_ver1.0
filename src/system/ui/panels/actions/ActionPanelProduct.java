@@ -63,12 +63,20 @@ public abstract class ActionPanelProduct  extends ActionPanel{
 	}
 	@Override
 	public void onOk() {
-		productOk();
-		Window.getStackPanel().popPanel(this);
+		try {
+			productOk(getProductSet());
+			Window.getStackPanel().popPanel(this);
+		} catch (Exception e) {
+			Window.floatMessage(e.getMessage());
+			//e.printStackTrace();
+		}
 	}
 	@Override
 	public void onCancel() {
 		Window.getStackPanel().popPanel();
+	}
+	public Row[] getRows() {
+		return rows;
 	}
 	public Product[] getProductSet() throws Exception{
 		Product products[] = new Product[rows.length];
@@ -144,21 +152,16 @@ public abstract class ActionPanelProduct  extends ActionPanel{
 		}
 		
 		return new Product(
-				-1,
-				new Item(-1, item_no, description, lot_no, date_added, exp_date, brand),
-				new Packaging(-1, qty, uom, -1, PackagingLine.Ancestor, -1),
-				new Pricing(-1, cost, unit_price, discount, unit_amount),
-				new Remarks(-1),
-				null
+			-1,
+			new Item(-1, item_no, description, lot_no, date_added, exp_date, brand),
+			new Packaging(-1, qty, uom, -1, PackagingLine.Ancestor, -1),
+			new Pricing(-1, cost, unit_price, discount, unit_amount),
+			new Remarks(-1),
+			null
 		);
 	}
-	public void productOk() {
-		try {
-			onProductOk(getProductSet());
-		} catch (Exception e) {
-			Window.floatMessage(e.getMessage());
-			//e.printStackTrace();
-		}
+	public void productOk(Product product_set[]) {
+		onProductOk(product_set);
 	}	
 	
 	public abstract void onProductOk(Product product_set[]);

@@ -5,6 +5,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 
+import javax.swing.JRootPane;
+
 import components._misc_.Utilities;
 import components._misc_.Graphix.Shadow;
 
@@ -74,9 +76,10 @@ public class StackPanel extends Panel{
 			getComponent(p).setBounds(0, 0, getWidth(), getHeight());
 		}
 		
-		if(getRootPane() != null) {
-			getRootPane().revalidate();
-			getRootPane().repaint();
+		JRootPane root_pane = getRootPane();
+		if(root_pane != null) {
+			root_pane.revalidate();
+			root_pane.repaint();
 		}
 	}
 	

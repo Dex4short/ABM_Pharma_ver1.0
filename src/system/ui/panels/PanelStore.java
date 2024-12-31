@@ -7,7 +7,6 @@ import javax.swing.BorderFactory;
 
 import components.Padding;
 import system._default_.Store;
-import system.managers.NotificationsManager;
 import system.objects.Cart;
 import system.objects.Counter;
 import system.objects.Order;
@@ -123,7 +122,6 @@ public class PanelStore extends UI3 implements Store{
 	}
 	@Override
 	public void onLoadAisleFromStore(Product products[]) {
-		NotificationsManager.clearNotifications();
 		table_product_aisle.removeAllProducts();
 		table_product_aisle.addProducts(products);
 	}

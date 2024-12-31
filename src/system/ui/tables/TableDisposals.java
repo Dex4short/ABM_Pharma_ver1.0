@@ -1,5 +1,6 @@
 package system.ui.tables;
 
+import system.objects.Notification;
 import system.objects.Product;
 import system.ui.cells.labeling.CellLabel;
 
@@ -31,12 +32,10 @@ public class TableDisposals extends TableProducts{
 			setProduct(product);
 		}
 		@Override
-		public void checkExpiry() {
+		public void pushNotification() {
 			//disabled
 		}
 		@Override
-		public void checkStock() {
-			//disabled
-		}
+		public void onPushNotification(Notification notification) {}
 	}
 }

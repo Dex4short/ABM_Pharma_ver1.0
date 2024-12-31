@@ -6,6 +6,7 @@ import system._default_.Disposal;
 import system.objects.Product;
 import system.objects.Remarks;
 import system.ui.UI4;
+import system.ui.Window;
 import system.ui.buttons.ButtonDeleteProduct;
 import system.ui.buttons.ButtonReserveProduct;
 import system.ui.buttons.ButtonRestoreProduct;
@@ -48,7 +49,7 @@ public class PanelDisposal extends UI4 implements Disposal{
 		btn_disposeProduct = new ButtonDeleteProduct() {
 			private static final long serialVersionUID = 5138197980623655054L;
 			@Override
-			public void onDeleteProduct(Product product) {	deleteFromDisposal(); }
+			public void onDeleteProduct(Product product) {	deleteFromDisposal(product); }
 			@Override
 			public Product[] getSelectedProducts() { return selectManyFromDisposal(); }
 		};
@@ -58,6 +59,7 @@ public class PanelDisposal extends UI4 implements Disposal{
 			private static final long serialVersionUID = 3129100619823684380L;
 			@Override
 			public void onSelectRow(Row row) {
+				getParagraphField().setText("");
 				Row rows[] = getSelectedRows();
 				boolean enable = rows.length > 0;
 				btn_restoreProduct.setEnabled(enable);
@@ -89,15 +91,19 @@ public class PanelDisposal extends UI4 implements Disposal{
 	public void onRestoreFromDisposal(Product product) {
 		table_disposals.removeProduct(product);
 		getParagraphField().setText("");
+		Window.floatMessage(product.getItem().getDescription() + " restored");
 	}
 	@Override
 	public void onReserveFromDisposal(Product product) {
 		table_disposals.removeProduct(product);
 		getParagraphField().setText("");
+		Window.floatMessage(product.getItem().getDescription() + " reserved");
 	}
 	@Override
-	public void onDeleteFromDisposal() {
-		// TODO Auto-generated method stub
+	public void onDeleteFromDisposal(Product product) {
+		table_disposals.removeProduct(product);
+		getParagraphField().setText("");
+		Window.floatMessage(product.getItem().getDescription() + " deleted");
 	}
 	@Override
 	public void onShowRemarks(Remarks remarks) {

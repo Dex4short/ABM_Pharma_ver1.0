@@ -46,12 +46,4 @@ public class PopUpSettings extends TitledPanel implements Settings{
 		list_pane.addItem(new ItemAbout());
 		
 	}
-	@Override
-	public void onChangeThemeSetting() {
-		
-	}
-	@Override
-	public void onChangePasswordSetting() {
-		
-	}
 }

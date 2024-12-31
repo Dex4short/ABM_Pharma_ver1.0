@@ -73,7 +73,7 @@ public class Notification {
 		public ProductQuality(Product product) {
 			super(product, null, null, null);
 			
-			Quality quality = QualityManager.isExpired(product);
+			Quality quality = QualityManager.checkQuality(product.getItem().getExpDate());
 			
 			ImageIcon img_icon = null;
 			

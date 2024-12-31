@@ -31,7 +31,9 @@ public class ItemAbout extends Item {
 		super.mouseClicked(e);
 		Window.getPopUpPanel().pop();
 		Window.getStackPanel().pushPanel(new DialogSystemInformation(), 600, 500);
-		setSelected(false);
 	}
-	
+	@Override
+	public void setSelected(boolean selected) {
+		//disable function
+	}
 }

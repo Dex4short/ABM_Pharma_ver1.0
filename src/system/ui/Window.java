@@ -3,6 +3,7 @@ package system.ui;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -11,6 +12,7 @@ import javax.swing.JFrame;
 
 import components._misc_.Graphix.Shadow;
 import components.drawables.MessageFloater;
+import components.panels.DialogPanel;
 import components.panels.PopUpPanel;
 import components.panels.StackPanel;
 import system.ui.appearance.Theme;
@@ -116,10 +118,30 @@ public class Window extends JFrame implements Theme{
 		
 		loading_screen.load(() -> {
 			runnable.run();
+			
 			getStackPanel().popPanel(loading_screen);
 		}, Shadow.shadow_color, main_color[2], load_name);
 	}
 	public static PopUpPanel getPopUpPanel() {
 		return popup_panel;
+	}
+	public static void pushDialog(String title, String message) {
+		stack_panel.pushPanel(new DialogPanel(title) {
+			private static final long serialVersionUID = -6404723525688230016L;
+			{
+				setText(message);
+				getButtonOk().setVisible(false);
+				getButtonCancel().setText("close");
+				Toolkit.getDefaultToolkit().beep();
+			}
+			@Override
+			public void onOk() {
+				//hidden
+			}
+			@Override
+			public void onCancel() {
+				stack_panel.popPanel();
+			}
+		}, 200, 200);
 	}
 }

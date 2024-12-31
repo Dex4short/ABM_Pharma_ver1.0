@@ -38,6 +38,9 @@ public class Quantity {
 	public boolean isOutOfStock() {
 		return amount == 0;
 	}
+	public boolean isDeducted() {
+		return amount!=size;
+	}
 	
 	public static Quantity addQuantities(Quantity qty_a, Quantity qty_b) {
 		int amount1,amount2,amount,size;

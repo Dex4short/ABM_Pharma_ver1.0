@@ -1,8 +1,10 @@
 package system.ui.panels.dialogs;
 
 import components.panels.DialogPanel;
+import system.objects.Date;
 import system.objects.Product;
 import system.objects.Remarks;
+import system.objects.Time;
 import system.ui.Window;
 import system.ui.panels.actions.remarks.ActionPanelRemarksReservation;
 
@@ -40,9 +42,9 @@ public abstract class DialogReserveProduct extends DialogPanel{
 		Window.getStackPanel().pushPanel(new ActionPanelRemarksReservation() {
 			private static final long serialVersionUID = 8375859060438443980L;
 			@Override
-			public void onReserveRemarksOk(Remarks remarks) {
+			public void onReserveRemarksOk(Time time, Date date, String details) {
 				for(Product product: products) {
-					product.setRemarks(remarks);
+					product.setRemarks(new Remarks(-1, date, time, details));
 					reserveProductOk(product);
 				}
 			}

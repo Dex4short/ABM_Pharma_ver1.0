@@ -1,8 +1,10 @@
 package system.ui.panels.dialogs;
 
 import components.panels.DialogPanel;
+import system.objects.Date;
 import system.objects.Order;
 import system.objects.Remarks;
+import system.objects.Time;
 import system.objects.Transaction;
 import system.ui.Window;
 import system.ui.panels.actions.remarks.ActionPanelRemarksReturning;
@@ -23,9 +25,13 @@ public abstract class DialogReturnProduct extends DialogPanel{
 		Window.getStackPanel().pushPanel(new ActionPanelRemarksReturning(getTransaction()) {
 			private static final long serialVersionUID = 3958441542959575603L;
 			@Override
-			public void onReturnRemarksOk(Remarks remarks) {
-				returnProductOk(remarks);
+			public void onReturnRemarksOk(Time time, Date date, String details) {
+				details += 
+					"Customer: " + transaction.getCustomer().getCustomerName() + "\n" + 
+					"Tin No.: " + transaction.getTinNo() + "\n";
+				returnProductOk(time, date, details);
 			}
+			
 		}, 300, 300);
 		Window.getStackPanel().popPanel(this);
 	}
@@ -45,10 +51,10 @@ public abstract class DialogReturnProduct extends DialogPanel{
 	public void setOrders(Order orders[]) {
 		this.orders = orders;
 	}
-	public void returnProductOk(Remarks remarks) {
+	public void returnProductOk(Time time, Date date, String details) {
 		Order orders[] = getOrders();
 		for(Order order: orders) {
-			order.getProduct().setRemarks(remarks);
+			order.getProduct().setRemarks(new Remarks(-1, date, time, details));
 		}
 		onReturnProductOk(orders);
 	}

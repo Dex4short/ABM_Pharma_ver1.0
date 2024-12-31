@@ -12,15 +12,10 @@ public interface Settings {
 
 	public default void changeThemeSetting(int theme_mode) {
 		InputOutput.write("theme_settings.txt", ItemTheme.THEMES[theme_mode]);
-		onChangeThemeSetting();
 	}
 	public default void changePasswordSecuritySettings(SecurityRole role, char old_password[], char new_password[]) {
 		MySQL_Security.updateSecurityData(role, old_password, new_password);
-		onChangePasswordSetting();
 	}
-
-	public void onChangeThemeSetting();
-	public void onChangePasswordSetting();
 	
 	public static void rendering_hint(Graphics2D g2d) {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

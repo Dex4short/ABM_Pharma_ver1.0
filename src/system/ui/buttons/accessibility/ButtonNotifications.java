@@ -18,11 +18,14 @@ import system.ui.panels.popups.PopUpNotifications;
 
 public class ButtonNotifications extends Button.Tertiary implements ActionListener{
 	private static final long serialVersionUID = -617514616688765454L;
+	private PopUpNotifications popUp_notifications;
 	
 	public ButtonNotifications() {
 		setArc(30);
 		setBorder(BorderFactory.createEmptyBorder(7,7,7,7));
 		
+		popUp_notifications = new PopUpNotifications();
+				
 		ImageIcon
 		img_ico = Resource.getAsImageIcon("notifications.png");
 		img_ico = Graphix.alterImageIcon(img_ico, main_color[0], getFocusCycleRootAncestor());
@@ -36,10 +39,16 @@ public class ButtonNotifications extends Button.Tertiary implements ActionListen
 		super.paint(g);
 		g2d = (Graphics2D)g;
 		Settings.rendering_hint(g2d);
-		NotificationsManager.getDot().draw(g2d);
+		NotificationsManager.dot.draw(g2d);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Window.getPopUpPanel().popUp(new PopUpNotifications());
+		Window.getPopUpPanel().popUp(popUp_notifications);
+	}
+	public PopUpNotifications getPopUpNotifications() {
+		return popUp_notifications;
+	}
+	public void setPopUpNotifications(PopUpNotifications popUp_notifications) {
+		this.popUp_notifications = popUp_notifications;
 	}
 }

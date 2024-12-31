@@ -90,8 +90,9 @@ public class TableCustomers extends Table{
 				new CellLabel(customer.getEmail()),
 				new CellLabel(customer.getCompany())
 			});
-			
 			setCustomer(customer);
+			
+			getCheckBox().setEnabled(true);
 		}
 		public Customer getCustomer() {
 			return customer;

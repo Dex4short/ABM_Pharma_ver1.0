@@ -1,15 +1,14 @@
 package system.ui.tables;
 
 import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
 
 import components.drawables.Dot;
 import components.table.Cell;
 import components.table.Row;
 import components.table.Table;
-import system.enumerators.Quality;
 import system.managers.NotificationsManager;
-import system.managers.PackagingManager;
-import system.managers.QualityManager;
 import system.objects.Notification;
 import system.objects.Product;
 import system.ui.cells.labeling.CellLabel;
@@ -18,6 +17,7 @@ import system.ui.cells.labeling.CellLabelDecimal;
 import system.ui.cells.labeling.CellLabelPercentage;
 import system.ui.cells.labeling.CellLabelQuantity;
 import system.ui.cells.labeling.CellLabelUom;
+import system.ui.panels.PanelAdmin;
 
 public class TableProducts extends Table{
 	private static final long serialVersionUID = 4737286913516237032L;
@@ -38,12 +38,24 @@ public class TableProducts extends Table{
 		//overridable block
 	}
 	public void addProduct(Product product) {
-		addRow(new ProductRow(product));
+		addRow(new ProductRow(product) {
+			private static final long serialVersionUID = 7656116187104838283L;
+			@Override
+			public void onPushNotification(Notification notification) {
+				PanelAdmin.notifyTab(0, true);
+			}
+		});
 	}
 	public void addProducts(Product products[]) {
 		ProductRow rows[] = new ProductRow[products.length];
 		for(int r=0; r<rows.length; r++) {
-			rows[r] = new ProductRow(products[r]);
+			rows[r] = new ProductRow(products[r]) {
+				private static final long serialVersionUID = 7656116187104838283L;
+				@Override
+				public void onPushNotification(Notification notification) {
+					PanelAdmin.notifyTab(0, true);
+				}
+			};
 		}
 		addRows(rows);
 	}
@@ -94,7 +106,7 @@ public class TableProducts extends Table{
 		return products;
 	}
 	
-	public class ProductRow extends Row{
+	public abstract class ProductRow extends Row{
 		private static final long serialVersionUID = 2778698924837158048L;
 		private Product product;
 
@@ -115,8 +127,24 @@ public class TableProducts extends Table{
 			});
 			setProduct(product);
 			
-			checkStock();
-			checkExpiry();
+			if(product.getPackaging().getParentPackId() != -1) {
+				getCheckBox().setEnabled(false);
+			}
+			
+			pushNotification();
+		}
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(getCheckBox().isEnabled()) super.mouseClicked(e);
+		}
+		@Override
+		public void setSelected(boolean isSelected) {
+			if(getCheckBox().isEnabled()) {
+				super.setSelected(isSelected);
+			}
+			else {
+				Toolkit.getDefaultToolkit().beep();
+			}
 		}
 		public Product getProduct() {
 			return product;
@@ -124,28 +152,28 @@ public class TableProducts extends Table{
 		public void setProduct(Product product) {
 			this.product = product;
 		}
-		public void checkStock() {
-			boolean 
-			warning = PackagingManager.isRunningOut(product.getPackaging()),
-			caution = PackagingManager.isOutOfStock(product.getPackaging());
+		public void pushNotification() {
+			Notification notification = NotificationsManager.createNotification(product);
+			if(notification == null) return;
+			
+			pushNotification(notification);
 			
 			Dot dot = ((CellLabelQuantity)getCell(6)).getDot();
-			
-			if(caution) {
+			if(notification instanceof Notification.OutOfStock) {
 				dot.setColor(Color.red);
-				NotificationsManager.pushNotification(new Notification.OutOfStock(product));
+				dot.show();
 			}
-			else if(warning) {
+			else if(notification instanceof Notification.RunningOutOfStock) {
 				dot.setColor(Color.orange);
-				NotificationsManager.pushNotification(new Notification.RunningOutOfStock(product));
-			}
-			dot.setShow(warning || caution);
-		}
-		public void checkExpiry() {
-			Quality quality = QualityManager.isExpired(product.getItem().getExpDate());
-			if(quality==Quality.Warning || quality==Quality.Bad || quality==Quality.Expired) {
-				NotificationsManager.pushNotification(new Notification.ProductQuality(product));
+				dot.show();
 			}
 		}
+		public void pushNotification(Notification notification) {
+			NotificationsManager.pushNotification(notification);
+			onPushNotification(notification);
+		}
+		
+		public abstract void onPushNotification(Notification notification);
+		
 	}
 }

@@ -1,7 +1,6 @@
 package system.ui.panels.actions.remarks;
 
 import system.objects.Date;
-import system.objects.Remarks;
 import system.objects.Time;
 import system.ui.Window;
 
@@ -18,9 +17,9 @@ public abstract class ActionPanelRemarksReservation extends ActionPanelRemarks{
 		}, "Reserving...");
 	}
 	public void reserveRemarksOk(Time time, Date date, String details) {
-		onReserveRemarksOk(new Remarks(-1, date, time, details));
+		onReserveRemarksOk(time, date, details);
 	}
 	
-	public abstract void onReserveRemarksOk(Remarks remarks);
+	public abstract void onReserveRemarksOk(Time time, Date date, String details);
 	
 }

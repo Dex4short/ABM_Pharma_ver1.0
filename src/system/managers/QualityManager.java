@@ -16,7 +16,7 @@ public class QualityManager {
 		LocalDate date_exp = LocalDate.of(expiry.getYear(), expiry.getMonth(), expiry.getDay());
 		return date_add.compareTo(date_exp.minusMonths(month_margin)) <= 0;
 	}
-	public static Quality isExpired(Date expiry) {
+	public static Quality checkQuality(Date expiry) {
 		Date today = new Date();
 
 		if(QualityManager.bestBefore(today, expiry, 9))return Quality.Good;
@@ -24,7 +24,16 @@ public class QualityManager {
 		else if(QualityManager.bestBefore(today, expiry, 0)) return Quality.Bad;
 		else return Quality.Expired;
 	}
-	public static Quality isExpired(Product product) {
-		return isExpired(product.getItem().getExpDate());
+	public static boolean isExpired(Product product) {
+		return checkQuality(product.getItem().getExpDate()) == Quality.Expired;
+	}
+	public static boolean isBad(Product product) {
+		return checkQuality(product.getItem().getExpDate()) == Quality.Bad;
+	}
+	public static boolean isWarning(Product product) {
+		return checkQuality(product.getItem().getExpDate()) == Quality.Warning;
+	}
+	public static boolean isGood(Product product) {
+		return checkQuality(product.getItem().getExpDate()) == Quality.Good;
 	}
 }

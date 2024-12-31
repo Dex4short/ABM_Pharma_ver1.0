@@ -26,12 +26,10 @@ public class PanelProductReturns extends UI4 implements ProductReturns{
 			private static final long serialVersionUID = -7923323999448823744L;
 			@Override
 			public void onSelectRow(Row row) { 
+				getParagraphField().setText("");
 				Product product = getSelectedProduct();
 				if(product != null) {
 					showRemarks(product.getRemarks()); 
-				}
-				else {
-					
 				}
 			}
 		};

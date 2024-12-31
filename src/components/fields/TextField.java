@@ -2,6 +2,9 @@ package components.fields;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
@@ -21,6 +24,14 @@ public class TextField extends JTextField implements Theme{
 		setForeground(text_color[0]);
 		setLineColor(main_color[3]);
 		
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(!isEnabled()) {
+					Toolkit.getDefaultToolkit().beep();
+				}
+			}
+		});
 	}
 	public TextField() {
 		super();

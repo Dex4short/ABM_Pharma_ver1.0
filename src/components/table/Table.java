@@ -278,9 +278,10 @@ public abstract class Table extends Panel implements Theme{
 		}
 		private boolean iterative_checking = false;
 		@Override
-		public void mouseClicked(MouseEvent e) {
+		public void mouseClicked(MouseEvent e) {			
 			if(e.getSource() instanceof Row) {
-				selectRow((Row)e.getSource());
+				Row row = (Row)e.getSource();
+				if(row.isSelectionEnabled()) selectRow(row);
 			}
 		}
 		@Override
@@ -295,6 +296,8 @@ public abstract class Table extends Panel implements Theme{
 		public void mouseExited(MouseEvent e) {}
 		@Override
 		public void itemStateChanged(ItemEvent e) {
+			if(!((CheckBox)e.getSource()).isEnabled()) return;
+			
 			Row row = (Row)((CheckBox)e.getSource()).getParent();
 			switch(e.getStateChange()){
 			case ItemEvent.SELECTED: 

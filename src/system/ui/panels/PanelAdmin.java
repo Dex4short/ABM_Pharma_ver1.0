@@ -16,6 +16,7 @@ import components.tab.Tab;
 import components.tab.TabPane;
 import res.Resource;
 import system._default_.Administrator;
+import system.managers.NotificationsManager;
 import system.ui.Window;
 import system.ui.appearance.Theme;
 import system.ui.buttons.accessibility.ButtonNotifications;
@@ -23,7 +24,9 @@ import system.ui.buttons.accessibility.ButtonSettings;
 
 public class PanelAdmin extends Panel implements Theme, Administrator{
 	private static final long serialVersionUID = 4864384612729816588L;
+	private static Tab tabs[];
 	private Panel next_panel;
+	private ButtonNotifications btn_notifications;
 
 	public PanelAdmin() {
 		setLayout(new BorderLayout());
@@ -64,7 +67,7 @@ public class PanelAdmin extends Panel implements Theme, Administrator{
 				ButtonSettings btn_settings = new ButtonSettings();
 				add(btn_settings);
 				
-				ButtonNotifications btn_notifications = new ButtonNotifications();
+				btn_notifications = new ButtonNotifications();
 				add(btn_notifications);
 			}
 		};
@@ -88,7 +91,7 @@ public class PanelAdmin extends Panel implements Theme, Administrator{
 		PanelProductReturns panel_product_return = new PanelProductReturns();
 		PanelCustomers panel_customers = new PanelCustomers();
 		
-		Tab tabs[] = {
+		tabs = new Tab[]{
 			new Tab("Inventory", panel_inventory),
 			new Tab("Transactions", panel_transactions),
 			new Tab("Store", panel_store),
@@ -107,6 +110,7 @@ public class PanelAdmin extends Panel implements Theme, Administrator{
 		tabs[0].addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				NotificationsManager.clearNotifications();
 				next_panel = panel_inventory;
 				toInventory();
 			}
@@ -121,8 +125,10 @@ public class PanelAdmin extends Panel implements Theme, Administrator{
 		tabs[2].addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				NotificationsManager.clearNotifications();
 				next_panel = panel_store;
 				toStore();
+				panel_inventory.loadAllFromInventory();
 			}
 		});
 		tabs[3].addMouseListener(new MouseAdapter() {
@@ -160,12 +166,12 @@ public class PanelAdmin extends Panel implements Theme, Administrator{
 			}
 		});
 		
-		next_panel = panel_inventory;
+		next_panel = panel_inventory;		
 	}
 	@Override
 	public void onToInventory(PanelInventory inventory) {
 		Window.load(() -> {
-				inventory.loadAllFromInventory();
+			inventory.loadAllFromInventory();
 		},"Loading Inventory...");
 	}
 	@Override
@@ -214,5 +220,9 @@ public class PanelAdmin extends Panel implements Theme, Administrator{
 	@Override
 	public Panel nextPanel() {
 		return next_panel;
+	}
+	
+	public static void notifyTab(int n, boolean notify) {
+		tabs[n].getDot().setShow(notify);
 	}
 }

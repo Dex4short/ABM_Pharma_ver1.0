@@ -26,9 +26,15 @@ public interface Disposal {
 		MySQL_Products.updateProduct(product);
 		onReserveFromDisposal(product);
 	}
-	public default void deleteFromDisposal() {
-		
-		onDeleteFromDisposal();
+	public default void deleteFromDisposal(Product product) {
+		if(product.getPackaging().getQty().isDeducted()) {
+			product.setProduct_condition(ProductCondition.VOID);
+			MySQL_Products.updateProduct(product);
+		}
+		else {
+			MySQL_Products.deleteProdut(product);
+		}
+		onDeleteFromDisposal(product);
 	}
 	public default void showRemarks(Remarks remarks) {
 		onShowRemarks(remarks);
@@ -43,7 +49,7 @@ public interface Disposal {
 	public void onSearchFromDisposal();
 	public void onRestoreFromDisposal(Product product);
 	public void onReserveFromDisposal(Product product);
-	public void onDeleteFromDisposal();
+	public void onDeleteFromDisposal(Product product);
 	public void onShowRemarks(Remarks remarks);
 	public void onLoadAllFromDisposal(Product disposed_products[]);
 }

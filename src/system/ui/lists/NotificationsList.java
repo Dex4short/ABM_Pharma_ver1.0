@@ -9,7 +9,6 @@ import components.fields.ParagraphField;
 import components.list.Item;
 import components.list.ListPane;
 import system.objects.Notification;
-import system.objects.Product;
 
 public class NotificationsList extends ListPane{
 	private static final long serialVersionUID = 4135976497237412092L;
@@ -21,12 +20,11 @@ public class NotificationsList extends ListPane{
 	public void addNotification(Notification notification) {
 		addItem(new NotificationItem(notification));
 	}
-	public void addNotifications(Notification notifications[]) {
-		NotificationItem items [] = new NotificationItem[notifications.length];
-		for(int i=0; i<items.length; i++) {
-			items[i] = new NotificationItem(notifications[i]); 
+	public Notification getNotification(int prod_id) {
+		for(Notification notification: getNotifications()) {
+			if(notification.getProduct().getProdId() == prod_id) return notification;
 		}
-		addItems(items);
+		return null;
 	}
 	public Notification[] getNotifications() {
 		Item items[] = getItems();
@@ -36,26 +34,21 @@ public class NotificationsList extends ListPane{
 		}
 		return notifications;
 	}
-	public void removeNotification(int n) {
-		removeItem(n);
+	public int getNotificationsCount() {
+		return getItemCount();
+	}
+	public void removeNotification(int prod_id) {
+		Notification notification;
+		for(Item item: getItems()) {
+			notification = ((NotificationItem)item).getNotification();
+			if(notification.getProduct().getProdId() == prod_id) {
+				removeItem(item);
+				return;
+			}
+		}
 	}
 	public void removeAllNotifications() {
 		removeAllItems();
-	}
-	public Notification findNotificationFor(Product product) {
-		for(Notification notification: getNotifications()) {
-			if(notification.getProduct() == product) return notification;
-		}
-		return null;
-	}
-	public int findNotificationIndexFor(Product product) {
-		Item items[] = getItems();
-		for(int n=0; n<items.length; n++) {
-			if(((NotificationItem)items[n]).getNotification().getProduct() == product) {
-				return n;
-			}
-		}
-		return -1;
 	}
 	
 	public static class NotificationItem extends Item{

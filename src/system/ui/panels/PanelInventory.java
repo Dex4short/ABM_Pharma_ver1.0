@@ -21,7 +21,7 @@ public class PanelInventory extends UI1 implements Inventory{
 	private TableProducts table_products;
 	private Button btn_reserveProduct, btn_disposeProduct, btn_editProduct;
 
-	public PanelInventory() {
+	public PanelInventory() {		
 		SearchPanelProduct search_panel = new SearchPanelProduct() {
 			private static final long serialVersionUID = -1256506246091903002L;
 			@Override
@@ -115,12 +115,12 @@ public class PanelInventory extends UI1 implements Inventory{
 	}
 	@Override
 	public void onReserveFromInventory(Product product) {
-		NotificationsManager.removeNotificationFor(product);
 		table_products.removeProduct(product);
+		Window.floatMessage(product.getItem().getDescription() + " reserved");
 	}
 	@Override
 	public void onDisposeFromInventory(Product product) {
-		NotificationsManager.removeNotificationFor(product);
+		Window.floatMessage(product.getItem().getDescription() + " disposed");
 		table_products.removeProduct(product);
 	}
 	@Override
@@ -136,6 +136,7 @@ public class PanelInventory extends UI1 implements Inventory{
 	@Override
 	public void onLoadAllFromInventory(Product[] products) {
 		NotificationsManager.clearNotifications();
+		PanelAdmin.notifyTab(0, false);
 		
 		btn_reserveProduct.setEnabled(false);
 		btn_disposeProduct.setEnabled(false);

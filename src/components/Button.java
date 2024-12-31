@@ -3,12 +3,15 @@ package components;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.UIManager;
 
 import components._misc_.Graphix;
 import components._misc_.abstracts.Decoration;
@@ -54,15 +57,18 @@ public class Button extends JButton implements Theme, MouseListener{
 			text_color[3], 
 			Graphix.setAlpha(main_color[0], 128),
 			new Color(0,0,0,0)
-		);
+		) {
+			@Override
+			public void onDecorate(JComponent jcomponent) {	
+				UIManager.put("Button.disabledText", getForeground()); //patch
+			}
+		};
 		
-		setArc(10);
-		//setBorder(BorderFactory.createEmptyBorder(6,30,6,30));
-		
+		setArc(10);		
 		addMouseListener(this);
 	}
 	public Button() {
-		
+		//default constructor
 	}
 	public Button(String str) {
 		super(str);
@@ -90,11 +96,12 @@ public class Button extends JButton implements Theme, MouseListener{
 	public void setEnabled(boolean enabled) {
 		super.setEnabled(enabled);
 		if(enabled) {
-			decorations[Normal_State].decorate(this);
+			current_state = Normal_State;
 		}
 		else {
-			decorations[Disabled_State].decorate(this);
+			current_state = Disabled_State;
 		}
+		decorations[current_state].decorate(this);
 	}
 	@Override
 	public void setIcon(Icon defaultIcon) {
@@ -142,7 +149,7 @@ public class Button extends JButton implements Theme, MouseListener{
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(!isEnabled()) return;
+		if(!isEnabled()) Toolkit.getDefaultToolkit().beep();
 	}
 	public int getArc() {
 		return arc;

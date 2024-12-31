@@ -10,6 +10,7 @@ import components.Button;
 import res.Resource;
 import system.objects.Product;
 import system.ui.Window;
+import system.ui.panels.dialogs.DialogDeleteProduct;
 
 public abstract class ButtonDeleteProduct extends Button implements ActionListener{
 	private static final long serialVersionUID = -211465351098739393L;
@@ -23,17 +24,14 @@ public abstract class ButtonDeleteProduct extends Button implements ActionListen
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		/*
-		DialogDisposeProduct dialog_dispose_product = new DialogDisposeProduct(getSelectedProducts()) {
+		DialogDeleteProduct dialog_dispose_product = new DialogDeleteProduct(getSelectedProducts()) {
 			private static final long serialVersionUID = 6203612887549457328L;
 			@Override
-			public void onDisposeProductOk(Product product) {
-				disposeProduct(product);
+			public void onDeleteProductOk(Product product) {
+				deleteProduct(product);
 			}
 		};
 		Window.getStackPanel().pushPanel(dialog_dispose_product, 200, 200);
-		*/
-		Window.floatMessageAndBeep("Currently not Available");
 	}
 	public void deleteProduct(Product product) {
 		onDeleteProduct(product);

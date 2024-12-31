@@ -1,5 +1,6 @@
 package system.ui.tables;
 
+import system.objects.Notification;
 import system.objects.Product;
 import system.ui.cells.labeling.CellLabel;
 
@@ -9,6 +10,7 @@ public class TableProductReturns extends TableProducts{
 
 	public TableProductReturns() {
 		setColumns(fields);
+		setCheckBoxesEnabled(false);
 	}
 	@Override
 	public void addProduct(Product product) {
@@ -33,14 +35,14 @@ public class TableProductReturns extends TableProducts{
 		public ProductReturnedRow(Product product) {
 			super(product);
 			addCell(new CellLabel(product.getRemarks().toStringTitleDetail()));
+			setDepricated(true);
+			getCheckBox().setEnabled(true);
 		}
 		@Override
-		public void checkExpiry() {
+		public void pushNotification() {
 			//disabled
 		}
 		@Override
-		public void checkStock() {
-			//disabled
-		}
+		public void onPushNotification(Notification notification) {}
 	}
 }

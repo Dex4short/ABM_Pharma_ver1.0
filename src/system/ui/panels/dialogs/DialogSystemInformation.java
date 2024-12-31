@@ -15,8 +15,16 @@ public class DialogSystemInformation extends DialogPanel{
 			"Year Created:\t\t 2024 \n" +
 			"Version:\t\t ver.2 alpha \n" +
 			"\n" +
-			"Company:\t\t ABM Pharmaceuticals and Medical Industries \n"
-			
+			"Company:\t\t ABM Pharmaceuticals and Medical Industries \n" +
+			"Stakeholder:\t\t Mr. Arnel B. Madula \n" +
+			"\n" +
+			"Software Developer Team:\n" +
+			"\t\tDexter C. Pacaña\n" +
+			"\t\tTristan Rhyl C. Penaso\n" + 
+			"\t\tFitz Ulysses J. Geraldo\n" +
+			"\t\tLouie Jean Mendaña\n" +
+			"\t\tAbigail Badana	\n" +
+			"\t\tShernielyn J. Cabahug\n"
 		);
 
 		getParagraphField().setBorder(BorderFactory.createEmptyBorder(30,30,30,30));

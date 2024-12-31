@@ -38,7 +38,10 @@ public abstract class ItemTheme extends Item{
 		super.mouseClicked(e);
 		Window.floatMessageAndBeep("Currently no avialable");
 		//changeTheme();
-		setSelected(false);
+	}
+	@Override
+	public void setSelected(boolean selected) {
+		//disable function
 	}
 	public void changeTheme() {
 		mode = 1 - mode;

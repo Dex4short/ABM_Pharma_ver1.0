@@ -1,7 +1,11 @@
 package system.ui.tables;
 
+import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+
 import components.table.Row;
 import system.enumerators.ProductCondition;
+import system.objects.Notification;
 import system.objects.Order;
 import system.ui.cells.labeling.CellLabelDecimal;
 
@@ -83,8 +87,25 @@ public class TableOrders extends TableProducts{
 			//getCell(3).setVisible(false);
 			//getCell(8).setVisible(false);
 			
-			if(order.getProduct().getProductCondition() == ProductCondition.RETURNED) setDepricated(true);
+			getCheckBox().setEnabled(true);
+			if(order.getProduct().getProductCondition() == ProductCondition.RETURNED) {
+				setDepricated(true);
+				getCheckBox().setEnabled(false);
+			}
 			
+		}
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(getCheckBox().isEnabled()) super.mouseClicked(e);
+		}
+		@Override
+		public void setSelected(boolean isSelected) {
+			if(getCheckBox().isEnabled()) {
+				super.setSelected(isSelected);
+			}
+			else {
+				Toolkit.getDefaultToolkit().beep();
+			}
 		}
 		public Order getOrder() {
 			return order;
@@ -93,12 +114,10 @@ public class TableOrders extends TableProducts{
 			this.order = order;
 		}
 		@Override
-		public void checkExpiry() {
+		public void pushNotification() {
 			//disabled
 		}
 		@Override
-		public void checkStock() {
-			//disabled
-		}
+		public void onPushNotification(Notification notification) {}
 	}
 }

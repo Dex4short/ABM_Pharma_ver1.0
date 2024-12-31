@@ -1,6 +1,7 @@
 package system.ui.tables;
 
 import components.table.Column;
+import system.objects.Notification;
 import system.objects.Packaging;
 import system.objects.Product;
 import system.ui.cells.clickable.CellButtonAddToCart;
@@ -31,7 +32,7 @@ public abstract class TableAisle extends TableProducts{
 	
 	public abstract void onAddProductToCart(Packaging extracted_packs[], Packaging sub_pack);
 
-	public class ProductAisleRow extends TableProducts.ProductRow{
+	public class ProductAisleRow extends ProductRow{
 		private static final long serialVersionUID = 5279465302007523078L;
 
 		public ProductAisleRow(Product product) {
@@ -45,6 +46,10 @@ public abstract class TableAisle extends TableProducts{
 			};
 			cell_btn.getButton().addActionListener(e -> selectRow(this));
 			addCell(cell_btn);
+
+			getCheckBox().setEnabled(true);
 		}
+		@Override
+		public void onPushNotification(Notification notification) {}
 	}
 }

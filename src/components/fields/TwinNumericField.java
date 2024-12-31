@@ -14,7 +14,7 @@ public class TwinNumericField extends Panel{
 	private char divider;
 	private double aspect_ratio;
 	private boolean aspectRatioEnabled;
-	
+		
 	public TwinNumericField(String qty, String size){		
 		field1 = new NumericField(qty);
 		field2 = new NumericField(size);
@@ -40,9 +40,10 @@ public class TwinNumericField extends Panel{
 				(getHeight()/2) + (g.getFontMetrics().getAscent()/2)
 		);
 	}
-	public void setEditable(boolean editable) {
-		field1.setEditable(editable);
-		field2.setEditable(editable);
+	@Override
+	public void setEnabled(boolean editable) {
+		field1.setEnabled(editable);
+		field2.setEnabled(editable);
 	}
 	public void setDivider(char divider) {
 		this.divider = divider;

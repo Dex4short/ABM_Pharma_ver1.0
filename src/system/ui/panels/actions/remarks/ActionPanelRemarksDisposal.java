@@ -18,8 +18,8 @@ public abstract class ActionPanelRemarksDisposal extends ActionPanelRemarks{
 		}, "Disposing...");
 	}
 	public void disposeRemarksOk(Time time, Date date, String details) {
-		onDisposeRemarksOk(new Remarks(-1, date, time, details));
+		onDisposeRemarksOk(time, date, details);
 	}
 	
-	public abstract void onDisposeRemarksOk(Remarks remarks);
+	public abstract void onDisposeRemarksOk(Time time, Date date, String details);
 }

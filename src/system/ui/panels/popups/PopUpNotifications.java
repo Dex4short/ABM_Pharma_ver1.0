@@ -4,10 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import components.panels.TitledPanel;
-import system._default_.Notifications;
 import system.managers.NotificationsManager;
 
-public class PopUpNotifications extends TitledPanel implements Notifications{
+public class PopUpNotifications extends TitledPanel {
 	private static final long serialVersionUID = -2122393070139823198L;
 
 	public PopUpNotifications() {
@@ -18,8 +17,7 @@ public class PopUpNotifications extends TitledPanel implements Notifications{
 		setMinimumSize(getPreferredSize());
 		
 		getPanelBody().setLayout(new BorderLayout());
-		
-		getPanelBody().add(NotificationsManager.getNotificationsList());
+		getPanelBody().add(NotificationsManager.notifications_list);
 		
 	}
 }

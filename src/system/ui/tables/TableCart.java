@@ -30,7 +30,7 @@ public abstract class TableCart extends TableOrders{
 	
 	public abstract void onRemoveOrderFromCart(Packaging[] extracted_packs, Packaging sub_pack);
 	
-	public class ProductCartRow extends TableOrders.OrderRow{
+	public class ProductCartRow extends OrderRow{
 		private static final long serialVersionUID = 2233983822815909563L;
 	
 		public ProductCartRow(Order order) {
@@ -44,10 +44,12 @@ public abstract class TableCart extends TableOrders{
 			};
 			cell_btn.getButton().addActionListener(e -> selectRow(this));
 			addCell(cell_btn);
+
+			getCheckBox().setEnabled(true);
 		}
 		@Override
-		public void checkExpiry() {	/*disabled*/ }
-		@Override
-		public void checkStock() { /*disabled*/ }
+		public void pushNotification() {
+			//disabled
+		}
 	}
 }

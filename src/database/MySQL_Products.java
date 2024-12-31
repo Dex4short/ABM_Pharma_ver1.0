@@ -58,8 +58,7 @@ public class MySQL_Products {
 				MySQL_Remarks.selectRemarks((int)results[r][4]),
 				ProductCondition.valueOf((String)results[r][5])
 			);
-		}
-		
+		}		
 		return products;
 	}
 	public static Product[] selectSubProducts(Product product) {
@@ -89,23 +88,27 @@ public class MySQL_Products {
 		
 		MySQL.delete(table_name, "where prod_id=" + product.getProdId());
 	}
+	public static void updateProduct(int prod_id, int item_id, int pack_id, int price_id, int rem_id, ProductCondition product_condition) {
+		MySQL.update(
+				table_name,
+				new String[] {"item_id", "pack_id", "price_id", "rem_id", "prod_condition"},
+				new Object[] {item_id, pack_id, price_id, rem_id, product_condition.name()},
+				"where prod_id=" + prod_id
+			);
+	}
 	public static void updateProduct(Product product) {
 		MySQL_Item.updateItem(product.getItem());
 		MySQL_Packaging.updatePackaging(product.getPackaging());
 		MySQL_Pricing.updatePricing(product.getPricing());
 		MySQL_Remarks.updateRemarks(product.getRemarks());
 		
-		MySQL.update(
-			table_name,
-			new String[] {"item_id", "pack_id", "price_id", "rem_id", "prod_condition"},
-			new Object[] {
-				product.getItem().getItemId(),
-				product.getPackaging().getPackId(),
-				product.getPricing().getPriceId(),
-				(product.getRemarks() != null) ? product.getRemarks().getRemId() : -1,
-				product.getProductCondition().name()
-			},
-			"where prod_id=" + product.getProdId()
+		updateProduct(
+			product.getProdId(),
+			product.getItem().getItemId(),
+			product.getPackaging().getPackId(),
+			product.getPricing().getPriceId(),
+			(product.getRemarks() != null) ? product.getRemarks().getRemId() : -1,
+			product.getProductCondition()
 		);
 	}
 	public static void updateProduct(int pack_id, ProductCondition product_condition) {

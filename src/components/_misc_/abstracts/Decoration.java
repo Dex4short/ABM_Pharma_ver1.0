@@ -21,10 +21,9 @@ public abstract class Decoration {
 		setBorderColor(border_color);
 	}
 	public void decorate(JComponent jcomponent) {
-		setFont(font);
-		setForeground(foreground);
-		setBackground(background);
-		setBorderColor(border_color);
+		jcomponent.setFont(font);
+		jcomponent.setForeground(foreground);
+		jcomponent.setBackground(background);
 		onDecorate(jcomponent);
 	}
 	public abstract void onDecorate(JComponent jcomponent);
@@ -59,21 +58,13 @@ public abstract class Decoration {
 			super(font, foreground, background);
 		}
 		@Override
-		public void onDecorate(JComponent jcomponent) {
-			jcomponent.setBackground(getBackground());
-			jcomponent.setForeground(getForeground());
-			jcomponent.setFont(getFont());
-		}
+		public void onDecorate(JComponent jcomponent) {}
 	}
 	public static class Bordered extends Decoration {
 		public Bordered(Font font, Color foreground, Color background, Color border_color) {
 			super(font, foreground, background, border_color);
 		}
 		@Override
-		public void onDecorate(JComponent jcomponent) {
-			jcomponent.setBackground(getBackground());
-			jcomponent.setForeground(getForeground());
-			jcomponent.setFont(getFont());
-		}
+		public void onDecorate(JComponent jcomponent) {}
 	}
 }

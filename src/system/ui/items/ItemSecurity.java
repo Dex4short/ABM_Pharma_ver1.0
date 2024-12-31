@@ -32,7 +32,10 @@ public abstract class ItemSecurity extends Item{
 		super.mouseClicked(e);
 		Window.getPopUpPanel().pop();
 		requestOpenSecuritySettings();
-		setSelected(false);
+	}
+	@Override
+	public void setSelected(boolean selected) {
+		//disable function
 	}
 	public void requestOpenSecuritySettings() {
 		Window.getStackPanel().pushPanel(new ActionPanelPasswordEntry() {

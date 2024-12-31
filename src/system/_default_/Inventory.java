@@ -1,7 +1,9 @@
 package system._default_;
 
+import database.MySQL_Pricing;
 import database.MySQL_Products;
 import system.enumerators.ProductCondition;
+import system.objects.Pricing;
 import system.objects.Product;
 
 public interface Inventory {
@@ -55,7 +57,21 @@ public interface Inventory {
 				MySQL_Products.insertProduct(new_product);
 			}
 			else {
-				MySQL_Products.updateProduct(new_product);
+				if(new_product.getPackaging().getQty().isDeducted()) {
+					Pricing new_pricing = new_product.getPricing();
+					MySQL_Pricing.insertPricing(new_pricing);
+					MySQL_Products.updateProduct(
+						new_product.getProdId(), 
+						new_product.getItem().getItemId(),
+						new_product.getPackaging().getPackId(),
+						new_product.getPricing().getPriceId(),
+						(new_product.getRemarks()!=null) ? new_product.getRemarks().getRemId() : -1,
+						condition
+					);
+				}
+				else {
+					MySQL_Products.updateProduct(new_product);
+				}
 			}
 		}
 		else {
@@ -63,7 +79,7 @@ public interface Inventory {
 				MySQL_Products.deleteProdut(old_product);
 			}
 			else{
-				//no action needed
+				//if both are null, no action needed (this block is impossible).
 			}
 		}
 		if(condition == ProductCondition.STORED) onEditFromInventory(new_product);

@@ -17,7 +17,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import components.panels.Panel;
-import system.ABM_Pharma;
 import system.ui.appearance.Theme;
 
 public abstract class LoadingScreen extends Panel implements Theme{
@@ -117,24 +116,24 @@ public abstract class LoadingScreen extends Panel implements Theme{
 		setLoadingForeground(fg_color);
 		setLoadName(load_name);
 
-		ABM_Pharma.loading = true;
 		loading = true;
 		
 		Timer timer = new Timer(20, new ActionListener() {
 			private JRootPane root_pane;
+			private String runnable_name = runnable_load.getClass().getName();
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.invokeLater(() -> {
 					root_pane = getRootPane();
 					if(root_pane != null) root_pane.repaint();
 				});
-				onLoading(runnable_load.getClass().getName());
+				onLoading(runnable_name);
 			}
 		});
 		timer.start();
 		
 		new Thread() {
-			public void run() {				
+			public void run() {
 				runnable_load.run();
 				
 				SwingUtilities.invokeLater(() -> {
@@ -142,7 +141,7 @@ public abstract class LoadingScreen extends Panel implements Theme{
 					timer.stop();
 				});
 			}
-		}.start();		
+		}.start();
 	}
 	
 	public abstract void onLoading(String load_name);

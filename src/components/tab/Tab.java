@@ -2,12 +2,15 @@ package components.tab;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 
 import components.Label;
+import components.drawables.Dot;
 import components.panels.Panel;
 
 public class Tab extends Panel implements MouseListener{
@@ -15,6 +18,7 @@ public class Tab extends Panel implements MouseListener{
 	private boolean toggled;
 	private Label tab_title;
 	private Panel tab_content;
+	private Dot dot;
 
 	public Tab(String title, Panel tab_content){
 		setArc(20);
@@ -26,8 +30,22 @@ public class Tab extends Panel implements MouseListener{
 		setMaximumSize(getPreferredSize());
 		setBackground(main_color[0].brighter());
 		setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+
+		dot = new Dot();
 		
-		tab_title = new Label(title);
+		tab_title = new Label(title) {
+			private static final long serialVersionUID = 138816276387021212L;
+			private Graphics2D g2d;
+			@Override
+			public void paint(Graphics g) {
+				super.paint(g);
+				
+				g2d = (Graphics2D)g;
+				g2d.translate(5, 5);
+				dot.draw(g2d);
+				g2d.translate(-5, -5);
+			}
+		};
 		tab_title.setFont(font[0]);
 		tab_title.setForeground(text_color[3]);
 		tab_title.setHorizontalAlignment(Label.CENTER);
@@ -91,5 +109,11 @@ public class Tab extends Panel implements MouseListener{
 	}
 	public void setTabContent(Panel panel) {
 		this.tab_content = panel;
+	}
+	public Dot getDot() {
+		return dot;
+	}
+	public void setDot(Dot dot) {
+		this.dot = dot;
 	}
 }
