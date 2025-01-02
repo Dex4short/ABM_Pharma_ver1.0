@@ -40,37 +40,10 @@ public abstract class ButtonEditProduct extends Button implements ActionListener
 		
 		Window.load( () -> {
 			Window.getStackPanel().pushPanel(new ActionPanelEditProduct(products) {
-				private static final long serialVersionUID = -4374619851729526914L;
-				private int parentPack_id = -1;
-				
+				private static final long serialVersionUID = -4374619851729526914L;				
 				@Override
-				public void onEditProductOk(Product new_products[], Product old_products[]) {
-					parentPack_id = -1;
-					
-					ProductCondition product_condition = ProductCondition.STORED;
-					for(int p=0; p<new_products.length; p++) {
-						if(new_products[p]!=null || old_products[p]!=null) {
-							revalidateIds(new_products[p], old_products[p]);
-							editProduct(new_products[p], old_products[p], product_condition);
-						}
-						product_condition = ProductCondition.ARCHIVED;
-					}
-				}
-				private void revalidateIds(Product new_product, Product old_product) {
-					revalidateParentPackId(new_product, old_product);
-					
-					if(new_product == null || old_product == null) return;
-					new_product.setProdId(old_product.getProdId());
-					new_product.getItem().setItemId(old_product.getItem().getItemId());
-					new_product.getPackaging().setPackId(old_product.getPackaging().getPackId());
-					new_product.getPricing().setPriceId(old_product.getPricing().getPriceId());
-				}
-				private void revalidateParentPackId(Product new_product, Product old_product) {
-					if(new_product == null) return;
-					if(parentPack_id == -1) {
-						parentPack_id = old_product.getPackaging().getParentPackId();
-					}
-					new_product.getPackaging().setParentPackId(parentPack_id);
+				public void onEditProductOk(Product new_product, Product old_product, ProductCondition product_condition) {
+					editProduct(new_product, old_product, product_condition);
 				}
 			}, 20, 20, 226);
 		

@@ -197,6 +197,71 @@ where
 		i.item_condition='ARCHIVED' 
 	);
 	
-4.
-select
+4. search products
+select 
+	p.prod_id,
+	i.item_no, 
+	i.description, 
+	i.lot_no, 
+	i.date_added, 
+	i.exp_date, 
+	i.brand, 
+	k.qty, 
+	u.name, 
+	s.cost, 
+	s.unit_price, 
+	s.discount, 
+	s.unit_amount
+from
+	products as p
+	join
+	item as i
+	join 
+	packaging as k 
+	join
+	uom as u
+	join 
+	pricing as s 
+	join 
+	remarks as r
+on
+	p.item_id = i.item_id and 
+	p.pack_id = k.pack_id and k.uom_id = u.uom_id and
+	p.price_id = s.price_id
+	
+where
+	p.prod_condition='STORED' and u.name like '%o%';
+	
+5. search from orders
+select 
+	o.prod_id
+from
+	transactions as t
+	join
+	cart as c
+	join
+	orders as o 
+	join
+	products as p
+	join
+	item as i
+	join 
+	packaging as k 
+	join
+	uom as u
+	join 
+	pricing as s 
+	join 
+	remarks as r
+on
+	t.cart_no = c.cart_no and
+	c.order_no = o.order_no and
+	o.prod_id = p.prod_id and
+
+	p.item_id = i.item_id and 
+	p.pack_id = k.pack_id and k.uom_id = u.uom_id and
+	p.price_id = s.price_id
+	
+where
+	t.trans_id=1 and i.exp_date like '%2026%';
 	

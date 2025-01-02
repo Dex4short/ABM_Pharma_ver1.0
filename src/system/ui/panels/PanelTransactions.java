@@ -21,9 +21,11 @@ import system.ui.tables.TableTransactions;
 public class PanelTransactions extends UI3 implements Transactions{
 	private static final long serialVersionUID = -4728899875964533207L;
 	
+	private ButtonPrintTransactions btn_print_transactions;
 	private TableTransactions table_transactions;
 	private BarFieldTransaction bar_field_transaction;
 
+	private ButtonPrintOrders btn_print_orders;
 	private ButtonReturnOrder btn_return_order;
 	private TableOrders table_orders;
 	private BarFieldOrder bar_field_order;
@@ -37,7 +39,13 @@ public class PanelTransactions extends UI3 implements Transactions{
 				public void onSearch(String category, String word) { searchCustomersFromTransactions(category, word); }
 			};
 			
-			ButtonPrintTransactions btn_print_transactions = new ButtonPrintTransactions();
+			btn_print_transactions = new ButtonPrintTransactions() {
+				private static final long serialVersionUID = -5758550068946726160L;
+				@Override
+				public void onPrintTransactions(Transaction[] transactions) { printCustomersFromTransactions(transactions); }
+				@Override
+				public Transaction[] getTransactions() { return selectAllFromTransactions(); }
+			};
 			
 			table_transactions = new TableTransactions() {
 				private static final long serialVersionUID = 8004484913942693371L;
@@ -68,7 +76,13 @@ public class PanelTransactions extends UI3 implements Transactions{
 					
 				}
 			};
-			ButtonPrintOrders btn_print_orders = new ButtonPrintOrders();
+			btn_print_orders = new ButtonPrintOrders() {
+				private static final long serialVersionUID = 3821345042747308386L;
+				@Override
+				public void onPrintReceipt(Transaction transaction) { printCustomerOrdersFromTransactions(transaction); }
+				@Override
+				public Transaction getSelectedTransaction() { return selectFromTransactions(); }
+			};
 			
 			btn_return_order = new ButtonReturnOrder() {
 				private static final long serialVersionUID = 3251937345183043930L;
@@ -110,6 +124,10 @@ public class PanelTransactions extends UI3 implements Transactions{
 		return table_transactions.getSelectedTransaction();
 	}
 	@Override
+	public Transaction[] onSelectAllFromTransactions() {
+		return table_transactions.getTransactions();
+	}
+	@Override
 	public Order[] onSelectCustomerOrdersFromTransactions() {
 		return table_orders.getSelectedOrders();
 	}
@@ -123,7 +141,7 @@ public class PanelTransactions extends UI3 implements Transactions{
 	}
 	@Override
 	public void onPrintCustomerOrdersFromTransactions() {
-		// TODO Auto-generated method stub
+		
 	}
 	@Override
 	public void onReturnCustomerOrderFromTransactions(Order orders[]) {
@@ -142,11 +160,11 @@ public class PanelTransactions extends UI3 implements Transactions{
 		table_orders.removeAllOrders();
 		table_orders.addOrders(transction.getCart().getOrders());
 		bar_field_order.calculateDiscount_and_TotalNetAmount(transction);
+		
+		btn_print_orders.setEnabled(true);
 	}
 	@Override
 	public void onloadAllFromTransactions(Transaction transactions[]) {
-		btn_return_order.setEnabled(false);
-		
 		table_transactions.removeAllTransactions();
 		table_transactions.addTransactions(transactions);
 		bar_field_transaction.calculateTotalCostAmount_and_Profit(transactions);
@@ -154,5 +172,9 @@ public class PanelTransactions extends UI3 implements Transactions{
 		table_orders.removeAllOrders();
 		bar_field_order.setDiscount(new Percentage());
 		bar_field_order.setTotalNetAmount(new Decimal());
+		
+		btn_print_orders.setEnabled(false);
+		btn_return_order.setEnabled(false);
+		btn_print_transactions.setEnabled(table_transactions.getRowCount() > 0);
 	}
 }

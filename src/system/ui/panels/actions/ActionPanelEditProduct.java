@@ -1,6 +1,7 @@
 package system.ui.panels.actions;
 
 import components.table.Row;
+import system.enumerators.ProductCondition;
 import system.objects.Product;
 import system.ui.Window;
 import system.ui.cells.CellQuantityField;
@@ -10,13 +11,12 @@ import system.ui.cells.clickable.CellButtonUomPicker;
 
 public abstract class ActionPanelEditProduct  extends ActionPanelProduct{
 	private static final long serialVersionUID = -4880139382406239412L;
-	private Product product_temp[];
+	private Product old_products[];
 	
 	public ActionPanelEditProduct(Product product_set[]) {
 		getPanelHead().setTitle("Edit Product");
 		setProductSet(product_set);
-		
-		product_temp = product_set;
+		setOldProducts(product_set);
 		
 		if(product_set[0].getPackaging().getQty().isDeducted()) {
 			Row rows[] = getRows();
@@ -39,16 +39,56 @@ public abstract class ActionPanelEditProduct  extends ActionPanelProduct{
 		}
 	}
 	@Override
-	public void onProductOk(Product[] products) {
+	public void onProductOk(Product[] new_products) {
 		Window.load(
-			() -> editProductOk(products, product_temp),
+			new Runnable() {
+				private int 
+				item_id = old_products[0].getItem().getItemId(),
+				parentPack_id = -1,
+				pack_group = old_products[0].getPackaging().getPackagingGroup();
+				
+				public void run() {
+					
+					ProductCondition product_condition = ProductCondition.STORED;
+					for(int p=0; p<new_products.length; p++) {
+						if(new_products[p]==null && old_products[p]==null) return;
+						
+						revalidateIds(new_products[p], old_products[p]);
+						editProductOk(new_products[p], old_products[p], product_condition);
+						
+						if(new_products[p] != null) 
+							parentPack_id = new_products[p].getPackaging().getPackId();
+						else if(old_products[p] != null) 
+							parentPack_id = old_products[p].getPackaging().getPackId();
+						
+						product_condition = ProductCondition.ARCHIVED;
+					}
+				}
+				private void revalidateIds(Product new_product, Product old_product) {
+					if(new_product==null) return;
+					new_product.getItem().setItemId(item_id);
+					new_product.getPackaging().setParentPackId(parentPack_id);
+					new_product.getPackaging().setPackagingGroup(pack_group);
+					
+					if(old_product==null) return;
+					new_product.setProdId(old_product.getProdId());
+					new_product.getPackaging().setPackId(old_product.getPackaging().getPackId());
+					new_product.getPricing().setPriceId(old_product.getPricing().getPriceId());
+				}
+			},
 			"Updating..."
 		);
 	}
-	public void editProductOk(Product new_products[], Product old_products[]) {
-		onEditProductOk(new_products, old_products);
+	public void setOldProducts(Product old_products[]) {
+		this.old_products = old_products;
+	}
+	public Product[] getOldProducts() {
+		return old_products;
+	}
+	public void editProductOk(Product new_product, Product old_product, ProductCondition product_condition) {
+		onEditProductOk(new_product, old_product, product_condition);
 	}
 	
-	public abstract void onEditProductOk(Product new_products[], Product old_products[]);
+	public abstract void onEditProductOk(Product new_product, Product old_product, ProductCondition product_condition);
 	
 }

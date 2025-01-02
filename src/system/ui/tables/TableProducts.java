@@ -14,6 +14,7 @@ import system.objects.Product;
 import system.ui.cells.labeling.CellLabel;
 import system.ui.cells.labeling.CellLabelDate;
 import system.ui.cells.labeling.CellLabelDecimal;
+import system.ui.cells.labeling.CellLabelDescription;
 import system.ui.cells.labeling.CellLabelPercentage;
 import system.ui.cells.labeling.CellLabelQuantity;
 import system.ui.cells.labeling.CellLabelUom;
@@ -113,7 +114,7 @@ public class TableProducts extends Table{
 		public ProductRow(Product product) {
 			super(new Cell[] {
 				new CellLabel(product.getItem().getItemNo()),
-				new CellLabel(product.getItem().getDescription()),
+				new CellLabelDescription(product.getItem().getDescription()),
 				new CellLabel(product.getItem().getLotNo()),
 				new CellLabel(product.getItem().getDateAdded().toString()),
 				new CellLabelDate(product.getItem().getExpDate()),
@@ -127,9 +128,9 @@ public class TableProducts extends Table{
 			});
 			setProduct(product);
 			
-			if(product.getPackaging().getParentPackId() != -1) {
-				getCheckBox().setEnabled(false);
-			}
+			//if(product.getPackaging().getParentPackId() != -1) {
+			//	getCheckBox().setEnabled(false);
+			//}
 			
 			pushNotification();
 		}

@@ -21,6 +21,9 @@ public class Percentage {
 	public String toString() {
 		return percent_value;
 	}
+	public int toInt() {
+		return Integer.parseInt(percent_value.replace("%", ""));
+	}
 	public BigDecimal toBigDecimal() {
 		String str = percent_value.replace("%", "");
 		return new BigDecimal(str).multiply(new BigDecimal("0.01"));

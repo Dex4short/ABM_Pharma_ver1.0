@@ -15,21 +15,21 @@ public class CellButtonDatePicker extends CellButton{
 		
 		btn_date_picker = (ButtonDatePicker)getComponent(0);
 		btn_date_picker.setArc(20);
-		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+		setBorder(BorderFactory.createEmptyBorder(4,0,4,5));
 	}
 	public CellButtonDatePicker(Date date) {
 		super(new ButtonDatePicker(date));
 		
 		btn_date_picker = (ButtonDatePicker)getComponent(0);
 		btn_date_picker.setArc(20);
-		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+		setBorder(BorderFactory.createEmptyBorder(4,0,4,5));
 	}
 	public CellButtonDatePicker() {
 		super(new ButtonDatePicker(new Date()));
 		
 		btn_date_picker = (ButtonDatePicker)getComponent(0);
 		btn_date_picker.setArc(20);
-		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+		setBorder(BorderFactory.createEmptyBorder(4,0,4,5));
 	}
 	public ButtonDatePicker getButtonDatePicker() {
 		return btn_date_picker;

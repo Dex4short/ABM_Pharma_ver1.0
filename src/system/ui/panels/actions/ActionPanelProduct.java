@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import components.Button;
 import components.Label;
 import components.fields.DecimalField;
 import components.fields.PercentageField;
@@ -14,7 +15,9 @@ import components.panels.ActionPanel;
 import components.table.Cell;
 import components.table.Row;
 import components.table.Table;
+import res.Resource;
 import system.enumerators.PackagingLine;
+import system.enumerators.UomType;
 import system.managers.AccountancyManager;
 import system.objects.Date;
 import system.objects.Decimal;
@@ -24,7 +27,6 @@ import system.objects.Percentage;
 import system.objects.Pricing;
 import system.objects.Product;
 import system.objects.Quantity;
-import system.objects.Remarks;
 import system.objects.Uom;
 import system.ui.Window;
 import system.ui.buttons.picking.ButtonUomPicker;
@@ -41,7 +43,7 @@ import system.ui.tables.TableProducts;
 public abstract class ActionPanelProduct  extends ActionPanel{
 	private static final long serialVersionUID = -4880139382406239412L;
 	private Table table;
-	private Row rows[];
+	private ProductRow rows[];
 	private ActionPanelUOMPicker uom_picker;
 	
 	public ActionPanelProduct() {
@@ -67,7 +69,7 @@ public abstract class ActionPanelProduct  extends ActionPanel{
 			productOk(getProductSet());
 			Window.getStackPanel().popPanel(this);
 		} catch (Exception e) {
-			Window.floatMessage(e.getMessage());
+			Window.floatMessageAndBeep(e.getMessage());
 			//e.printStackTrace();
 		}
 	}
@@ -93,7 +95,7 @@ public abstract class ActionPanelProduct  extends ActionPanel{
 	public void setProductSet(Product products[]) {
 		table.removeAllRows();
 		
-		rows = new Row[3];
+		rows = new ProductRow[3];
 		rows[0] = new ProductRow(products[0]);
 		table.addRow(rows[0]);
 		
@@ -103,6 +105,7 @@ public abstract class ActionPanelProduct  extends ActionPanel{
 			for(int c=0; c<7; c++) {
 				rows[r].setCell(new Cell(), c);
 			}
+			rows[r].showButtonFx(r);
 			table.addRow(rows[r]);
 			
 			if(products[r]==null) rows[r].setVisible(false);
@@ -142,7 +145,7 @@ public abstract class ActionPanelProduct  extends ActionPanel{
 		else if(brand.length() == 0) throw new Exception("Brand Name is empty");	
 		else if(exp_date.toString().equals("yyyy-mm-dd")) throw new Exception("Please set expiry date");
 		else if(qty.getAmount() == 0) throw new Exception("Please set Quantity value");
-		else if(uom == null) throw new Exception("Please set UOM");
+		else if(uom.getUnitType() == UomType.set) throw new Exception("Please set UOM");
 		else if(cost.toString().equals("0.00")) throw new Exception("Cost amount is zero");
 		else if(unit_amount.toString().equals("0.00")) throw new Exception("Unit Amount is zero");
 		
@@ -156,7 +159,7 @@ public abstract class ActionPanelProduct  extends ActionPanel{
 			new Item(-1, item_no, description, lot_no, date_added, exp_date, brand),
 			new Packaging(-1, qty, uom, -1, PackagingLine.Ancestor, -1),
 			new Pricing(-1, cost, unit_price, discount, unit_amount),
-			new Remarks(-1),
+			null,
 			null
 		);
 	}
@@ -169,6 +172,10 @@ public abstract class ActionPanelProduct  extends ActionPanel{
 	private class ProductRow extends Row{
 		private static final long serialVersionUID = -5000559444226743025L;
 		private static final int Cell_dateAdded=3, Cell_Uom=7, Cell_Cost=8 ,Cell_Unit_Price=9, Cell_Percentage=10, Cell_Amount=11;
+		private ButtonUomPicker btn_uom_picker;
+		private DecimalField unit_cost_field, unit_price_field;
+		private PercentageField discount_field;
+		private Label unit_amount_label;
 		
 		public ProductRow(Product product) {
 			super(new Cell[] {
@@ -187,11 +194,11 @@ public abstract class ActionPanelProduct  extends ActionPanel{
 			});
 			((CellButtonDatePicker)getCell(Cell_dateAdded)).getButtonDatePicker().setAutoCheckExpiry(false);
 			
-			ButtonUomPicker btn_uom_picker = ((CellButtonUomPicker)getCell(Cell_Uom)).getButtonUomPicker();
-			DecimalField unit_cost_field = ((CellDecimalField)getCell(Cell_Cost)).getDecimalField();
-			DecimalField unit_price_field = ((CellDecimalField)getCell(Cell_Unit_Price)).getDecimalField();
-			PercentageField discount_field = ((CellPercentageField)getCell(Cell_Percentage)).getPercentageField();
-			Label unit_amount_label = ((CellLabelAmount)getCell(Cell_Amount)).getLabel();
+			btn_uom_picker = ((CellButtonUomPicker)getCell(Cell_Uom)).getButtonUomPicker();
+			unit_cost_field = ((CellDecimalField)getCell(Cell_Cost)).getDecimalField();
+			unit_price_field = ((CellDecimalField)getCell(Cell_Unit_Price)).getDecimalField();
+			discount_field = ((CellPercentageField)getCell(Cell_Percentage)).getPercentageField();
+			unit_amount_label = ((CellLabelAmount)getCell(Cell_Amount)).getLabel();				
 			
 			if(uom_picker == null) {
 				uom_picker = btn_uom_picker.getUomPicker();
@@ -253,6 +260,31 @@ public abstract class ActionPanelProduct  extends ActionPanel{
 					}
 				}
 			});
+			
+			//end of constructor
+		}
+		public void showButtonFx(int row) {
+			Button btn_fx = new Button(Resource.getAsImageIcon("function.png"));
+			btn_fx.addActionListener(new ActionListener() {
+				private Decimal unit_size, upper_cost, upper_unitPrice;
+				private Uom uom;
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					uom = uom_picker.getSelectedUom();
+					for(int i=1; i<=row; i++) {
+						uom = uom.getSubUom();
+					}
+					
+					unit_size = new Decimal(uom.getUnitSize() + ".00");
+					upper_cost = ((CellDecimalField)rows[row-1].getCell(Cell_Cost)).getDecimal();
+					upper_unitPrice = ((CellDecimalField)rows[row-1].getCell(Cell_Unit_Price)).getDecimal();
+					
+					unit_cost_field.setDecimal(upper_cost.divide(unit_size));
+					unit_price_field.setDecimal(upper_unitPrice.divide(unit_size));
+					unit_amount_label.setText(AccountancyManager.calculateUnitAmount(unit_price_field.getDecimal(), discount_field.getPercent()).toString());
+				}
+			});
+			((CellLabelAmount)getCell(Cell_Amount)).add(btn_fx, BorderLayout.WEST);
 		}
 	}
 }

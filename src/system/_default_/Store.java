@@ -16,6 +16,7 @@ import system.objects.Packaging;
 import system.objects.Product;
 import system.objects.Quantity;
 import system.objects.Transaction;
+import system.printers.ReciptPrinter;
 
 public interface Store {
 	
@@ -86,14 +87,7 @@ public interface Store {
 		
 		onAddToCart(order);
 	}
-	public default void removeFromCart(Cart cart, Order main_order, Packaging[] extracted_packs, Packaging sub_pack) {
-		System.out.println("extracted packs------------------------------------------");
-		for(Packaging extracted_pack: extracted_packs) {
-			System.out.println(extracted_pack.toString());
-		}
-		System.out.println("sub pack-------------------------------------------------");
-		System.out.println(sub_pack.toString());
-		
+	public default void removeFromCart(Cart cart, Order main_order, Packaging[] extracted_packs, Packaging sub_pack) {		
 		Packaging main_order_pack = main_order.getProduct().getPackaging();
 		sub_pack.setParentPackId(main_order_pack.getParentPackId());
 		
@@ -132,7 +126,6 @@ public interface Store {
 			ancestor_packs[a-1].getQty().add(new Quantity(quotient));
 			
 			MySQL_Packaging.updatePackaging(ancestor_packs[a]);
-			System.out.println("quotient:" + quotient);
 			if(modulo == 0) MySQL_Products.updateProduct(ancestor_packs[a].getPackId(), ProductCondition.ARCHIVED);
 		}
 		MySQL_Packaging.updatePackaging(ancestor_packs[0]);
@@ -141,6 +134,7 @@ public interface Store {
 	}
 	public default void checkOutFromStore(Transaction transaction) {
 		MySQL_Transactions.instertTransaction(transaction);
+		ReciptPrinter.printReceipt(transaction);
 		onCheckOutFromStore();
 	}
 	public default void loadCartFromStore(Counter counter) {

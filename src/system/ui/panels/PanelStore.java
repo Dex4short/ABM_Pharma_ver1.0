@@ -36,7 +36,7 @@ public class PanelStore extends UI3 implements Store{
 		SearchPanelProduct search_panel_product = new SearchPanelProduct() {
 			private static final long serialVersionUID = 2632172827828109880L;
 			@Override
-			public void onSearch(String category, String word) {
+			public void onSearchProducts(String category, String word) {
 				// TODO Auto-generated method stub
 			}
 		};
@@ -79,6 +79,7 @@ public class PanelStore extends UI3 implements Store{
 		btn_check_out.setArc(20);
 		btn_check_out.setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
 		bar_field_cart.add(new Padding(btn_check_out, 4, 10, 4, 10), BorderLayout.EAST);
+		
 	}
 	@Override
 	public Order[] onSelectOrdersFromStore() {

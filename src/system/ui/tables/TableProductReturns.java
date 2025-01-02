@@ -34,7 +34,11 @@ public class TableProductReturns extends TableProducts{
 
 		public ProductReturnedRow(Product product) {
 			super(product);
-			addCell(new CellLabel(product.getRemarks().toStringTitleDetail()));
+			String remarks = "null";
+			if(product.getRemarks() != null) {
+				remarks = product.getRemarks().toStringTitleDetail();
+			}
+			addCell(new CellLabel(remarks));
 			setDepricated(true);
 			getCheckBox().setEnabled(true);
 		}

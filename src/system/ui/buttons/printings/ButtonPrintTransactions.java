@@ -7,10 +7,12 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 
 import components.Button;
+import components.panels.DialogPanel;
 import res.Resource;
+import system.objects.Transaction;
 import system.ui.Window;
 
-public class ButtonPrintTransactions extends Button implements ActionListener{
+public abstract class ButtonPrintTransactions extends Button implements ActionListener{
 	private static final long serialVersionUID = 2144489025943712049L;
 
 	public ButtonPrintTransactions() {
@@ -22,6 +24,25 @@ public class ButtonPrintTransactions extends Button implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Window.floatMessageAndBeep("currently not available");
+		Window.getStackPanel().pushPanel(new DialogPanel("Print Transactions", "Print transaction records?") {
+			private static final long serialVersionUID = 8286421196492002852L;
+			@Override
+			public void onOk() {
+				printTransactions();
+				Window.getStackPanel().popPanel();
+				Window.floatMessage("Transaction records printed");
+			}
+			@Override
+			public void onCancel() {
+				Window.getStackPanel().popPanel();
+			}
+		}, 200, 200);
 	}
+	public void printTransactions() {
+		onPrintTransactions(getTransactions());
+	}
+	
+	public abstract void onPrintTransactions(Transaction transactions[]);
+	public abstract Transaction[] getTransactions();
+	
 }

@@ -14,6 +14,7 @@ public abstract class ActionPanelPackageRemoveFromCart extends ActionPanelPackag
 		while(getUomList().getItemCount() != 1) {
 			getUomList().removeItem(1);
 		}
+		getUomList().getItem(0);
 	}
 	@Override
 	public void onPackageOk(Packaging main_pack, Packaging sub_pack) {

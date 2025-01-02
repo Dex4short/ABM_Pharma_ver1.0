@@ -7,10 +7,12 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 
 import components.Button;
+import components.panels.DialogPanel;
 import res.Resource;
+import system.objects.Product;
 import system.ui.Window;
 
-public class ButtonPrintProducts extends Button implements ActionListener{
+public abstract class ButtonPrintProducts extends Button implements ActionListener{
 	private static final long serialVersionUID = 2144489025943712049L;
 
 	public ButtonPrintProducts() {
@@ -22,6 +24,25 @@ public class ButtonPrintProducts extends Button implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Window.floatMessageAndBeep("currently not available");
+		Window.getStackPanel().pushPanel(new DialogPanel("Print Products", "Print all products?") {
+			private static final long serialVersionUID = 8286421196492002852L;
+			@Override
+			public void onOk() {
+				printProducts();
+				Window.getStackPanel().popPanel();
+				Window.floatMessage("All products printed");
+			}
+			@Override
+			public void onCancel() {
+				Window.getStackPanel().popPanel();
+			}
+		}, 200, 200);
 	}
+	public void printProducts() {
+		onPrintProducts(getProducts());
+	}
+	
+	public abstract void onPrintProducts(Product products[]);
+	public abstract Product[] getProducts();
+	
 }

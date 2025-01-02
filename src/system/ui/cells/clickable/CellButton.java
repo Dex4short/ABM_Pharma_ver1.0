@@ -17,15 +17,15 @@ public class CellButton extends Cell{
 		setBackground(new Color(0,0,0,0));
 	}
 	public CellButton() {
-		setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+		setBorder(BorderFactory.createEmptyBorder(4,0,4,0));
 	}
 	public CellButton(String str) {
-		setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+		setBorder(BorderFactory.createEmptyBorder(4,0,4,0));
 		setButton(new Button(str));
 	}
 	public CellButton(Button btn) {
 		super(btn);
-		setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+		setBorder(BorderFactory.createEmptyBorder(4,0,4,0));
 		setButton(btn);
 	}
 	public Button getButton() {

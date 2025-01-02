@@ -12,12 +12,12 @@ public class CellLabelDate extends CellButtonDatePicker{
 		super(str);
 		setEnabled(false);
 		getButtonDatePicker().setDatePicker(null);//remove date picker
-		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+		setBorder(BorderFactory.createEmptyBorder(4,0,4,5));
 	}
 	public CellLabelDate(Date date) {
 		super(date);
 		setEnabled(false);
 		getButtonDatePicker().setDatePicker(null);//remove date picker
-		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+		setBorder(BorderFactory.createEmptyBorder(4,0,4,5));
 	}
 }

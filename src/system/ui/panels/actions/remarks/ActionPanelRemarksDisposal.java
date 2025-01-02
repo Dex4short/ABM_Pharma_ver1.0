@@ -1,7 +1,6 @@
 package system.ui.panels.actions.remarks;
 
 import system.objects.Date;
-import system.objects.Remarks;
 import system.objects.Time;
 import system.ui.Window;
 

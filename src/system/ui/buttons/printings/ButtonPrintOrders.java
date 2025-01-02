@@ -7,10 +7,12 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 
 import components.Button;
+import components.panels.DialogPanel;
 import res.Resource;
+import system.objects.Transaction;
 import system.ui.Window;
 
-public class ButtonPrintOrders extends Button implements ActionListener{
+public abstract class ButtonPrintOrders extends Button implements ActionListener{
 	private static final long serialVersionUID = 2144489025943712049L;
 
 	public ButtonPrintOrders() {
@@ -22,6 +24,25 @@ public class ButtonPrintOrders extends Button implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Window.floatMessageAndBeep("currently not available");
+		Window.getStackPanel().pushPanel(new DialogPanel("Print Orders", "This will print a receipt, continue?") {
+			private static final long serialVersionUID = 8286421196492002852L;
+			@Override
+			public void onOk() {
+				printOrders();
+				Window.getStackPanel().popPanel();
+				Window.floatMessage("Receipt printed");
+			}
+			@Override
+			public void onCancel() {
+				Window.getStackPanel().popPanel();
+			}
+		}, 200, 200);
 	}
+	public void printOrders() {
+		onPrintReceipt(getSelectedTransaction());
+	}
+	
+	public abstract void onPrintReceipt(Transaction transaction);
+	public abstract Transaction getSelectedTransaction();
+	
 }

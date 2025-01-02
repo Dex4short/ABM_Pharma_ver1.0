@@ -2,19 +2,22 @@ package system.ui.cells.labeling;
 
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 
+import components.Button;
 import components.Label;
 import components._misc_.Graphix;
 import components.fields.TextField;
 import components.table.Cell;
+import res.Resource;
 import system.objects.Decimal;
 
 public class CellLabelAmount extends Cell{
 	private static final long serialVersionUID = -752158914266118531L;
 	private Label label;
-
 	public CellLabelAmount(String str) {
 		super(new Label(str));
 		initialize();
@@ -45,5 +48,6 @@ public class CellLabelAmount extends Cell{
 		setArc(10);
 		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
 		setBackground(Graphix.setAlpha(main_color[3], 128));
+		setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
 	}
 }

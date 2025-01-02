@@ -51,9 +51,15 @@ public class PanelReserves extends UI4 implements Reserves{
 			@Override
 			public void onSelectRow(Row row) {
 				getParagraphField().setText("");
+				
 				boolean enable = getSelectedRows().length > 0;
 				btn_disposeProduct.setEnabled(enable);
 				btn_restoreProduct.setEnabled(enable);
+
+				Product product = getSelectedProduct();
+				if(product != null) {
+					showRemarks(product.getRemarks()); 
+				}
 			}
 			@Override
 			public void onPointRow(Row row) {
@@ -74,7 +80,7 @@ public class PanelReserves extends UI4 implements Reserves{
 	}
 	@Override
 	public void onSearchFromInventory() {
-		// TODO Auto-generated method stub
+		getParagraphField().setText("");
 	}
 	@Override
 	public void onRestoreFromReserves(Product product) {
@@ -102,6 +108,8 @@ public class PanelReserves extends UI4 implements Reserves{
 		
 		table_reserves.removeAllProducts();
 		table_reserves.addProducts(products);
+
+		getParagraphField().setText("");
 	}
 }
 	

@@ -61,10 +61,16 @@ public class PanelDisposal extends UI4 implements Disposal{
 			public void onSelectRow(Row row) {
 				getParagraphField().setText("");
 				Row rows[] = getSelectedRows();
+				
 				boolean enable = rows.length > 0;
 				btn_restoreProduct.setEnabled(enable);
 				btn_disposeProduct.setEnabled(enable);
 				btn_reserveProduct.setEnabled(enable);
+
+				Product product = getSelectedProduct();
+				if(product != null) {
+					showRemarks(product.getRemarks()); 
+				}
 			}
 			@Override
 			public void onPointRow(Row row) {
@@ -85,7 +91,7 @@ public class PanelDisposal extends UI4 implements Disposal{
 	}
 	@Override
 	public void onSearchFromDisposal() {
-		// TODO Auto-generated method stub
+		getParagraphField().setText("");
 	}
 	@Override
 	public void onRestoreFromDisposal(Product product) {
@@ -121,5 +127,7 @@ public class PanelDisposal extends UI4 implements Disposal{
 		
 		table_disposals.removeAllProducts();
 		table_disposals.addProducts(disposed_products);
+
+		getParagraphField().setText("");
 	}
 }

@@ -16,7 +16,7 @@ public class PanelProductReturns extends UI4 implements ProductReturns{
 		SearchPanelProductReturns search_panel = new SearchPanelProductReturns() {
 			private static final long serialVersionUID = 8125329913229320000L;
 			@Override
-			public void onSearch(String category, String word) {
+			public void onSearchProducts(String category, String word) {
 				
 			}
 		};	
@@ -39,7 +39,7 @@ public class PanelProductReturns extends UI4 implements ProductReturns{
 	}
 	@Override
 	public void onSearchFromReturnedProducts() {
-		
+		getParagraphField().setText("");
 	}
 	@Override
 	public void onShowRemarks(Remarks remarks) {

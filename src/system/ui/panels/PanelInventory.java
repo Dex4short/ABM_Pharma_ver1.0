@@ -19,19 +19,23 @@ import system.ui.tables.TableProducts;
 public class PanelInventory extends UI1 implements Inventory{
 	private static final long serialVersionUID = 5294758605465387431L;
 	private TableProducts table_products;
-	private Button btn_reserveProduct, btn_disposeProduct, btn_editProduct;
+	private Button btn_printProduct, btn_reserveProduct, btn_disposeProduct, btn_editProduct;
 
 	public PanelInventory() {		
 		SearchPanelProduct search_panel = new SearchPanelProduct() {
 			private static final long serialVersionUID = -1256506246091903002L;
 			@Override
-			public void onSearch(String category, String word) {
-				searchFromInventory(category, word);
-			}
+			public void onSearchProducts(String category, String word) { searchFromInventory(category, word); }
 		};
 		setSearchPanel(search_panel);
 		
-		ButtonPrintProducts btn_printProduct = new ButtonPrintProducts();
+		btn_printProduct = new ButtonPrintProducts() {
+			private static final long serialVersionUID = 5523653747843696357L;
+			@Override
+			public void onPrintProducts(Product products[]) { printFromInventory(products); }
+			@Override
+			public Product[] getProducts() { return selectAllProductsFromInventory(); }
+		};
 		addButton(btn_printProduct);
 		
 		btn_reserveProduct = new ButtonReserveProduct() {
@@ -96,6 +100,10 @@ public class PanelInventory extends UI1 implements Inventory{
 		return table_products.getSelectedProducts();
 	}
 	@Override
+	public Product[] onSelectAllProductsFromInventory() {
+		return table_products.getProducts();
+	}
+	@Override
 	public Product[] onSelectInventorySet(Product product_parent, Product[] product_children) {
 		Product product_set[] = new Product[3];
 		product_set[0] = product_parent;
@@ -111,7 +119,7 @@ public class PanelInventory extends UI1 implements Inventory{
 	}
 	@Override
 	public void onPrintFromInventory() {
-		// TODO Auto-generated method stub
+		//no actions
 	}
 	@Override
 	public void onReserveFromInventory(Product product) {
@@ -144,5 +152,7 @@ public class PanelInventory extends UI1 implements Inventory{
 		
 		table_products.removeAllProducts();
 		table_products.addProducts(products);
+		
+		btn_printProduct.setEnabled(table_products.getRowCount() > 0);
 	}
 }

@@ -32,7 +32,7 @@ public interface Disposal {
 			MySQL_Products.updateProduct(product);
 		}
 		else {
-			MySQL_Products.deleteProdut(product);
+			MySQL_Products.deleteProduct(product);
 		}
 		onDeleteFromDisposal(product);
 	}

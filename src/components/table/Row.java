@@ -29,7 +29,7 @@ public class Row extends Panel implements MouseListener, ItemListener{
 	public Row(Cell cell[]) {
 		setArc(5);
 		setLayout(new BorderLayout(5,5));
-		setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
+		//setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
 		
 		check_box = new CheckBox() {
 			private static final long serialVersionUID = 5779465681596317310L;

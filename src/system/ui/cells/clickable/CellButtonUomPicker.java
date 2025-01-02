@@ -13,13 +13,13 @@ public class CellButtonUomPicker extends CellButton{
 		super(new ButtonUomPicker(str));
 
 		setButtonUomPicker((ButtonUomPicker)getComponent(0));
-		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+		setBorder(BorderFactory.createEmptyBorder(4,0,4,5));
 	}
 	public CellButtonUomPicker(Uom uom) {
 		super(new ButtonUomPicker(uom.getUnitType().name()));
 
 		setButtonUomPicker((ButtonUomPicker)getComponent(0));
-		setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+		setBorder(BorderFactory.createEmptyBorder(4,0,4,5));
 	}
 	public ButtonUomPicker getButtonUomPicker() {
 		return (ButtonUomPicker)getButton();

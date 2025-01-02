@@ -2,6 +2,7 @@ package database;
 
 import java.util.ArrayList;
 
+import system.enumerators.PackagingLine;
 import system.enumerators.ProductCondition;
 import system.objects.Packaging;
 import system.objects.Product;
@@ -61,6 +62,27 @@ public class MySQL_Products {
 		}		
 		return products;
 	}
+	public static Product[] selectProducts(String key, String word, ProductCondition product_condition) {
+		String
+		joins = " products as p join "
+				+ "item as i join "
+				+ "packaging as k join "
+				+ "uom as u join "
+				+ "pricing as s join "
+				+ "remarks as r ",
+		on = " on p.item_id=i.item_id and "
+				+ "	p.pack_id=k.pack_id and k.uom_id=u.uom_id and "
+				+ "	p.price_id=s.price_id ",
+		where = " where prod_condition='" + product_condition + "' and " + key + " like '%" + word + "%' ";
+		Object results[][] = MySQL.select(new String[] {"p.prod_id"}, joins, on + where);
+		
+		Product products[] = new Product[results.length];
+		for(int p=0; p<products.length; p++) {
+			products[p] = selectProduct((int)results[p][0]);
+		}
+		
+		return products;
+	}
 	public static Product[] selectSubProducts(Product product) {
 		Packaging packagings[] = MySQL_Packaging.selectPackagings(
 			product.getPackaging().getPackagingLine(),
@@ -80,12 +102,13 @@ public class MySQL_Products {
 		
 		return products.toArray(new Product[0]);
 	}
-	public static void deleteProdut(Product product) {
-		MySQL_Item.deleteItem(product.getItem());
+	public static void deleteProduct(Product product) {
+		if(product.getPackaging().getParentPackId() == -1) MySQL_Item.deleteItem(product.getItem());
 		MySQL_Packaging.deletePackaging(product.getPackaging());
-		MySQL_Pricing.deletePricing(product.getPricing());
-		MySQL_Remarks.deleteRemarks(product.getRemarks());
 		
+		if(product.getPackaging().getPackagingLine() != PackagingLine.Descendant) MySQL_Pricing.deletePricing(product.getPricing());
+		MySQL_Remarks.deleteRemarks(product.getRemarks());
+
 		MySQL.delete(table_name, "where prod_id=" + product.getProdId());
 	}
 	public static void updateProduct(int prod_id, int item_id, int pack_id, int price_id, int rem_id, ProductCondition product_condition) {

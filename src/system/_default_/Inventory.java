@@ -1,26 +1,31 @@
 package system._default_;
 
+import database.MySQL_Packaging;
 import database.MySQL_Pricing;
 import database.MySQL_Products;
 import system.enumerators.ProductCondition;
 import system.objects.Pricing;
 import system.objects.Product;
+import system.printers.InventoryPrinter;
 
 public interface Inventory {
 
 	public default Product selectFromInventory() {		
 		return onSelectFromInventory();
 	}
-	public default Product[] selectManyFromInventory() {		
-		return onSelectManyFromInventory();
-	}
 	public default Product[] selectInventorySet() {
 		Product product_parent = selectFromInventory();
 		Product product_children[] = MySQL_Products.selectSubProducts(product_parent);
 		return onSelectInventorySet(product_parent, product_children);
 	}
+	public default Product[] selectManyFromInventory() {		
+		return onSelectManyFromInventory();
+	}
+	public default Product[] selectAllProductsFromInventory() {
+		return onSelectAllProductsFromInventory();
+	}
 	public default void searchFromInventory(String category, String word) {
-		String set[][] = {
+		String keys[][] = {
 			{"Item No.", "item_no"},
 			{"Description", "description"},
 			{"Lot No.", "lot_no"},
@@ -34,10 +39,16 @@ public interface Inventory {
 			{"Discount", "discount"},
 			{"Unit Amount", "unit_amount"}
 		};
-		//onSearchFromInventory(MySQL_Products.selectProducts("where "));
-	}
-	public default void printFromInventory() {
 		
+		int k;
+		for(k=0; k<keys.length; k++) {
+			if(keys[k][0].equals(category)) break;
+		}
+		
+		onSearchFromInventory(MySQL_Products.selectProducts(keys[k][1], word, ProductCondition.STORED));
+	}
+	public default void printFromInventory(Product products[]) {
+		InventoryPrinter.printInventory(products);
 		onPrintFromInventory();
 	}
 	public default void reserveFromInventory(Product product) {
@@ -76,10 +87,8 @@ public interface Inventory {
 		}
 		else {
 			if(old_product!=null) {
-				MySQL_Products.deleteProdut(old_product);
-			}
-			else{
-				//if both are null, no action needed (this block is impossible).
+				MySQL_Packaging.deletePackaging(old_product.getPackaging());
+				MySQL_Pricing.deletePricing(old_product.getPricing());
 			}
 		}
 		if(condition == ProductCondition.STORED) onEditFromInventory(new_product);
@@ -96,6 +105,7 @@ public interface Inventory {
 	public Product onSelectFromInventory();
 	public Product[] onSelectManyFromInventory();
 	public Product[] onSelectInventorySet(Product product_parent, Product product_children[]);
+	public Product[] onSelectAllProductsFromInventory();
 	public void onSearchFromInventory(Product products[]);
 	public void onPrintFromInventory();
 	public void onReserveFromInventory(Product product);

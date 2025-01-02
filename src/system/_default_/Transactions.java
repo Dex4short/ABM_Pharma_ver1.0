@@ -6,11 +6,16 @@ import system.enumerators.ProductCondition;
 import system.objects.Order;
 import system.objects.Product;
 import system.objects.Transaction;
+import system.printers.ReciptPrinter;
+import system.printers.TransactionsPrinter;
 
 public interface Transactions {
 	
 	public default Transaction selectFromTransactions() {
 		return onSelectFromTransactions();
+	}
+	public default Transaction[] selectAllFromTransactions() {
+		return onSelectAllFromTransactions();
 	}
 	public default Order[] selectCustomerOrdersFromTransactions() {
 		return onSelectCustomerOrdersFromTransactions();
@@ -18,11 +23,13 @@ public interface Transactions {
 	public default void searchCustomersFromTransactions(String category, String word) {
 		
 	}
-	public default void printCustomersFromTransactions() {
-		
+	public default void printCustomersFromTransactions(Transaction transactions[]) {
+		TransactionsPrinter.printTransactions(transactions);
+		onPrintCustomersFromTransactions();
 	}
-	public default void printCustomerOrdersFromTransactions() {
-		
+	public default void printCustomerOrdersFromTransactions(Transaction transaction) {
+		ReciptPrinter.printReceipt(transaction);
+		onPrintCustomerOrdersFromTransactions();
 	}
 	public default void returnCustomersOrderFromTransactions(Order orders[]) {
 		for(Order order: orders) {
@@ -39,6 +46,7 @@ public interface Transactions {
 	}
 
 	public Transaction onSelectFromTransactions();
+	public Transaction[] onSelectAllFromTransactions();
 	public Order[] onSelectCustomerOrdersFromTransactions();
 	public void onSearchCustomersFromTransactions(Product products[]);
 	public void onPrintCustomersFromTransactions();
@@ -46,6 +54,5 @@ public interface Transactions {
 	public void onReturnCustomerOrderFromTransactions(Order oredrs[]);
 	public void onGetCustomerOrdersFromTransactions(Transaction transction);
 	public void onloadAllFromTransactions(Transaction transactions[]);
-	
 	
 }

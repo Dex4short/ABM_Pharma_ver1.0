@@ -18,6 +18,10 @@ public abstract class DialogPanel extends ActionPanel{
 	public DialogPanel(String title) {
 		super(title);
 	}
+	public DialogPanel(String title, String message) {
+		super(title);
+		setText(message);
+	}
 	public ParagraphField getParagraphField() {
 		return txt_area;
 	}
