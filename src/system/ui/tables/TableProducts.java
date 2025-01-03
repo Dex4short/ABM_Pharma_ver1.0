@@ -11,6 +11,7 @@ import components.table.Table;
 import system.managers.NotificationsManager;
 import system.objects.Notification;
 import system.objects.Product;
+import system.ui.PanelAdmin;
 import system.ui.cells.labeling.CellLabel;
 import system.ui.cells.labeling.CellLabelDate;
 import system.ui.cells.labeling.CellLabelDecimal;
@@ -18,7 +19,6 @@ import system.ui.cells.labeling.CellLabelDescription;
 import system.ui.cells.labeling.CellLabelPercentage;
 import system.ui.cells.labeling.CellLabelQuantity;
 import system.ui.cells.labeling.CellLabelUom;
-import system.ui.panels.PanelAdmin;
 
 public class TableProducts extends Table{
 	private static final long serialVersionUID = 4737286913516237032L;
@@ -154,10 +154,8 @@ public class TableProducts extends Table{
 			this.product = product;
 		}
 		public void pushNotification() {
-			Notification notification = NotificationsManager.createNotification(product);
+			Notification notification = NotificationsManager.pushNotification(getProduct());
 			if(notification == null) return;
-			
-			pushNotification(notification);
 			
 			Dot dot = ((CellLabelQuantity)getCell(6)).getDot();
 			if(notification instanceof Notification.OutOfStock) {
@@ -168,9 +166,7 @@ public class TableProducts extends Table{
 				dot.setColor(Color.orange);
 				dot.show();
 			}
-		}
-		public void pushNotification(Notification notification) {
-			NotificationsManager.pushNotification(notification);
+			
 			onPushNotification(notification);
 		}
 		

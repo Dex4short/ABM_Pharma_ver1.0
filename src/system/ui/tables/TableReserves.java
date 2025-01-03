@@ -2,8 +2,8 @@ package system.ui.tables;
 
 import system.objects.Notification;
 import system.objects.Product;
+import system.ui.PanelAdmin;
 import system.ui.cells.labeling.CellLabel;
-import system.ui.panels.PanelAdmin;
 
 public class TableReserves extends TableProducts{
 	private static final long serialVersionUID = 4737286913516237032L;

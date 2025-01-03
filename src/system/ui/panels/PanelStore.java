@@ -123,6 +123,8 @@ public class PanelStore extends UI3 implements Store{
 	}
 	@Override
 	public void onLoadAisleFromStore(Product products[]) {
+		
+		
 		table_product_aisle.removeAllProducts();
 		table_product_aisle.addProducts(products);
 	}

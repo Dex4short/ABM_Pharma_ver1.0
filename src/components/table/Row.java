@@ -3,6 +3,7 @@ package components.table;
 import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -11,7 +12,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import components.CheckBox;
@@ -138,19 +138,22 @@ public class Row extends Panel implements MouseListener, ItemListener{
 		return cell;
 	}
 	public void addCells(Cell cells[]) {
-		row_pane.setLayout(new GridLayout(0, cells.length, 5, 0));
+		row_pane.setLayout(new GridLayout(0, row_pane.getComponentCount() + cells.length, 5, 0));
 		for(int c=0; c<cells.length; c++) {
 			row_pane.add(cells[c]);
 		}
 	}
 	public void removeCell(Cell cell) {
 		row_pane.remove(cell);
+		row_pane.setLayout(new GridLayout(0, row_pane.getComponentCount(), 5, 0));
 	}
 	public void removeCell(int c) {
 		row_pane.remove(c);
+		row_pane.setLayout(new GridLayout(0, row_pane.getComponentCount(), 5, 0));
 	}
 	public void removeAllCells() {
 		row_pane.removeAll();
+		row_pane.setLayout(new GridLayout(0, row_pane.getComponentCount(), 5, 0));
 	}
 	public Cell getCell(int n) {
 		return (Cell)row_pane.getComponent(n);
@@ -162,6 +165,17 @@ public class Row extends Panel implements MouseListener, ItemListener{
 	public void setCells(Cell cells[]) {
 		removeAllCells();
 		addCells(cells);
+	}
+	public Cell[] getCells() {
+		Component components[] = row_pane.getComponents();
+		Cell cells[] = new Cell[components.length];
+		for(int c=0; c<cells.length; c++) {
+			cells[c] = (Cell)components[c];
+		}
+		return cells;
+	}
+	public int getCellCount() {
+		return row_pane.getComponentCount();
 	}
 	
 }

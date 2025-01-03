@@ -6,6 +6,7 @@ import system._default_.Inventory;
 import system.enumerators.ProductCondition;
 import system.managers.NotificationsManager;
 import system.objects.Product;
+import system.ui.PanelAdmin;
 import system.ui.UI1;
 import system.ui.Window;
 import system.ui.buttons.ButtonAddProduct;
@@ -123,13 +124,14 @@ public class PanelInventory extends UI1 implements Inventory{
 	}
 	@Override
 	public void onReserveFromInventory(Product product) {
-		table_products.removeProduct(product);
+		loadAllFromInventory();
 		Window.floatMessage(product.getItem().getDescription() + " reserved");
+		NotificationsManager.checkReservedProducts();
 	}
 	@Override
 	public void onDisposeFromInventory(Product product) {
+		loadAllFromInventory();
 		Window.floatMessage(product.getItem().getDescription() + " disposed");
-		table_products.removeProduct(product);
 	}
 	@Override
 	public void onEditFromInventory(Product product) {
@@ -143,7 +145,6 @@ public class PanelInventory extends UI1 implements Inventory{
 	}
 	@Override
 	public void onLoadAllFromInventory(Product[] products) {
-		NotificationsManager.clearNotifications();
 		PanelAdmin.notifyTab(0, false);
 		
 		btn_reserveProduct.setEnabled(false);

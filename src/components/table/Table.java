@@ -312,7 +312,7 @@ public abstract class Table extends Panel implements Theme{
 				onSelectRow(row);
 			}
 		}
-		public void addRow(Row row) {
+		public void addRow(Row row) {			
 			row.addMouseListener(this);
 			row.getCheckBox().addItemListener(this);
 			row.getCheckBox().setVisible(check_boxes_enabled);
@@ -322,7 +322,7 @@ public abstract class Table extends Panel implements Theme{
 			align_rows();
 		}
 		public void addRows(Row rows[]) {
-			for(Row row: rows) {
+			for(Row row: rows) {				
 				row.addMouseListener(this);
 				row.getCheckBox().addItemListener(this);
 				row.getCheckBox().setVisible(check_boxes_enabled);

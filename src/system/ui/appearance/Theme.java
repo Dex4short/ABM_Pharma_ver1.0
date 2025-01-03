@@ -37,7 +37,8 @@ public interface Theme {
 			new Color(255, 255, 255)
 	};
 	public Font font[] = {
-			new Font("Arial", Font.BOLD, 10)
+			new Font("Arial", Font.BOLD, 10),
+			new Font("Arial", Font.BOLD, 15)
 	};
 	
 	public default void lightMode() {

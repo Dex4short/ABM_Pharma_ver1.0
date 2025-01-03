@@ -4,6 +4,7 @@ import javax.swing.ImageIcon;
 
 import components._misc_.Graphix;
 import res.Resource;
+import system.enumerators.NotificationType;
 import system.enumerators.Quality;
 import system.managers.QualityManager;
 import system.ui.appearance.Theme;
@@ -16,13 +17,15 @@ public class Notification {
 	caution_icon = Resource.getAsImageIcon("caution.png");
 	private String title, details;
 	private ImageIcon imageIcon;
-	private Product product;
+	private NotificationType notification_type;
+	private int notification_id;
 	
-	public Notification(Product product, ImageIcon imageIcon,String title, String Details) {
-		setProduct(product);
+	public Notification(NotificationType notification_type, ImageIcon imageIcon,String title, String Details, int notification_id) {
+		setNotificationType(notification_type);
 		setImageIcon(imageIcon);
 		setTitle(title);
 		setDetails(Details);
+		setNotificationId(notification_id);
 	}
 	public String getTitle() {
 		return title;
@@ -42,23 +45,32 @@ public class Notification {
 	public void setImageIcon(ImageIcon imageIcon) {
 		this.imageIcon = imageIcon;
 	}
-	public Product getProduct() {
-		return product;
+
+	public NotificationType getNotificationType() {
+		return notification_type;
 	}
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setNotificationType(NotificationType notification_type) {
+		this.notification_type = notification_type;
+	}
+
+	public int getNotificationId() {
+		return notification_id;
+	}
+	public void setNotificationId(int notification_id) {
+		this.notification_id = notification_id;
 	}
 
 	public static class RunningOutOfStock extends Notification{
 		public RunningOutOfStock(Product product) {
 			super(
-				product,
+				NotificationType.Stocks,
 				stock_warning_icon,
 				"Warning! Running out of stock...", 
 				"Item No.: " + product.getItem().getItemNo() + "\n" +
 				product.getItem().getDescription() + "\n" +
 				product.getItem().getBrand() + "\n" +
-				product.getPackaging().getQty().toString() + " " + product.getPackaging().getUom().getUnitType().name()
+				product.getPackaging().getQty().toString() + " " + product.getPackaging().getUom().getUnitType().name(),
+				product.getProdId()
 			);
 		}
 	}	
@@ -71,7 +83,7 @@ public class Notification {
 	} 
 	public static class ProductQuality extends Notification{
 		public ProductQuality(Product product) {
-			super(product, null, null, null);
+			super(NotificationType.Quality, null, null, null, product.getProdId());
 			
 			Quality quality = QualityManager.checkQuality(product.getItem().getExpDate());
 			

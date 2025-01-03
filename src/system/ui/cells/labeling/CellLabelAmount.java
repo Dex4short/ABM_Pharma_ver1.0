@@ -2,17 +2,12 @@ package system.ui.cells.labeling;
 
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.BorderFactory;
 
-import components.Button;
 import components.Label;
 import components._misc_.Graphix;
 import components.fields.TextField;
 import components.table.Cell;
-import res.Resource;
 import system.objects.Decimal;
 
 public class CellLabelAmount extends Cell{

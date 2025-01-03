@@ -8,6 +8,7 @@ import components.Label;
 import components.fields.ParagraphField;
 import components.list.Item;
 import components.list.ListPane;
+import system.enumerators.NotificationType;
 import system.objects.Notification;
 
 public class NotificationsList extends ListPane{
@@ -20,9 +21,9 @@ public class NotificationsList extends ListPane{
 	public void addNotification(Notification notification) {
 		addItem(new NotificationItem(notification));
 	}
-	public Notification getNotification(int prod_id) {
+	public Notification getNotification(NotificationType notification_type, int notification_id) {
 		for(Notification notification: getNotifications()) {
-			if(notification.getProduct().getProdId() == prod_id) return notification;
+			if(notification.getNotificationType()==notification_type && notification.getNotificationId()==notification_id) return notification;
 		}
 		return null;
 	}
@@ -37,11 +38,11 @@ public class NotificationsList extends ListPane{
 	public int getNotificationsCount() {
 		return getItemCount();
 	}
-	public void removeNotification(int prod_id) {
+	public void removeNotification(NotificationType notification_type, int notification_id) {
 		Notification notification;
 		for(Item item: getItems()) {
 			notification = ((NotificationItem)item).getNotification();
-			if(notification.getProduct().getProdId() == prod_id) {
+			if(notification.getNotificationType()==notification_type && notification.getNotificationId()==notification_id) {
 				removeItem(item);
 				return;
 			}

@@ -18,9 +18,7 @@ import components.panels.StackPanel;
 import system.ui.appearance.Theme;
 import system.ui.overlays.LoadingScreen;
 import system.ui.overlays.LoadingScreenAdapater;
-import system.ui.panels.PanelAdmin;
-import system.ui.panels.PanelEmployee;
-import system.ui.panels.PanelLogin;
+import system.ui.panels.PanelCounterSelection;
 
 public class Window extends JFrame implements Theme{
 	private static final long serialVersionUID = -6729595845570486177L;
@@ -74,11 +72,26 @@ public class Window extends JFrame implements Theme{
 			}
 			@Override
 			public void onOpenEmployeeInterface() {
-				stack_panel.popPanel();
 				load(() -> {
-					PanelEmployee panel_employee = new PanelEmployee();
-					stack_panel.pushPanel(panel_employee);
-				});
+					stack_panel.pushPanel(new PanelCounterSelection() {
+						private static final long serialVersionUID = -7944722740516690426L;
+						@Override
+						public void onSelectCounter(int counter_no) {
+							stack_panel.popPanel();
+							load(() -> {
+								PanelEmployee panel_employee = new PanelEmployee(counter_no);
+								stack_panel.pushPanel(panel_employee);
+								
+								floatMessage("Welcome Employee");
+								panel_employee.toStore();
+							});
+						}
+						@Override
+						public void onGoBack() {
+							stack_panel.popPanel();
+						}
+					});
+				}, "loading...");
 			}
 		};
 		stack_panel.pushPanel(panel_login);

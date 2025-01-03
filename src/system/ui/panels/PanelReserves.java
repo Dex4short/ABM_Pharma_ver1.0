@@ -6,6 +6,7 @@ import system._default_.Reserves;
 import system.managers.NotificationsManager;
 import system.objects.Product;
 import system.objects.Remarks;
+import system.ui.PanelAdmin;
 import system.ui.UI4;
 import system.ui.Window;
 import system.ui.buttons.ButtonDisposeProduct;
@@ -84,14 +85,13 @@ public class PanelReserves extends UI4 implements Reserves{
 	}
 	@Override
 	public void onRestoreFromReserves(Product product) {
-		table_reserves.removeProduct(product);
-		getParagraphField().setText("");
+		loadAllFromReserves();
 		Window.floatMessage(product.getItem().getDescription() + " restored");
+		NotificationsManager.checkInventoryProducts();
 	}
 	@Override
 	public void onDisposeFromReserves(Product product) {
-		table_reserves.removeProduct(product);
-		getParagraphField().setText("");
+		loadAllFromReserves();
 		Window.floatMessage(product.getItem().getDescription() + " disposed");
 	}
 	@Override
@@ -100,7 +100,6 @@ public class PanelReserves extends UI4 implements Reserves{
 	}
 	@Override
 	public void onLoadAllFromReserves(Product[] products) {
-		NotificationsManager.clearNotifications();
 		PanelAdmin.notifyTab(3, false);
 		
 		btn_restoreProduct.setEnabled(false);

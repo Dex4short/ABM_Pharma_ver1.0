@@ -25,7 +25,7 @@ public class ButtonSettings extends Button.Tertiary implements ActionListener{
 		img_ico = Graphix.alterImageIcon(img_ico, main_color[0], getFocusCycleRootAncestor());
 		setIcon(img_ico);
 		
-		setPopupSettings(new PopUpSettings());
+		popup_settings = new PopUpSettings();
 		
 		addActionListener(this);
 	}
@@ -35,8 +35,5 @@ public class ButtonSettings extends Button.Tertiary implements ActionListener{
 	}
 	public PopUpSettings getPopupSettings() {
 		return popup_settings;
-	}
-	public void setPopupSettings(PopUpSettings popup_settings) {
-		this.popup_settings = popup_settings;
 	}
 }

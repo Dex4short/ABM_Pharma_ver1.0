@@ -124,9 +124,9 @@ public interface Store {
 			
 			ancestor_packs[a].setQty(new Quantity(modulo));
 			ancestor_packs[a-1].getQty().add(new Quantity(quotient));
-			
+
 			MySQL_Packaging.updatePackaging(ancestor_packs[a]);
-			if(modulo == 0) MySQL_Products.updateProduct(ancestor_packs[a].getPackId(), ProductCondition.ARCHIVED);
+			MySQL_Products.updateProduct(ancestor_packs[a].getPackId(), (modulo == 0) ? ProductCondition.ARCHIVED : ProductCondition.STORED);
 		}
 		MySQL_Packaging.updatePackaging(ancestor_packs[0]);
 		

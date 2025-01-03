@@ -3,6 +3,7 @@ package system.ui.panels;
 import components.Button;
 import components.table.Row;
 import system._default_.Disposal;
+import system.managers.NotificationsManager;
 import system.objects.Product;
 import system.objects.Remarks;
 import system.ui.UI4;
@@ -95,20 +96,19 @@ public class PanelDisposal extends UI4 implements Disposal{
 	}
 	@Override
 	public void onRestoreFromDisposal(Product product) {
-		table_disposals.removeProduct(product);
-		getParagraphField().setText("");
+		loadAllFromDisposal();
 		Window.floatMessage(product.getItem().getDescription() + " restored");
+		NotificationsManager.checkInventoryProducts();
 	}
 	@Override
 	public void onReserveFromDisposal(Product product) {
-		table_disposals.removeProduct(product);
-		getParagraphField().setText("");
+		loadAllFromDisposal();
 		Window.floatMessage(product.getItem().getDescription() + " reserved");
+		NotificationsManager.checkReservedProducts();
 	}
 	@Override
 	public void onDeleteFromDisposal(Product product) {
-		table_disposals.removeProduct(product);
-		getParagraphField().setText("");
+		loadAllFromDisposal();
 		Window.floatMessage(product.getItem().getDescription() + " deleted");
 	}
 	@Override
@@ -120,7 +120,7 @@ public class PanelDisposal extends UI4 implements Disposal{
 		);
 	}
 	@Override
-	public void onLoadAllFromDisposal(Product disposed_products[]) {
+	public void onLoadAllFromDisposal(Product disposed_products[]) {		
 		btn_restoreProduct.setEnabled(false);
 		btn_reserveProduct.setEnabled(false);
 		btn_disposeProduct.setEnabled(false);

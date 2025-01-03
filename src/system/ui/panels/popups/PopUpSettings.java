@@ -13,6 +13,7 @@ import system.ui.items.ItemTheme;
 
 public class PopUpSettings extends TitledPanel implements Settings{
 	private static final long serialVersionUID = -2122393070139823198L;
+	private ListPane settings_list;
 
 	public PopUpSettings() {
 		super("Settings");
@@ -23,11 +24,11 @@ public class PopUpSettings extends TitledPanel implements Settings{
 		
 		getPanelBody().setLayout(new BorderLayout());
 		
-		ListPane list_pane = new ListPane();
-		list_pane.setItemHeight(30);
-		getPanelBody().add(list_pane);
+		settings_list = new ListPane();
+		settings_list.setItemHeight(30);
+		getPanelBody().add(settings_list);
 
-		list_pane.addItem(new ItemTheme() {
+		settings_list.addItem(new ItemTheme() {
 			private static final long serialVersionUID = -2133925395291482251L;
 			@Override
 			public void onChangeTheme(int mode) {
@@ -35,7 +36,7 @@ public class PopUpSettings extends TitledPanel implements Settings{
 			}
 		});
 		
-		list_pane.addItem(new ItemSecurity() {
+		settings_list.addItem(new ItemSecurity() {
 			private static final long serialVersionUID = -1500111958509411305L;
 			@Override
 			public void onChangePassword(SecurityRole role, char[] old_pass, char[] new_pass) {
@@ -43,7 +44,11 @@ public class PopUpSettings extends TitledPanel implements Settings{
 			}
 		});
 		
-		list_pane.addItem(new ItemAbout());
+		settings_list.addItem(new ItemAbout());
 		
 	}
+	public ListPane getSettingsList() {
+		return settings_list;
+	}
+	
 }

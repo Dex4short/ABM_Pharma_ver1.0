@@ -17,15 +17,20 @@ public interface Login {
 			access = new Access(id, role);//access granted
 		}
 		
-		if(access != null) switch(access.getRole()) {
-			case adm: adminAccess();
-			break;
-			case emp: employeeAccess(); 
-			break;
-			default: unidentifiedEntry();
+		if(access != null) {
+			switch(access.getRole()) {
+			case adm: 
+				adminAccess();
+				break;
+			case emp: 
+				employeeAccess(); 
+				break;
+				default: unidentifiedEntry();
+			}
 		}
-		else wrongPassword();
-		
+		else {
+			wrongPassword();
+		}
 	}
 	public default void unidentifiedEntry() {
 		onUnidentifiedEntry();
