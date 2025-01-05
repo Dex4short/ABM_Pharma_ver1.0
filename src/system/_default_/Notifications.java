@@ -4,7 +4,7 @@ import database.MySQL_Products;
 import system.enumerators.ProductCondition;
 import system.managers.NotificationsManager;
 import system.objects.Product;
-import system.ui.PanelAdmin;
+import system.ui.panels.PanelAdmin;
 
 public interface Notifications {
 

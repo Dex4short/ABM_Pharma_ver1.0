@@ -1,7 +1,7 @@
 package system._default_;
 
 import components.panels.Panel;
-import system.ui.panels.PanelCounter;
+import system.ui.panels.sub_panels.PanelCounter;
 
 public interface Employee {
 	

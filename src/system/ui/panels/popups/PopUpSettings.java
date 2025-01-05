@@ -32,7 +32,7 @@ public class PopUpSettings extends TitledPanel implements Settings{
 			private static final long serialVersionUID = -2133925395291482251L;
 			@Override
 			public void onChangeTheme(int mode) {
-				changeThemeSetting(mode);
+				//changeThemeSetting(mode);
 			}
 		});
 		

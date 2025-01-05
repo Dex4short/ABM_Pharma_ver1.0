@@ -1,4 +1,4 @@
-package system.ui;
+package system.ui.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -6,10 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-
 import components.Label;
 import components.panels.Panel;
 import components.tab.Tab;
@@ -17,15 +15,16 @@ import components.tab.TabPane;
 import res.Resource;
 import system._default_.Administrator;
 import system.managers.NotificationsManager;
+import system.ui.Window;
 import system.ui.buttons.accessibility.ButtonNotifications;
 import system.ui.buttons.accessibility.ButtonSettings;
-import system.ui.panels.PanelCustomers;
-import system.ui.panels.PanelDisposal;
-import system.ui.panels.PanelInventory;
-import system.ui.panels.PanelProductReturns;
-import system.ui.panels.PanelReserves;
-import system.ui.panels.PanelStore;
-import system.ui.panels.PanelTransactions;
+import system.ui.panels.sub_panels.PanelCustomers;
+import system.ui.panels.sub_panels.PanelDisposal;
+import system.ui.panels.sub_panels.PanelInventory;
+import system.ui.panels.sub_panels.PanelProductReturns;
+import system.ui.panels.sub_panels.PanelReserves;
+import system.ui.panels.sub_panels.PanelStore;
+import system.ui.panels.sub_panels.PanelTransactions;
 
 public class PanelAdmin extends Panel implements Administrator{
 	private static final long serialVersionUID = 4864384612729816588L;
@@ -62,7 +61,7 @@ public class PanelAdmin extends Panel implements Administrator{
 			}
 		};
 		header.add(header_left);
-		
+
 		Panel header_right = new Panel() {
 			private static final long serialVersionUID = -1602411307098764274L;
 			{
@@ -95,7 +94,7 @@ public class PanelAdmin extends Panel implements Administrator{
 		PanelDisposal panel_disposal = new PanelDisposal();
 		PanelProductReturns panel_product_return = new PanelProductReturns();
 		PanelCustomers panel_customers = new PanelCustomers();
-		
+
 		tabs = new Tab[]{
 			new Tab("Inventory", panel_inventory),
 			new Tab("Transactions", panel_transactions),
@@ -110,8 +109,8 @@ public class PanelAdmin extends Panel implements Administrator{
 		for(Tab tab: tabs) {
 			tab_pane.addTab(tab);
 		}
-		tab_pane.setSelectedTab(0);
-		
+		tab_pane.setSelectedTab(0);		
+
 		tabs[0].addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -169,7 +168,7 @@ public class PanelAdmin extends Panel implements Administrator{
 			}
 		});
 		
-		next_panel = panel_inventory;		
+		next_panel = panel_inventory;
 	}
 	@Override
 	public void onToInventory(PanelInventory inventory) {

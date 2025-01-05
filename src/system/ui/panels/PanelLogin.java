@@ -1,4 +1,4 @@
-package system.ui;
+package system.ui.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,6 +21,7 @@ import components.panels.Panel;
 import res.Resource;
 import system._default_.Login;
 import system._default_.Settings;
+import system.ui.Window;
 
 public abstract class PanelLogin extends Panel implements Login, KeyListener{
 	private static final long serialVersionUID = 1519322616962176557L;

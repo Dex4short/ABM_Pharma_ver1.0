@@ -1,4 +1,4 @@
-package system.ui.panels;
+package system.ui.panels.sub_panels;
 
 import components.table.Row;
 import system.objects.Cart;

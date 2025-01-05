@@ -73,10 +73,10 @@ public abstract class ActionPanelCheckOut extends ActionPanelCustomer{
 	public void checkOutOk() {
 		Transaction transaction = new Transaction(
 			-1,
-			null, 
-			null, 
+			null,
+			null,
 			getCustomer(),
-			getCheckOutHeading().getTinNo(), 
+			getCheckOutHeading().getTinNo(),
 			getCheckOutHeading().getDate(),
 			getCheckOutHeading().getTerms(),
 			null,

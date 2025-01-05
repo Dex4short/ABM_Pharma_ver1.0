@@ -1,4 +1,4 @@
-package system.ui.panels;
+package system.ui.panels.sub_panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

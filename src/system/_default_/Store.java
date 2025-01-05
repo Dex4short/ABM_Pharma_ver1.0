@@ -23,11 +23,13 @@ public interface Store {
 	public default Order[] selectOrdersFromStore() {
 		return onSelectOrdersFromStore();
 	}
-	public default void searchFromStore() {
-		
+	public default Cart getCart() {
+		return onGetCart();
+	}
+	public default void searchFromStore() {	
 		onSearchFromStore();
 	}
-	public default void addToCart(Cart cart, Product main_product, Packaging[] extracted_packs, Packaging sub_pack) {		
+	public default void addToCart(Product main_product, Packaging[] extracted_packs, Packaging sub_pack) {		
 		Product sub_product = new Product(-1, main_product.getItem(), null, null, null, null);
 		
 		main_product.getPackaging().setQty(extracted_packs[0].getQty());
@@ -61,7 +63,7 @@ public interface Store {
 		
 		sub_product.getPackaging().setPackagingGroup(main_product.getPackaging().getPackagingGroup());
 		
-		Order order = new Order(cart.getOrderNo(), sub_product, AccountancyManager.calculateNetAmount(sub_product));
+		Order order = new Order(getCart().getOrderNo(), sub_product, AccountancyManager.calculateNetAmount(sub_product));
 		Order orders[] = selectOrdersFromStore();
 		
 		boolean hassExistingOrder = false;
@@ -87,7 +89,7 @@ public interface Store {
 		
 		onAddToCart(order);
 	}
-	public default void removeFromCart(Cart cart, Order main_order, Packaging[] extracted_packs, Packaging sub_pack) {		
+	public default void removeFromCart(Order main_order, Packaging[] extracted_packs, Packaging sub_pack) {		
 		Packaging main_order_pack = main_order.getProduct().getPackaging();
 		sub_pack.setParentPackId(main_order_pack.getParentPackId());
 		
@@ -153,6 +155,7 @@ public interface Store {
 	}
 
 	public Order[] onSelectOrdersFromStore();
+	public Cart onGetCart();
 	public void onSearchFromStore();
 	public void onAddToCart(Order order);
 	public void onRemoveFromCart(Order order);

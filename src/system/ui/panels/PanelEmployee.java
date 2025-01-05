@@ -1,4 +1,4 @@
-package system.ui;
+package system.ui.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,8 +16,9 @@ import components.tab.Tab;
 import components.tab.TabPane;
 import res.Resource;
 import system._default_.Employee;
+import system.ui.Window;
 import system.ui.buttons.accessibility.ButtonSettings;
-import system.ui.panels.PanelCounter;
+import system.ui.panels.sub_panels.PanelCounter;
 
 public class PanelEmployee extends Panel implements Employee{
 	private static final long serialVersionUID = -6277054873151673957L;

@@ -32,7 +32,7 @@ public class AccountancyManager {
 		net_amount = calculateAmountByQuantity(discounted_amount, quantity);
 		return net_amount;
 	}
-	public static Decimal calculateNetAmount(Packaging packaging, Pricing pricing) {		
+	public static Decimal calculateNetAmount(Packaging packaging, Pricing pricing) {
 		return calculateNetAmount(pricing.getUnitPrice(), pricing.getDiscount(), packaging.getQty().getAmount());
 	}
 	public static Decimal calculateNetAmount(Product product) {
@@ -42,13 +42,14 @@ public class AccountancyManager {
 		return calculateNetAmount(order.getProduct());
 	}
 	public static Decimal calculateCostAmount(Order orders[]) {
-		Decimal	cost, total_amount = new Decimal();
-		BigDecimal qty;
+		Decimal	cost, qty, total_amount = new Decimal();
+		
 		for(Order order: orders) {
 			cost = order.getProduct().getPricing().getCost();
-			qty = new BigDecimal(order.getProduct().getPackaging().getQty().getAmount());
+			qty = new Decimal(order.getProduct().getPackaging().getQty().getAmount() + ".00");
 			
-			total_amount = total_amount.add(cost.multiply(new Decimal(qty)));
+			total_amount = total_amount.add(cost.multiply(qty));
+			System.out.println("(cost: " + cost.toString() + ") * (qty:" + qty.toString() + ") = " + total_amount.toString());
 		}
 		return total_amount;
 	}
@@ -60,6 +61,8 @@ public class AccountancyManager {
 		return total_netAmount;
 	}
 	public static Decimal calculateProfit(Decimal total_net_amount, Decimal cost_amount) {
+		System.out.println("total_net_amount: " + total_net_amount.toString());
+		System.out.println("cost_amount: " + cost_amount.toString());
 		return total_net_amount.subtract(cost_amount);
 	}
 }

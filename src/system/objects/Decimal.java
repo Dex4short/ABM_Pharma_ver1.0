@@ -27,16 +27,16 @@ public class Decimal {
 		return bigdecimal_value;
 	}
 	public Decimal add(Decimal decimal) {
-		return new Decimal(bigdecimal_value.add(decimal.bigdecimal_value));
+		return new Decimal(bigdecimal_value.add(decimal.toBigDecimal()));
 	}
 	public Decimal subtract(Decimal decimal) {
-		return new Decimal(bigdecimal_value.subtract(decimal.bigdecimal_value));
+		return new Decimal(bigdecimal_value.subtract(decimal.toBigDecimal()));
 	}
 	public Decimal multiply(Decimal decimal) {
-		return new Decimal(bigdecimal_value.multiply(decimal.bigdecimal_value));
+		return new Decimal(bigdecimal_value.multiply(decimal.toBigDecimal()));
 	}
 	public Decimal divide(Decimal decimal) {
-		return new Decimal(bigdecimal_value.divide(decimal.bigdecimal_value));
+		return new Decimal(bigdecimal_value.divide(decimal.toBigDecimal()));
 	}
 	
 	public static boolean isFormatValid(String bigdecimal_value) {

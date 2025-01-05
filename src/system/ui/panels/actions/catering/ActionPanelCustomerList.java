@@ -5,7 +5,7 @@ import java.awt.BorderLayout;
 import components.panels.ActionPanel;
 import system.objects.Customer;
 import system.ui.Window;
-import system.ui.panels.PanelCustomers;
+import system.ui.panels.sub_panels.PanelCustomers;
 import system.ui.tables.TableCustomers;
 
 public abstract class ActionPanelCustomerList extends ActionPanel{

@@ -15,10 +15,15 @@ import components.drawables.MessageFloater;
 import components.panels.DialogPanel;
 import components.panels.PopUpPanel;
 import components.panels.StackPanel;
+import res.Resource;
+import system.ABM_Pharma;
 import system.ui.appearance.Theme;
 import system.ui.overlays.LoadingScreen;
 import system.ui.overlays.LoadingScreenAdapater;
-import system.ui.panels.PanelCounterSelection;
+import system.ui.panels.PanelAdmin;
+import system.ui.panels.PanelEmployee;
+import system.ui.panels.PanelLogin;
+import system.ui.panels.sub_panels.PanelCounterSelection;
 
 public class Window extends JFrame implements Theme{
 	private static final long serialVersionUID = -6729595845570486177L;
@@ -26,7 +31,8 @@ public class Window extends JFrame implements Theme{
 	private static PopUpPanel popup_panel;
 	private static MessageFloater message_floater;
 
-	public Window() {        
+	public Window() {
+		setIconImage(Resource.getAsImageIcon("ABM LOGO.png").getImage());
 		setTitle("ABM Pharma - DIMS Rev.2");
 		setLayout(null);
 
@@ -62,35 +68,52 @@ public class Window extends JFrame implements Theme{
 			@Override
 			public void onOpenAdminInterface() {
 				stack_panel.popPanel();
+				
 				load(() -> {
-					PanelAdmin panel_admin = new PanelAdmin();
-					stack_panel.pushPanel(panel_admin);
-
-					floatMessage("Welcome Admin");
-					panel_admin.toInventory();
+					try {
+						PanelAdmin panel_admin = new PanelAdmin();
+						stack_panel.pushPanel(panel_admin);
+						
+						floatMessage("Welcome Admin");
+						panel_admin.toInventory();
+					} catch (Exception e) {
+						ABM_Pharma.showError(e, JFrame.EXIT_ON_CLOSE);
+					}
 				});
 			}
 			@Override
 			public void onOpenEmployeeInterface() {
-				load(() -> {
-					stack_panel.pushPanel(new PanelCounterSelection() {
-						private static final long serialVersionUID = -7944722740516690426L;
-						@Override
-						public void onSelectCounter(int counter_no) {
-							stack_panel.popPanel();
-							load(() -> {
+				load(new Runnable() {
+					public void run(){
+						openPanelCounterSelection();
+					}
+					private void openPanelCounterSelection() {
+						stack_panel.pushPanel(new PanelCounterSelection() {
+							private static final long serialVersionUID = -7944722740516690426L;
+							@Override
+							public void onSelectCounter(int counter_no) {
+								stack_panel.popPanel();
+								loadPanelEmployee(counter_no);
+							}
+							@Override
+							public void onGoBack() {
+								stack_panel.popPanel();
+							}
+						});
+					}
+					private void loadPanelEmployee(int counter_no) {
+						load(() -> {
+							try {
 								PanelEmployee panel_employee = new PanelEmployee(counter_no);
 								stack_panel.pushPanel(panel_employee);
 								
 								floatMessage("Welcome Employee");
 								panel_employee.toStore();
-							});
-						}
-						@Override
-						public void onGoBack() {
-							stack_panel.popPanel();
-						}
-					});
+							} catch (Exception e) {
+								ABM_Pharma.showError(e, JFrame.EXIT_ON_CLOSE);
+							}
+						});
+					}
 				}, "loading...");
 			}
 		};

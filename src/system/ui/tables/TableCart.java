@@ -1,12 +1,14 @@
 package system.ui.tables;
 
 import components.table.Column;
+import system.objects.Cart;
 import system.objects.Order;
 import system.objects.Packaging;
 import system.ui.cells.clickable.CellButtonRemoveFromCart;
 
 public abstract class TableCart extends TableOrders{
 	private static final long serialVersionUID = -5292964100747790231L;
+	private Cart cart;
 
 	public TableCart() {
 		Column btn_column = new Column("...");
@@ -24,17 +26,27 @@ public abstract class TableCart extends TableOrders{
 		}
 		addRows(rows);
 	}
+	public Cart getCart() {
+		cart.setOrders(getOrders());
+		return cart;
+	}
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
 	public void removeOrderFromCart(Packaging[] extracted_packs, Packaging sub_pack) {
 		onRemoveOrderFromCart(extracted_packs, sub_pack);
 	}
 	
 	public abstract void onRemoveOrderFromCart(Packaging[] extracted_packs, Packaging sub_pack);
 	
+
 	public class ProductCartRow extends OrderRow{
 		private static final long serialVersionUID = 2233983822815909563L;
 	
 		public ProductCartRow(Order order) {
 			super(order);
+			getCheckBox().setEnabled(true);
+			
 			CellButtonRemoveFromCart cell_btn = new CellButtonRemoveFromCart(order) {
 				private static final long serialVersionUID = -351539179842848737L;
 				@Override
@@ -44,8 +56,6 @@ public abstract class TableCart extends TableOrders{
 			};
 			cell_btn.getButton().addActionListener(e -> selectRow(this));
 			addCell(cell_btn);
-
-			getCheckBox().setEnabled(true);
 		}
 		@Override
 		public void pushNotification() {

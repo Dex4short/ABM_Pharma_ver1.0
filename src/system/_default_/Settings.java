@@ -4,14 +4,12 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 import database.MySQL_Security;
-import io.InputOutput;
 import system.enumerators.SecurityRole;
-import system.ui.items.ItemTheme;
 
 public interface Settings {
 
-	public default void changeThemeSetting(int theme_mode) {
-		InputOutput.write("theme_settings.txt", ItemTheme.THEMES[theme_mode]);
+	public default void changeThemeSettings(int theme_mode) {
+		
 	}
 	public default void changePasswordSecuritySettings(SecurityRole role, char old_password[], char new_password[]) {
 		MySQL_Security.updateSecurityData(role, old_password, new_password);

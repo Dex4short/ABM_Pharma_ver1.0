@@ -1,13 +1,13 @@
 package system._default_;
 
 import components.panels.Panel;
-import system.ui.panels.PanelCustomers;
-import system.ui.panels.PanelDisposal;
-import system.ui.panels.PanelInventory;
-import system.ui.panels.PanelProductReturns;
-import system.ui.panels.PanelReserves;
-import system.ui.panels.PanelStore;
-import system.ui.panels.PanelTransactions;
+import system.ui.panels.sub_panels.PanelCustomers;
+import system.ui.panels.sub_panels.PanelDisposal;
+import system.ui.panels.sub_panels.PanelInventory;
+import system.ui.panels.sub_panels.PanelProductReturns;
+import system.ui.panels.sub_panels.PanelReserves;
+import system.ui.panels.sub_panels.PanelStore;
+import system.ui.panels.sub_panels.PanelTransactions;
 
 public interface Administrator {
 	
