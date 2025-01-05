@@ -32,7 +32,7 @@ public class Window extends JFrame implements Theme{
 
 	public Window() {
 		setIconImage(Resource.getAsImageIcon("ABM LOGO.png").getImage());
-		setTitle("ABM Pharma - DIMS Rev.2");
+		setTitle("ABM Pharma - DIMS ver1.0");
 		setLayout(null);
 
 		//String theme_mode = InputOutput.read("theme_settings.txt");
