@@ -49,7 +49,6 @@ public class AccountancyManager {
 			qty = new Decimal(order.getProduct().getPackaging().getQty().getAmount() + ".00");
 			
 			total_amount = total_amount.add(cost.multiply(qty));
-			System.out.println("(cost: " + cost.toString() + ") * (qty:" + qty.toString() + ") = " + total_amount.toString());
 		}
 		return total_amount;
 	}
