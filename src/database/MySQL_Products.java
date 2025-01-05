@@ -9,8 +9,7 @@ import system.objects.Product;
 import system.objects.Uom;
 
 public class MySQL_Products {
-	
-	public static final String 
+	public static final String
 	table_name = "products",
 	table_columns[] = {"prod_id", "item_id", "pack_id", "price_id", "rem_id", "prod_condition"};
 	
@@ -48,7 +47,6 @@ public class MySQL_Products {
 				table_name,
 				condition
 		);
-		
 		Product products[] = new Product[results.length];
 		for(int r=0; r<results.length; r++) {
 			products[r] = new Product(
@@ -59,28 +57,32 @@ public class MySQL_Products {
 				MySQL_Remarks.selectRemarks((int)results[r][4]),
 				ProductCondition.valueOf((String)results[r][5])
 			);
-		}		
+		}
 		return products;
 	}
 	public static Product[] selectProducts(String key, String word, ProductCondition product_condition) {
 		String
-		joins = " products as p join "
-				+ "item as i join "
-				+ "packaging as k join "
-				+ "uom as u join "
-				+ "pricing as s join "
-				+ "remarks as r ",
+		joins = " products as p"
+				+ " join "
+				+ " item as i"
+				+ " join "
+				+ " packaging as k"
+				+ " join "
+				+ " uom as u"
+				+ " join "
+				+ " pricing as s",
 		on = " on p.item_id=i.item_id and "
 				+ "	p.pack_id=k.pack_id and k.uom_id=u.uom_id and "
 				+ "	p.price_id=s.price_id ",
-		where = " where prod_condition='" + product_condition + "' and " + key + " like '%" + word + "%' ";
+		where = " where p.prod_condition='" + product_condition + "'"
+				+ " and "
+				+ key + word;
 		Object results[][] = MySQL.select(new String[] {"p.prod_id"}, joins, on + where);
 		
 		Product products[] = new Product[results.length];
 		for(int p=0; p<products.length; p++) {
 			products[p] = selectProduct((int)results[p][0]);
 		}
-		
 		return products;
 	}
 	public static Product[] selectSubProducts(Product product) {
@@ -88,7 +90,6 @@ public class MySQL_Products {
 			product.getPackaging().getPackagingLine(),
 			product.getPackaging().getPackagingGroup()
 		);
-		
 		ArrayList<Product> products = new ArrayList<Product>();
 		Uom uom = product.getPackaging().getUom().getSubUom();
 		int p=0;
@@ -99,7 +100,6 @@ public class MySQL_Products {
 			}
 			p++;
 		}
-		
 		return products.toArray(new Product[0]);
 	}
 	public static void deleteProduct(Product product) {

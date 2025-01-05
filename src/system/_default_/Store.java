@@ -26,8 +26,34 @@ public interface Store {
 	public default Cart getCart() {
 		return onGetCart();
 	}
-	public default void searchFromStore() {	
-		onSearchFromStore();
+	public default void searchFromStore(String category, String word) {
+		String keys[][] = {
+			{"Item No.", "item_no"},
+			{"Description", "description"},
+			{"Lot No.", "lot_no"},
+			{"Date Added", "date_added"},
+			{"Exp Date", "exp_date"},
+			{"Brand", "brand"},
+			{"Quantity", "qty"},
+			{"UOM", "u.name"},
+			{"Cost", "cost"},
+			{"Unit Price", "unit_price"},
+			{"Discount", "discount"},
+			{"Unit Amount", "unit_amount"}
+		};
+		
+		int k;
+		for(k=0; k<keys.length; k++) {
+			if(keys[k][0].equals(category)) break;
+		}
+		
+		if(k == 6) {
+			word = " = " + word;
+		}
+		else {
+			word = " like '%" + word + "%'";
+		}
+		onSearchFromStore(MySQL_Products.selectProducts(keys[k][1], word, ProductCondition.STORED));
 	}
 	public default void addToCart(Product main_product, Packaging[] extracted_packs, Packaging sub_pack) {		
 		Product sub_product = new Product(-1, main_product.getItem(), null, null, null, null);
@@ -156,7 +182,7 @@ public interface Store {
 
 	public Order[] onSelectOrdersFromStore();
 	public Cart onGetCart();
-	public void onSearchFromStore();
+	public void onSearchFromStore(Product products[]);
 	public void onAddToCart(Order order);
 	public void onRemoveFromCart(Order order);
 	public void onCheckOutFromStore();

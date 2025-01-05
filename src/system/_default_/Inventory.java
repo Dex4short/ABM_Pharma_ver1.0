@@ -33,7 +33,7 @@ public interface Inventory {
 			{"Exp Date", "exp_date"},
 			{"Brand", "brand"},
 			{"Quantity", "qty"},
-			{"UOM", "uom"},
+			{"UOM", "u.name"},
 			{"Cost", "cost"},
 			{"Unit Price", "unit_price"},
 			{"Discount", "discount"},
@@ -43,6 +43,13 @@ public interface Inventory {
 		int k;
 		for(k=0; k<keys.length; k++) {
 			if(keys[k][0].equals(category)) break;
+		}
+		
+		if(k == 6) {
+			word = " = " + word;
+		}
+		else {
+			word = " like '%" + word + "%'";
 		}
 		
 		onSearchFromInventory(MySQL_Products.selectProducts(keys[k][1], word, ProductCondition.STORED));

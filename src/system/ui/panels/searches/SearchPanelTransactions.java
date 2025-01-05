@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import components.Label;
 import components.list.Item;
 import components.panels.SearchPanel;
+import system.ui.Window;
 import system.ui.tables.TableTransactions;
 
 public abstract class SearchPanelTransactions extends SearchPanel{
@@ -27,4 +28,14 @@ public abstract class SearchPanelTransactions extends SearchPanel{
 		getSearchField().setMinimumSize(getPreferredSize());
 		getSearchField().setMaximumSize(getPreferredSize());
 	}
+	@Override
+	public void onSearch(String category, String word) {
+		searchTransactions(category, word);
+	}
+	public void searchTransactions(String category, String word) {
+		Window.load(() -> onSearchTransactions(category, word) , "Searching transaction record...");
+	}
+	
+	public abstract void onSearchTransactions(String category, String word);
+	
 }

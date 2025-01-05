@@ -43,13 +43,10 @@ public class AccountancyManager {
 	}
 	public static Decimal calculateCostAmount(Order orders[]) {
 		Decimal	cost, qty, total_amount = new Decimal();
-		
 		for(Order order: orders) {
 			cost = order.getProduct().getPricing().getCost();
 			qty = new Decimal(order.getProduct().getPackaging().getQty().getAmount() + ".00");
-			
 			total_amount = total_amount.add(cost.multiply(qty));
-			System.out.println("(cost: " + cost.toString() + ") * (qty:" + qty.toString() + ") = " + total_amount.toString());
 		}
 		return total_amount;
 	}
@@ -61,8 +58,6 @@ public class AccountancyManager {
 		return total_netAmount;
 	}
 	public static Decimal calculateProfit(Decimal total_net_amount, Decimal cost_amount) {
-		System.out.println("total_net_amount: " + total_net_amount.toString());
-		System.out.println("cost_amount: " + cost_amount.toString());
 		return total_net_amount.subtract(cost_amount);
 	}
 }

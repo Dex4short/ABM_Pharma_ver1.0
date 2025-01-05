@@ -12,11 +12,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseWheelEvent;
 
+import javax.swing.JFrame;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import components.panels.Panel;
+import system.ABM_Pharma;
 import system.ui.appearance.Theme;
 
 public abstract class LoadingScreen extends Panel implements Theme{
@@ -134,7 +136,12 @@ public abstract class LoadingScreen extends Panel implements Theme{
 		
 		new Thread() {
 			public void run() {
-				runnable_load.run();
+				try {
+					runnable_load.run();
+				} catch (Exception e) {
+					e.printStackTrace();
+					ABM_Pharma.showError(e, JFrame.EXIT_ON_CLOSE);
+				}
 				
 				SwingUtilities.invokeLater(() -> {
 					loading = false;

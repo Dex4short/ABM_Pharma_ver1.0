@@ -19,12 +19,8 @@ public abstract class ButtonRestoreProduct extends Button implements ActionListe
 	public ButtonRestoreProduct() {
 		setArc(30);
 		setPreferredSize(new Dimension(30,30));
-		
-		try {
-			setIcon(new ImageIcon(Resource.get("Inventory.png")));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
+		setIcon(new ImageIcon(Resource.get("restore.png")));
 		
 		addActionListener(this);
 	}

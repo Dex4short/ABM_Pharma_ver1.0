@@ -60,6 +60,13 @@ public abstract class SearchPanel extends Panel{
 			}
 		});
 	}
+	@Override
+	public void setEnabled(boolean enabled) {
+		super.setEnabled(enabled);
+		combo_button.setEnabled(enabled);
+		search_field.setEditable(enabled);
+		search_button.setEnabled(enabled);
+	}
 	public ComboBox getComboBox() {
 		return combo_button;
 	}

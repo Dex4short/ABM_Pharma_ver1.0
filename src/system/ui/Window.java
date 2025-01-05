@@ -16,7 +16,6 @@ import components.panels.DialogPanel;
 import components.panels.PopUpPanel;
 import components.panels.StackPanel;
 import res.Resource;
-import system.ABM_Pharma;
 import system.ui.appearance.Theme;
 import system.ui.overlays.LoadingScreen;
 import system.ui.overlays.LoadingScreenAdapater;
@@ -70,15 +69,11 @@ public class Window extends JFrame implements Theme{
 				stack_panel.popPanel();
 				
 				load(() -> {
-					try {
-						PanelAdmin panel_admin = new PanelAdmin();
-						stack_panel.pushPanel(panel_admin);
-						
-						floatMessage("Welcome Admin");
-						panel_admin.toInventory();
-					} catch (Exception e) {
-						ABM_Pharma.showError(e, JFrame.EXIT_ON_CLOSE);
-					}
+					PanelAdmin panel_admin = new PanelAdmin();
+					stack_panel.pushPanel(panel_admin);
+					
+					floatMessage("Welcome Admin");
+					panel_admin.toInventory();
 				});
 			}
 			@Override
@@ -103,15 +98,11 @@ public class Window extends JFrame implements Theme{
 					}
 					private void loadPanelEmployee(int counter_no) {
 						load(() -> {
-							try {
-								PanelEmployee panel_employee = new PanelEmployee(counter_no);
-								stack_panel.pushPanel(panel_employee);
-								
-								floatMessage("Welcome Employee");
-								panel_employee.toStore();
-							} catch (Exception e) {
-								ABM_Pharma.showError(e, JFrame.EXIT_ON_CLOSE);
-							}
+							PanelEmployee panel_employee = new PanelEmployee(counter_no);
+							stack_panel.pushPanel(panel_employee);
+							
+							floatMessage("Welcome Employee");
+							panel_employee.toStore();
 						});
 					}
 				}, "loading...");

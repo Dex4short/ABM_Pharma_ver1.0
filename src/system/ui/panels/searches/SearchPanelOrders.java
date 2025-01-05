@@ -3,6 +3,7 @@ package system.ui.panels.searches;
 import components.Label;
 import components.list.Item;
 import components.panels.SearchPanel;
+import system.ui.Window;
 import system.ui.tables.TableOrders;
 
 public abstract class SearchPanelOrders extends SearchPanel{
@@ -15,4 +16,16 @@ public abstract class SearchPanelOrders extends SearchPanel{
 		}
 		getComboBox().setSelectedItem(0);
 	}
+	@Override
+	public void onSearch(String category, String word) {
+		Window.load(() -> {
+			searchOrders(category, word);
+		}, "Searching customer order...");
+	}
+	public void searchOrders(String category, String word) {
+		onSearchOrders(category, word);
+	}
+	
+	public abstract void onSearchOrders(String category, String word);
+	
 }

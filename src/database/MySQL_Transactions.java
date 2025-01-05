@@ -75,4 +75,20 @@ public class MySQL_Transactions {
 		}
 		return transactions;
 	}
+	public static Transaction[] selectTransactions(String key, String word) {
+		String 
+		joins = " transactions as t"
+				+ "	join "
+				+ "	customers as m ",
+		on = " on t.cust_id=m.cust_id ",
+		where = " where " + key + word;
+		Object results[][] = MySQL.select(new String[] {"t.trans_id"}, joins, on + where);
+		
+		Transaction transactions[] = new Transaction[results.length];
+		for(int t=0; t<transactions.length; t++) {
+			transactions[t] = selectFromTransaction((int)results[t][0]);
+		}
+		
+		return transactions;
+	}
 }

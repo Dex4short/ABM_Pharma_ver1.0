@@ -35,9 +35,7 @@ public class PanelStore extends UI3 implements Store{
 		SearchPanelProduct search_panel_product = new SearchPanelProduct() {
 			private static final long serialVersionUID = 2632172827828109880L;
 			@Override
-			public void onSearchProducts(String category, String word) {
-				// TODO Auto-generated method stub
-			}
+			public void onSearchProducts(String category, String word) { searchFromStore(category, word); }
 		};
 		
 		table_product_aisle = new TableAisle() {
@@ -93,8 +91,9 @@ public class PanelStore extends UI3 implements Store{
 		return table_product_cart.getCart();
 	}
 	@Override
-	public void onSearchFromStore() {
-		// TODO Auto-generated method stub
+	public void onSearchFromStore(Product products[]) {
+		table_product_aisle.removeAllProducts();
+		table_product_aisle.addProducts(products);
 	}
 	@Override
 	public void onAddToCart(Order order) {
