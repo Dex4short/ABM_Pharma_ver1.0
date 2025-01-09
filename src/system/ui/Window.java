@@ -11,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 
 import components._misc_.Graphix.Shadow;
+import components._misc_.interfaces.Task;
 import components.drawables.MessageFloater;
 import components.panels.DialogPanel;
 import components.panels.PopUpPanel;
@@ -34,10 +35,8 @@ public class Window extends JFrame implements Theme{
 		setIconImage(Resource.getAsImageIcon("ABM LOGO.png").getImage());
 		setTitle("ABM Pharma - DIMS ver1.0");
 		setLayout(null);
-
-		//String theme_mode = InputOutput.read("theme_settings.txt");
-		//if(theme_mode.equals("Dark Mode")) darkMode();
-		//else lightMode();
+		
+		
 		
 		message_floater = new MessageFloater();
 
@@ -78,8 +77,8 @@ public class Window extends JFrame implements Theme{
 			}
 			@Override
 			public void onOpenEmployeeInterface() {
-				load(new Runnable() {
-					public void run(){
+				load(new Task() {
+					public void perform(){
 						openPanelCounterSelection();
 					}
 					private void openPanelCounterSelection() {
@@ -130,21 +129,21 @@ public class Window extends JFrame implements Theme{
 	public static void floatMessageAndBeep(String message) {
 		message_floater.floatMessageAndBeep(message);
 	}
-	public static void load(Runnable runnable) {//needs better approach		
+	public static void load(Task task) {//needs better approach		
 		LoadingScreen loading_screen = new LoadingScreenAdapater();
 		getStackPanel().pushPanel(loading_screen);
 		
 		loading_screen.load(() -> {
-			runnable.run();
+			task.perform();
 			getStackPanel().popPanel(loading_screen);
 		}, main_color[0], main_color[2], "Loading...");
 	}
-	public static void load(Runnable runnable, String load_name) {//needs better approach	
+	public static void load(Task task, String load_name) {//needs better approach	
 		LoadingScreen loading_screen = new LoadingScreenAdapater();
 		getStackPanel().pushPanel(loading_screen);
 		
 		loading_screen.load(() -> {
-			runnable.run();
+			task.perform();
 			
 			getStackPanel().popPanel(loading_screen);
 		}, Shadow.shadow_color, main_color[2], load_name);

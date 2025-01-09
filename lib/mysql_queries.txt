@@ -231,8 +231,21 @@ on
 	
 where
 	p.prod_condition='STORED' and u.name like '%o%';
+
+5. search from Transactions
+select 
+	o.prod_id
+from
+	transactions as t
+	join
+	customer as m
+on
+	t.cust_id = m.cust_id
+where
+	t.trans_id=1 and i.exp_date like '%2026%';
 	
-5. search from orders
+	
+6. search from orders
 select 
 	o.prod_id
 from

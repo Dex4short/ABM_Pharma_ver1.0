@@ -17,6 +17,7 @@ import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
+import components._misc_.interfaces.Task;
 import components.panels.Panel;
 import system.ABM_Pharma;
 import system.ui.appearance.Theme;
@@ -110,10 +111,10 @@ public abstract class LoadingScreen extends Panel implements Theme{
 	public void setLoadName(String load_name) {
 		this.load_name = load_name;
 	}
-	public void load(Runnable runnable_load) {
-		load(runnable_load, loading_background, loading_foreground, "Loading...");
+	public void load(Task task) {
+		load(task, loading_background, loading_foreground, "Loading...");
 	}
-	public void load(Runnable runnable_load, Color bg_color, Color fg_color, String load_name) {		
+	public void load(Task task, Color bg_color, Color fg_color, String load_name) {		
 		setLoadingBackground(bg_color);
 		setLoadingForeground(fg_color);
 		setLoadName(load_name);
@@ -122,7 +123,7 @@ public abstract class LoadingScreen extends Panel implements Theme{
 		
 		Timer timer = new Timer(20, new ActionListener() {
 			private JRootPane root_pane;
-			private String runnable_name = runnable_load.getClass().getName();
+			private String runnable_name = task.getClass().getName();
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.invokeLater(() -> {
@@ -137,7 +138,7 @@ public abstract class LoadingScreen extends Panel implements Theme{
 		new Thread() {
 			public void run() {
 				try {
-					runnable_load.run();
+					task.perform();
 				} catch (Exception e) {
 					e.printStackTrace();
 					ABM_Pharma.showError(e, JFrame.EXIT_ON_CLOSE);

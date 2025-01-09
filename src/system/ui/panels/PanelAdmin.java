@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import components.Label;
+import components._misc_.interfaces.Task;
 import components.panels.Panel;
 import components.tab.Tab;
 import components.tab.TabPane;
@@ -20,16 +21,19 @@ import system.ui.buttons.accessibility.ButtonNotifications;
 import system.ui.buttons.accessibility.ButtonSettings;
 import system.ui.panels.sub_panels.PanelCustomers;
 import system.ui.panels.sub_panels.PanelDisposal;
+import system.ui.panels.sub_panels.PanelEmployees;
 import system.ui.panels.sub_panels.PanelInventory;
+import system.ui.panels.sub_panels.PanelItems;
 import system.ui.panels.sub_panels.PanelProductReturns;
 import system.ui.panels.sub_panels.PanelReserves;
 import system.ui.panels.sub_panels.PanelStore;
 import system.ui.panels.sub_panels.PanelTransactions;
 
 public class PanelAdmin extends Panel implements Administrator{
+	public static final int Inventory=0, Items=1, Transactions=2, Store=3, Reserves=4, Disposal=5, Product=6, Returns=7, Customers=8;
 	private static final long serialVersionUID = 4864384612729816588L;
 	private static Tab tabs[];
-	private Panel next_panel;
+	private Panel panels[], next_panel;
 	private ButtonNotifications btn_notifications;
 
 	public PanelAdmin() {
@@ -87,106 +91,85 @@ public class PanelAdmin extends Panel implements Administrator{
 		TabPane tab_pane = new TabPane();
 		center.add(tab_pane, BorderLayout.CENTER);
 
-		PanelInventory panel_inventory = new PanelInventory();
-		PanelTransactions panel_transactions = new PanelTransactions();
-		PanelStore panel_store = new PanelStore();
-		PanelReserves panel_reserves = new PanelReserves();
-		PanelDisposal panel_disposal = new PanelDisposal();
-		PanelProductReturns panel_product_return = new PanelProductReturns();
-		PanelCustomers panel_customers = new PanelCustomers();
-
-		tabs = new Tab[]{
-			new Tab("Inventory", panel_inventory),
-			new Tab("Transactions", panel_transactions),
-			new Tab("Store", panel_store),
-			new Tab("Reserves", panel_reserves),
-			new Tab("Disposal", panel_disposal),
-			new Tab("Product Returns", panel_product_return),
-			new Tab("Statistics", new Panel()),
-			new Tab("Customers", panel_customers)
+		panels = new Panel[] {
+			new PanelInventory(),
+			new PanelItems(),
+			new PanelTransactions(),
+			new PanelStore(),
+			new PanelReserves(),
+			new PanelDisposal(),
+			new PanelProductReturns(),
+			new PanelCustomers(),
+			new PanelEmployees()
 		};
 		
-		for(Tab tab: tabs) {
-			tab_pane.addTab(tab);
-		}
-		tab_pane.setSelectedTab(0);		
-
-		tabs[0].addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				next_panel = panel_inventory;
-				toInventory();
-			}
-		});
-		tabs[1].addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				next_panel = panel_transactions;
-				toTransactions();
-			}
-		});
-		tabs[2].addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				next_panel = panel_store;
-				toStore();
-				panel_inventory.loadAllFromInventory();
-			}
-		});
-		tabs[3].addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				next_panel = panel_reserves;
-				toResreves();
-			}
-		});
-		tabs[4].addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				next_panel = panel_disposal;
-				toDisposal();
-			}
-		});
-		tabs[5].addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				next_panel = panel_product_return;
-				toProductReturns();
-			}
-		});
-		tabs[6].addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				toStatistics();
-			}
-		});
-		tabs[7].addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				next_panel = panel_customers;
-				toCustomers();
-			}
-		});
+		String panel_labels[] = {
+			"Inventory",
+			"Items",
+			"Transactions",
+			"Store",
+			"Reserves",
+			"Disposal",
+			"Product Returns",
+			"Customers",
+			"Employees"
+		};
 		
-		next_panel = panel_inventory;
+		Task directories[] = {
+			() -> toInventory(),
+			() -> toItems(),
+			() -> toTransactions(),
+			() -> toStore(),
+			() -> toResreves(),
+			() -> toDisposal(),
+			() -> toProductReturns(),
+			() -> toCustomers(),
+			() -> toEmployees(),
+		};
+		
+		tabs = new Tab[panels.length];
+		for(int t=0; t<tabs.length; t++) {
+			final int T=t;
+			tabs[t] = new Tab(panel_labels[t], panels[t]);
+			tabs[t].addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					next_panel = panels[T];
+					directories[T].perform();
+				}
+			});
+			tab_pane.addTab(tabs[t]);
+		}
+		tab_pane.setSelectedTab(0);
+		
+		next_panel = panels[0];
 	}
 	@Override
 	public void onToInventory(PanelInventory inventory) {
 		Window.load(() -> {
+			((PanelStore)panels[Store]).exitCounter();
 			inventory.loadAllFromInventory();
 			NotificationsManager.checkReservedProducts();
 		},"Loading Inventory...");
 	}
 	@Override
+	public void onToItems(PanelItems items) {
+		Window.load(() -> {
+			((PanelStore)panels[Store]).exitCounter();
+			
+		}, "Loading Items...");
+	}
+	@Override
 	public void onToTransactions(PanelTransactions transactions) {
 		Window.load(() -> {
+			((PanelStore)panels[Store]).exitCounter();
 			transactions.loadAllFromTransactions();
 		}, "Loading Transactions...");
 	}
 	@Override
 	public void onToStore(PanelStore store) {
 		Window.load(() -> {
-			store.openCounter(0);
+			store.enterCounter(0);
 			store.openCart(store.getCounter().getCurrentCartNo(), store.getCounter().getCounterNo());
 			store.loadAisleFromStore();
 			store.loadCartFromStore(store.getCounter());
@@ -195,30 +178,42 @@ public class PanelAdmin extends Panel implements Administrator{
 	@Override
 	public void onToReserves(PanelReserves reserves) {
 		Window.load(() -> {
+			((PanelStore)panels[Store]).exitCounter();
 			reserves.loadAllFromReserves();
 		}, "Loading Reserves...");
 	}
 	@Override
 	public void onToDisposal(PanelDisposal disposals) {
 		Window.load(() -> {
+			((PanelStore)panels[Store]).exitCounter();
 			disposals.loadAllFromDisposal();
 		}, "Loading Disposals...");
 	}
 	@Override
 	public void onToProductReturns(PanelProductReturns product_returns) {
 		Window.load(() -> {
+			((PanelStore)panels[Store]).exitCounter();
 			product_returns.loadAllReturnedProducts();
 		}, "Loading Product Returns...");
 	}
 	@Override
 	public void onToStatistics() {
+		((PanelStore)panels[Store]).exitCounter();
 		
 	}
 	@Override
 	public void onToCustomers(PanelCustomers customers) {
 		Window.load(() -> {
+			((PanelStore)panels[Store]).exitCounter();
 			customers.loadAllFromCustomers();
 		}, "Loading Customers...");
+	}
+	@Override
+	public void onToEmployees(PanelEmployees employees) {
+		Window.load(() -> {
+			((PanelStore)panels[Store]).exitCounter();
+			
+		}, "Loading Employees...");
 	}
 	@Override
 	public Panel nextPanel() {

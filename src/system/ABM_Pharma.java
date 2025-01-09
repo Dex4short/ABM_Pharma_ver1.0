@@ -8,20 +8,30 @@ import java.io.StringWriter;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
+import system._default_.Settings;
 import system.managers.NotificationsManager;
 import system.ui.Window;
 
 public class ABM_Pharma {
+	private static Window window;
 	
 	public static void main(String[]args) {
+		start();
+	}
+	public static void start() {
 		system_initialization();
 		
-		Window window = new Window();	
+		if(window != null) window.dispose();
+		
+		window = new Window();
 		window.setSize(800, 600);
 		window.setLocationRelativeTo(null);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		window.setVisible(true);
+	}
+	public static void restart() {
+		start();
 	}
 	public static void showError(Exception e, int close_operation) {
 		JFrame window_error = new JFrame("Error") {
@@ -45,6 +55,7 @@ public class ABM_Pharma {
 	}
 	
 	private static void system_initialization() {
+		Settings.display_theme();
 		NotificationsManager.initializeNotifications();
 	}
 	

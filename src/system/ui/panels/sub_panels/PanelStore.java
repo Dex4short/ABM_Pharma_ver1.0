@@ -83,12 +83,16 @@ public class PanelStore extends UI3 implements Store{
 		
 	}
 	@Override
-	public Order[] onSelectOrdersFromStore() {
-		return table_product_cart.getOrders();
+	public Counter onGetCounter() {
+		return counter;
 	}
 	@Override
 	public Cart onGetCart() {
 		return table_product_cart.getCart();
+	}
+	@Override
+	public Order[] onSelectOrdersFromStore() {
+		return table_product_cart.getOrders();
 	}
 	@Override
 	public void onSearchFromStore(Product products[]) {
@@ -116,7 +120,7 @@ public class PanelStore extends UI3 implements Store{
 	public void onCheckOutFromStore() {
 		table_product_cart.removeAllProducts();
 		bar_field_cart.clearFields();
-		openCounter(getCounter().getCounterNo());//reopen counter
+		enterCounter(getCounter().getCounterNo());//reopen counter
 		Window.floatMessage("Check Out Successful!");
 	}
 	@Override
@@ -137,13 +141,10 @@ public class PanelStore extends UI3 implements Store{
 	}
 	@Override
 	public void onOpenCounter(Counter counter) {
-		setCounter(counter);
-	}
-	public Counter getCounter() {
-		return counter;
-	}
-	public void setCounter(Counter counter) {
 		this.counter = counter;
 	}
-	
+	@Override
+	public void onCloseCounter() {
+		
+	}
 }

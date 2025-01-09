@@ -23,7 +23,7 @@ public class DialogSystemInformation extends DialogPanel{
 			"\t\tTechnical Lead:\tTristan Rhyl C. Penaso\n" +
 			"\t\tUser Interface Designer:\tCarlo Jun Pesical\n" +
 			"\t\tDatabase Designer:\tFitz Ulysses J. Geraldo\n" +
-			"\t\tRequirements Analys:\tLouie Jean Mendaña\n" +
+			"\t\tRequirements Analyst:\tLouie Jean Mendaña\n" +
 			"\t\tQuality Assurance:\tAbigail Badana	\n" +
 			"\t\tDocumentation Specialist:\tShernielyn J. Cabahug\n"
 		);

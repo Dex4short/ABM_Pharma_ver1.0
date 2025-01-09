@@ -111,7 +111,7 @@ public class PanelEmployee extends Panel implements Employee{
 	@Override
 	public void onToStore(PanelCounter store) {
 		Window.load(() -> {
-			store.openCounter(counter_no);
+			store.enterCounter(counter_no);
 			store.openCart(store.getCounter().getCurrentCartNo(), store.getCounter().getCounterNo());
 			store.loadAisleFromStore();
 			store.loadCartFromStore(store.getCounter());

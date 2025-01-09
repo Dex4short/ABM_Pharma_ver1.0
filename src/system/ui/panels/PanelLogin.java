@@ -17,6 +17,7 @@ import components.Button;
 import components.Label;
 import components._misc_.Graphix;
 import components.fields.PasswordField;
+import components.fields.TextField;
 import components.panels.Panel;
 import res.Resource;
 import system._default_.Login;
@@ -27,6 +28,7 @@ public abstract class PanelLogin extends Panel implements Login, KeyListener{
 	private static final long serialVersionUID = 1519322616962176557L;
 	private final int w=300,h=400;
 	private Panel roundRect_panel;
+	private TextField username_field;
 	private PasswordField password_field;
 
 	public PanelLogin() {
@@ -46,9 +48,13 @@ public abstract class PanelLogin extends Panel implements Login, KeyListener{
 		
 		Panel panel = new Panel();
 		panel.setOpaque(false);
-		panel.setLayout(new GridLayout(3, 1, 10, 10));
+		panel.setLayout(new GridLayout(4, 1, 10, 10));
 		panel.setBorder(BorderFactory.createEmptyBorder(0, 40, 20, 40));
 		roundRect_panel.add(panel, BorderLayout.SOUTH);
+		
+		username_field = new TextField("username");
+		username_field.setName("username_field");
+		panel.add(username_field);
 		
 		password_field = new PasswordField();
 		password_field.setName("password_field");

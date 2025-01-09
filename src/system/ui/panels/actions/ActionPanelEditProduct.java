@@ -1,5 +1,6 @@
 package system.ui.panels.actions;
 
+import components._misc_.interfaces.Task;
 import components.table.Row;
 import system.enumerators.ProductCondition;
 import system.objects.Product;
@@ -41,14 +42,13 @@ public abstract class ActionPanelEditProduct  extends ActionPanelProduct{
 	@Override
 	public void onProductOk(Product[] new_products) {
 		Window.load(
-			new Runnable() {
+			new Task() {
 				private int 
 				item_id = old_products[0].getItem().getItemId(),
 				parentPack_id = -1,
 				pack_group = old_products[0].getPackaging().getPackagingGroup();
 				
-				public void run() {
-					
+				public void perform() {
 					ProductCondition product_condition = ProductCondition.STORED;
 					for(int p=0; p<new_products.length; p++) {
 						if(new_products[p]==null && old_products[p]==null) return;

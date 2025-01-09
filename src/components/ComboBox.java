@@ -39,8 +39,8 @@ public class ComboBox extends Button implements ActionListener{
 		}
 	}
 	public Item addItem(Item item) {
-		combo_pane.list_pane.addItem(item);
 		item.addMouseListener(new ComboItemMouseAdapter());
+		combo_pane.list_pane.addItem(item);
 		return item;
 	}
 	public void addItems(Item items[]) {
@@ -72,8 +72,10 @@ public class ComboBox extends Button implements ActionListener{
 		removeItems();
 		Item items[] = new Item[str_items.length];
 		for(int i=0; i<items.length; i++) {
-			items[i] = new Item(str_items[i]);
+			items[i] = new Item(new Label(str_items[i]));
+			items[i].addMouseListener(new ComboItemMouseAdapter());
 		}
+		combo_pane.list_pane.addItems(items);
 	}
 	public boolean isOpen() {
 		return open;

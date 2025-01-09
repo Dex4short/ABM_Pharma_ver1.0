@@ -2,10 +2,10 @@ package system.ui.appearance;
 
 import java.awt.Color;
 import java.awt.Font;
-
 import components._misc_.Graphix;
 
 public interface Theme {
+	public static final String THEME_MODES[] = {"Light Mode", "Dark Mode"};
 	public Color
 	main_color[] = {
 			new Color(1,34,131),
@@ -41,7 +41,7 @@ public interface Theme {
 			new Font("Arial", Font.BOLD, 15)
 	};
 	
-	public default void lightMode() {
+	public static void lightMode() {
 		main_color[0] = new Color(1,34,131);
 		main_color[1] = new Color(5,145,255);
 		main_color[2] = new Color(255, 255, 255);
@@ -65,7 +65,7 @@ public interface Theme {
 		text_color[2] = new Color(192, 192, 192);
 		text_color[3] = new Color(255, 255, 255);
 	}
-	public default void darkMode() {
+	public static void darkMode() {
 		main_color[0] = new Color(  63,  65,  69);
 		main_color[1] = new Color( 126, 131, 133);
 		main_color[2] = new Color(   0,   0,   0);

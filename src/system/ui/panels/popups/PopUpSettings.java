@@ -31,8 +31,8 @@ public class PopUpSettings extends TitledPanel implements Settings{
 		settings_list.addItem(new ItemTheme() {
 			private static final long serialVersionUID = -2133925395291482251L;
 			@Override
-			public void onChangeTheme(int mode) {
-				//changeThemeSetting(mode);
+			public void onChangeTheme(String theme_mode) {
+				changeThemeSettings(theme_mode);
 			}
 		});
 		

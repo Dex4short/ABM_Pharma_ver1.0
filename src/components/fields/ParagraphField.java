@@ -19,6 +19,7 @@ public class ParagraphField extends JTextArea implements Theme{
 		setAutoscrolls(false);
 		setLineWrap(true);
 		setWrapStyleWord(true);
+		setCaretColor(text_color[0]);
 		
 		round_rect = new RoundRect();
 		

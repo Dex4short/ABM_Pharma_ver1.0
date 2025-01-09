@@ -1,11 +1,15 @@
 package system._default_;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import database.MySQL_Cart;
 import database.MySQL_Counter;
 import database.MySQL_Orders;
 import database.MySQL_Packaging;
 import database.MySQL_Products;
 import database.MySQL_Transactions;
+import system.enumerators.CounterState;
 import system.enumerators.PackagingLine;
 import system.enumerators.ProductCondition;
 import system.managers.AccountancyManager;
@@ -15,16 +19,20 @@ import system.objects.Order;
 import system.objects.Packaging;
 import system.objects.Product;
 import system.objects.Quantity;
+import system.objects.Time;
 import system.objects.Transaction;
 import system.printers.ReciptPrinter;
 
 public interface Store {
-	
-	public default Order[] selectOrdersFromStore() {
-		return onSelectOrdersFromStore();
+
+	public default Counter getCounter() {
+		return onGetCounter();
 	}
 	public default Cart getCart() {
 		return onGetCart();
+	}
+	public default Order[] selectOrdersFromStore() {
+		return onSelectOrdersFromStore();
 	}
 	public default void searchFromStore(String category, String word) {
 		String keys[][] = {
@@ -74,7 +82,6 @@ public interface Store {
 		}
 
 		Product product_children[] = MySQL_Products.selectSubProducts(main_product);
-		
 		for(int n=0; n<product_children.length; n++) {
 			product_children[n].getPackaging().getQty().add(extracted_packs[n+1].getQty());
 			product_children[n].setProduct_condition((product_children[n].getPackaging().getQty().getAmount() != 0) ? ProductCondition.STORED : ProductCondition.ARCHIVED);
@@ -86,12 +93,10 @@ public interface Store {
 				sub_product.setPricing(product_children[n].getPricing());
 			}
 		}
-		
 		sub_product.getPackaging().setPackagingGroup(main_product.getPackaging().getPackagingGroup());
 		
 		Order order = new Order(getCart().getOrderNo(), sub_product, AccountancyManager.calculateNetAmount(sub_product));
 		Order orders[] = selectOrdersFromStore();
-		
 		boolean hassExistingOrder = false;
 		if(orders != null) {
 			for(Order next_order: orders) {
@@ -174,14 +179,44 @@ public interface Store {
 	public default void openCart(int currentCart_no, int counter_no) {
 		onOpenCart(MySQL_Cart.selectCart(currentCart_no, counter_no));
 	}
-	public default void openCounter(int counter_no) {
+	public default void enterCounter(int counter_no) {
+		if(getCounter()!=null && getCounter().getCounterState()==CounterState.CLOSE) return;
+		
 		Counter counter = MySQL_Counter.selectCounter(counter_no);
-		MySQL_Counter.updateCounter(counter);
+		counter.setCounterState(CounterState.CLOSE);
+		
+		Timer timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				if(counter.getCounterState() == CounterState.OPEN) timer.cancel();
+				
+				if(counter.hassElapsedInSeconds(10)) {
+					counter.setCounterState(CounterState.OPEN);
+				}
+				else {
+					counter.setActiveTime(new Time());
+					MySQL_Counter.updateCounter(counter);
+				}
+				System.out.println("active_time: " + counter.getActiveTime().toString() + " satte: "  + counter.getCounterState().name());
+			}
+		}, 0, 5000);
+		
 		onOpenCounter(counter);
 	}
+	public default void exitCounter() {
+		Counter counter = getCounter();
+		if(counter == null) return;
+		
+		if(counter.getCounterState() == CounterState.CLOSE) {
+			counter.setCounterState(CounterState.OPEN);
+			onCloseCounter();
+		}
+	}
 
-	public Order[] onSelectOrdersFromStore();
+	public Counter onGetCounter();
 	public Cart onGetCart();
+	public Order[] onSelectOrdersFromStore();
 	public void onSearchFromStore(Product products[]);
 	public void onAddToCart(Order order);
 	public void onRemoveFromCart(Order order);
@@ -190,6 +225,7 @@ public interface Store {
 	public void onLoadCartFromStore(Cart cart);
 	public void onOpenCart(Cart cart);
 	public void onOpenCounter(Counter counter);
+	public void onCloseCounter();
 	
 }
 

@@ -1,5 +1,7 @@
 package system.objects;
 
+import java.time.Duration;
+
 import system.enumerators.CounterState;
 
 public class Counter {
@@ -58,5 +60,12 @@ public class Counter {
 	}
 	public void setCurrentCartNo(int currentCart_no) {
 		this.currentCart_no = currentCart_no;
+	}
+	public boolean hassElapsedInSeconds(int seconds){
+		Time current_time = new Time();
+		current_time.toLocalTime();
+		
+		long duration = Duration.between(new Time().toLocalTime(), activeTime.toLocalTime()).getSeconds();
+		return duration >= seconds;
 	}
 }

@@ -6,9 +6,9 @@ import system._default_.Customers;
 import system.objects.Customer;
 import system.ui.UI1;
 import system.ui.Window;
-import system.ui.buttons.customer_listing.ButtonAddCustomer;
-import system.ui.buttons.customer_listing.ButtonDeleteCustomer;
-import system.ui.buttons.customer_listing.ButtonEditCustomer;
+import system.ui.buttons.listing_customer.ButtonAddCustomer;
+import system.ui.buttons.listing_customer.ButtonDeleteCustomer;
+import system.ui.buttons.listing_customer.ButtonEditCustomer;
 import system.ui.panels.searches.SearchPanelCustomers;
 import system.ui.tables.TableCustomers;
 

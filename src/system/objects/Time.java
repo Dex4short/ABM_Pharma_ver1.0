@@ -30,6 +30,10 @@ public class Time {
 	public java.sql.Time toSQLTime(){
 		return java.sql.Time.valueOf(local_time);
 	}
+	public LocalTime toLocalTime() {
+		return local_time;
+	}
+	
 	public static Time parseTime(java.sql.Time time) {
 		LocalTime local_time = time.toLocalTime();
 		
@@ -40,4 +44,5 @@ public class Time {
 		
 		return new Time(hh, mm, ss);
 	}
+	
 }

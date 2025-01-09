@@ -18,6 +18,7 @@ public class TextField extends JTextField implements Theme{
 	{
 		setOpaque(false);
 		setBorder(BorderFactory.createEmptyBorder(0, 0, 0 ,0));
+		setCaretColor(text_color[0]);
 		
 		setFont(font[0]);
 		setBackground(new Color(0,0,0,0));
